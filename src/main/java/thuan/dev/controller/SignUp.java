@@ -68,6 +68,8 @@ public class SignUp extends Application {
     private PasswordField password;
     @FXML
     private Button signup;
+    @FXML
+    private TextField fullname;
 
     @FXML
     private void cancelOnAction(ActionEvent event) {
@@ -82,8 +84,9 @@ public class SignUp extends Application {
         LocalDate localDate = birthdays.getValue();
         String emailF = email.getText();
         String passwordF = password.getText();
+        String fullnameF = fullname.getText();
 
-        if (phoneF.isEmpty() || cccdF.isEmpty() || localDate == null || emailF.isEmpty() || passwordF.isEmpty()) {
+        if (phoneF.isEmpty() || cccdF.isEmpty() || localDate == null || emailF.isEmpty() || passwordF.isEmpty() || fullnameF.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng nhập đủ dữ liệu.");
             return;
         }
@@ -103,9 +106,11 @@ public class SignUp extends Application {
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Ngày tháng sinh phải là trước hiện tại.");
             return;
         }
+
+
         Date birthF = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        Employees emp = new Employees(phoneF, cccdF, birthF, emailF, passwordF);
+        Employees emp = new Employees(phoneF, cccdF, birthF, emailF, passwordF,fullnameF);
         EmployeeDAO employeeDAO = new EmployeeImp();
 
         boolean flag = employeeDAO.addEmployee(emp);

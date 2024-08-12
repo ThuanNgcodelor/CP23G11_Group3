@@ -10,7 +10,7 @@ public interface EmployeeDAO {
 
     public void update(Employees emp);
 
-    public boolean checkLogin(String email, String password);
+    public int checkLogin(String email, String password);
 
     public List<Employees> search(String keyword);
 

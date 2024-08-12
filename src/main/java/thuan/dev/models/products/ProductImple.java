@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductImple implements ProductDAO {
+public class    ProductImple implements ProductDAO {
 
     private Connection conn = MyConnection.getConnection();
     private List<Product> products = new ArrayList<>();
@@ -18,7 +18,7 @@ public class ProductImple implements ProductDAO {
     @Override
     public void updateProductStock(int productID, int stock) {
         try {
-            PreparedStatement statement = conn.prepareStatement("UPDATE product set stock = ? where productID = ?");
+            PreparedStatement statement = conn.prepareStatement("UPDATE product set stock = ? WHERE productID = ?");
             statement.setInt(1, stock);
             statement.setInt(2, productID);
             statement.executeUpdate();
@@ -48,10 +48,14 @@ public class ProductImple implements ProductDAO {
     @Override
     public List<Product> show() {
         List<Product> products = new ArrayList<>();
-        try (Connection conn = MyConnection.getConnection()) {
-            PreparedStatement ptmt = conn.prepareStatement("SELECT product.productID, product.productName, product.categoryID, product.price, product.images, product.stock, category.categoryName "
-                    + "FROM product "
-                    + "INNER JOIN category ON product.categoryID = category.categoryID");
+        try {
+            PreparedStatement ptmt = conn.prepareStatement(
+            "SELECT product.productID, product.productName, product.categoryID, product.price, product.images, product.stock, product.brandID, " +
+            "category.categoryName, brands.brandName " +
+            "FROM product " +
+            "INNER JOIN category ON product.categoryID = category.categoryID " +
+            "INNER JOIN brands ON product.brandID = brands.brandID"
+            );
 
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
@@ -62,10 +66,11 @@ public class ProductImple implements ProductDAO {
                 product.setPrice(rs.getDouble("price"));
                 product.setImages(rs.getString("images"));
                 product.setStock(rs.getInt("stock"));
+                product.setBrandName(rs.getString("brandName"));
                 products.add(product);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Lỗi null con mẹ rồi");
         }
         return products;
     }
@@ -73,12 +78,13 @@ public class ProductImple implements ProductDAO {
     @Override
     public boolean addProduct(Product pro) {
         try {
-            PreparedStatement ptmt = conn.prepareStatement("INSERT INTO product(productName,categoryID,price,images,stock) VALUES (?,?,?,?,?)");
+            PreparedStatement ptmt = conn.prepareStatement("INSERT INTO product(productName,categoryID,price,images,stock,brandID) VALUES (?,?,?,?,?,?)");
             ptmt.setString(1, pro.getProductName());
             ptmt.setInt(2, pro.getCategoryID());
             ptmt.setObject(3, pro.getPrice());
             ptmt.setString(4, pro.getImages());
             ptmt.setInt(5, pro.getStock());
+            ptmt.setInt(6,pro.getBrandID());
             int check = ptmt.executeUpdate();
             return check > 0;
         } catch (SQLException e) {
@@ -90,13 +96,14 @@ public class ProductImple implements ProductDAO {
     public void updateProduct(Product pro) {
         try {
             PreparedStatement ptmt = conn.prepareStatement(
-                    "UPDATE product SET productName = ?, categoryID = ?, price = ?, images = ?, stock = ? WHERE productID = ?");
+                    "UPDATE product SET productName = ?, categoryID = ?, price = ?, images = ?, stock = ? ,brandID = ? WHERE productID = ?");
             ptmt.setString(1, pro.getProductName());
             ptmt.setInt(2, pro.getCategoryID());
             ptmt.setDouble(3, pro.getPrice());
             ptmt.setString(4, pro.getImages());
             ptmt.setInt(5, pro.getStock());
-            ptmt.setInt(6, pro.getProductID());
+            ptmt.setInt(6,pro.getBrandID());
+            ptmt.setInt(7, pro.getProductID());
             ptmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

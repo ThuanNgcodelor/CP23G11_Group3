@@ -26,12 +26,13 @@
                 <Font size="26.0" />
             </font>
         </Label>
-        <TextField fx:id="phone" layoutX="351.0" layoutY="79.0" prefHeight="30.0" prefWidth="220.0" promptText="Phone" stylesheets="@../resource/Admin.css" />
-        <TextField fx:id="cccd" layoutX="351.0" layoutY="132.0" prefHeight="30.0" prefWidth="220.0" promptText="CCCD" stylesheets="@../resource/Admin.css" />
-        <DatePicker fx:id="birthdays" layoutX="351.0" layoutY="185.0" prefHeight="30.0" prefWidth="220.0" promptText="BirthDays" stylesheets="@../resource/Admin.css" />
-        <TextField fx:id="email" layoutX="351.0" layoutY="235.0" prefHeight="30.0" prefWidth="220.0" promptText="Email" stylesheets="@../resource/Admin.css" />
-        <PasswordField fx:id="password" layoutX="351.0" layoutY="285.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" stylesheets="@../resource/Admin.css" />
+        <TextField fx:id="phone" layoutX="351.0" layoutY="62.0" prefHeight="30.0" prefWidth="220.0" promptText="Phone" stylesheets="@../resource/Admin.css" />
+        <TextField fx:id="cccd" layoutX="351.0" layoutY="111.0" prefHeight="30.0" prefWidth="220.0" promptText="CCCD" stylesheets="@../resource/Admin.css" />
+        <DatePicker fx:id="birthdays" layoutX="351.0" layoutY="163.0" prefHeight="30.0" prefWidth="220.0" promptText="BirthDays" stylesheets="@../resource/Admin.css" />
+        <TextField fx:id="fullname" layoutX="351.0" layoutY="209.0" prefHeight="30.0" prefWidth="220.0" promptText="Email" stylesheets="@../resource/Admin.css" text="Họ và tên" />
+        <PasswordField fx:id="password" layoutX="351.0" layoutY="291.0" prefHeight="30.0" prefWidth="220.0" promptText="Password" stylesheets="@../resource/Admin.css" />
         <Button fx:id="signup" layoutX="351.0" layoutY="335.0" mnemonicParsing="false" onAction="#signUpAction" prefHeight="40.0" prefWidth="220.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Sign Up" />
         <Button layoutX="571.0" layoutY="1.0" mnemonicParsing="false" onAction="#cancelOnAction" stylesheets="@../resource/Admin.css" text="&lt;-" />
+      <TextField fx:id="email" layoutX="351.0" layoutY="250.0" prefHeight="30.0" prefWidth="220.0" promptText="Email" stylesheets="@../resource/Admin.css" />
     </children>
 </AnchorPane>

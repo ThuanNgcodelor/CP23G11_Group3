@@ -1,7 +1,6 @@
 package thuan.dev.models.products;
 
 public class Product {
-
     private Integer productID;
     private String productName;
     private String images;
@@ -12,8 +11,7 @@ public class Product {
     private String brandName;
     private Integer stock;
 
-    public Product(Integer productID, String productName, String images, Integer categoryID, Integer brandID, Double price, String categoryName, String brandName, Integer stock) {
-        this.productID = productID;
+    public Product(String productName,String images,Integer categoryID,Integer brandID,Double price,String categoryName,String brandName,Integer stock) {
         this.productName = productName;
         this.images = images;
         this.categoryID = categoryID;

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="646.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.BrandController">
+   <children>
+      <AnchorPane layoutY="-2.0" prefHeight="500.0" prefWidth="640.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+         <children>
+            <TextField fx:id="brandName" layoutX="40.0" layoutY="123.0" prefHeight="40.0" prefWidth="230.0" promptText="Nhập loại sản phẩm" stylesheets="@../resource/Admin.css" />
+            <Button layoutX="62.0" layoutY="425.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Xóa">
+               <styleClass>
+                  <String fx:value="table-view" />
+                  <String fx:value="nav-btn1" />
+               </styleClass>
+            </Button>
+            <Label layoutX="40.0" layoutY="22.0" prefHeight="40.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Nhãn hàng">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Button layoutX="353.0" layoutY="443.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Xác nhận cập nhập" />
+            <AnchorPane layoutX="305.0" layoutY="22.0" prefHeight="406.0" prefWidth="326.0" AnchorPane.bottomAnchor="71.59999999999997" AnchorPane.rightAnchor="14.600000000000023" AnchorPane.topAnchor="22.0">
+               <children>
+                  <TableView fx:id="table_category" layoutY="-1.0" prefHeight="406.0" prefWidth="326.0" styleClass="nav-btn1" stylesheets="@../resource/Admin.css">
+                     <columns>
+                        <TableColumn fx:id="table_brandID" prefWidth="107.99994039535522" text="ID nhãn hàng" />
+                        <TableColumn fx:id="table_brandName" prefWidth="212.7999496459961" text="Tên nhãn hàng" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <Button layoutX="62.0" layoutY="370.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Chỉnh sửa">
+               <styleClass>
+                  <String fx:value="table-view" />
+                  <String fx:value="nav-btn1" />
+               </styleClass>
+            </Button>
+            <Button layoutX="62.0" layoutY="311.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Thêm loại sản phẩm">
+               <styleClass>
+                  <String fx:value="table-view" />
+                  <String fx:value="nav-btn1" />
+               </styleClass>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

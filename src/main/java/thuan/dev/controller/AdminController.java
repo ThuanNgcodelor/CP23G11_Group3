@@ -19,7 +19,12 @@ import javafx.stage.Stage;
 import thuan.dev.models.bill.BillDAO;
 import thuan.dev.models.bill.BillImple;
 import thuan.dev.models.bill.Bills;
+import thuan.dev.models.brand.BrandDAO;
+import thuan.dev.models.brand.BrandImple;
+import thuan.dev.models.brand.Brands;
 import thuan.dev.models.category.Category;
+import thuan.dev.models.category.CategoryDAO;
+import thuan.dev.models.category.CategoryImple;
 import thuan.dev.models.orders.Order;
 import thuan.dev.models.orders.OrderDAO;
 import thuan.dev.models.orders.OrderImplements;
@@ -36,7 +41,17 @@ import java.util.List;
 public class AdminController {
 
     @FXML
+    private AnchorPane staff;
+
+    @FXML
+    private Button staffbutton;
+
+    @FXML
+    private ComboBox<?> role;
+
+    @FXML
     private Button card_remove;
+
 
     @FXML
     private Label card_total;
@@ -65,6 +80,9 @@ public class AdminController {
     private ComboBox<Category> add_categoryID;
 
     @FXML
+    private ComboBox<Brands> add_brandID;
+
+    @FXML
     private TextField add_stock;
 
     @FXML
@@ -74,25 +92,31 @@ public class AdminController {
     private TextField add_productName;
 
     @FXML
+    private TableView<Product> table;
+
+    @FXML
     private TableColumn<Product, Integer> productID;
 
     @FXML
     private TableColumn<Product, String> productName;
-
     @FXML
     private TableColumn<Product, String> categoryName;
-
     @FXML
-    private TableColumn<Product, BigDecimal> price;
-
+    private TableColumn<Product, Double> price;
     @FXML
     private TableColumn<Product, String> images;
-
     @FXML
     private TableColumn<Product, Integer> stock;
+    @FXML
+    private TableColumn<Product, String> brandName;
+
+    private FilteredList<Product> filteredList;
+
+    private ObservableList<Product> productList;
 
     @FXML
     private AnchorPane add;
+
     @FXML
     private AnchorPane home;
 
@@ -112,11 +136,7 @@ public class AdminController {
     private Button orderButton;
 
     @FXML
-    private TableView<Product> table;
-
-    @FXML
     private TableView<Bills> table_orders;
-
 
     @FXML
     private TextField search_products;
@@ -145,13 +165,8 @@ public class AdminController {
     @FXML
     private TableColumn<Bills, BigDecimal> bill_total_price;
 
-
     @FXML
     private Label username;
-
-    private ObservableList<Product> productList;
-
-    private FilteredList<Product> filteredList;
 
     private ObservableList<Bills> billsList;
 
@@ -165,10 +180,10 @@ public class AdminController {
                 displayProductDetails(newValue);
             }
         });
-        //Khi nhâập vào sản phẩm sẽ hiện lại input ở để chỉnh sửa
         totalPrice();
         totalCustomers();
         showListBill();
+        BrandComboBox();
     }
 
     @FXML
@@ -180,31 +195,45 @@ public class AdminController {
                     return true;
                 }
                 return product.getProductName().toLowerCase().contains(keyword)
-                        || product.getCategoryName().toLowerCase().contains(keyword)
-                        || product.getBrandName().toLowerCase().contains(keyword);
+                || product.getCategoryName().toLowerCase().contains(keyword)
+                || product.getBrandName().toLowerCase().contains(keyword);
             });
         });
     }
+    //search products
 
     private void CategoryComboBox() {
-        ObservableList<Category> categories = FXCollections.observableArrayList(
-                new Category(1, "Bao cao su")
-        );
-        add_categoryID.setItems(categories);
+        if (add_categoryID != null) {
+            CategoryDAO categoryDAO = new CategoryImple();
+            List<Category> categories = categoryDAO.getAllCategory();
+            ObservableList<Category> categoryList = FXCollections.observableArrayList(categories);
+            add_categoryID.setItems(categoryList);
+        }
+    }
+
+    private void BrandComboBox() {
+        if (add_brandID != null) {
+            BrandDAO brandDAO = new BrandImple();
+            List<Brands> brands = brandDAO.getAllBrand();
+            ObservableList<Brands> brandsObservableList = FXCollections.observableArrayList(brands);
+            add_brandID.setItems(brandsObservableList);
+        }
     }
 
     public void showProduct() {
-        ProductDAO pro = new ProductImple();
-        List<Product> products = pro.show();
+        ProductDAO productDAO = new ProductImple();
+        List<Product> products = productDAO.show();
         productList = FXCollections.observableArrayList(products);
         filteredList = new FilteredList<>(productList, e -> true);
 
+        System.out.println(productID);
         productID.setCellValueFactory(new PropertyValueFactory<>("productID"));
         productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         categoryName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
         images.setCellValueFactory(new PropertyValueFactory<>("images"));
         stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        brandName.setCellValueFactory(new PropertyValueFactory<>("brandName"));
 
         table.setItems(filteredList);
     }
@@ -215,12 +244,12 @@ public class AdminController {
         billsList = FXCollections.observableArrayList(bills);
 
         bill_id.setCellValueFactory(new PropertyValueFactory<>("billID"));
-//        bill_total_price.setCellValueFactory(new PropertyValueFactory<>("total"));
         bill_customers.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         bill_date.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         table_orders.setItems(billsList);
     }
+    //Dashbound
 
     public void showDisplayCard() {
         OrderDAO orderDAO = new OrderImplements();
@@ -236,7 +265,7 @@ public class AdminController {
     }
 
     public void displayUsername() {
-        username.setText(String.valueOf(Data.customerID));
+        username.setText(String.valueOf(Data.fullname));
     }
     //Hiển thị ID khi đăng nhập
 
@@ -262,7 +291,6 @@ public class AdminController {
         showAlert(Alert.AlertType.INFORMATION, "Cập nhật đơn hàng thành công!");
         showDisplayCard();
         menuRestart();
-
     }
 
     public void menuRestart() {
@@ -358,11 +386,17 @@ public class AdminController {
 
             Category selectedCategory = add_categoryID.getSelectionModel().getSelectedItem();
             if (selectedCategory == null) {
-                showAlert(Alert.AlertType.ERROR, "Danh mục là bắt buộc!");
+                showAlert(Alert.AlertType.ERROR, "Loại sản phẩm là bắt buộc!");
                 return;
             }
             int categoryID = selectedCategory.getId();
 
+            Brands selectedBrand = add_brandID.getSelectionModel().getSelectedItem();
+            if (selectedBrand == null){
+                showAlert(Alert.AlertType.ERROR, "Nhãn hàng là bắt buộc!");
+                return;
+            }
+            int brandID = selectedBrand.getBrandID();
 
             String priceText = add_price.getText();
             if (priceText.isEmpty()) {
@@ -386,6 +420,7 @@ public class AdminController {
             newProducts.setPrice(price);
             newProducts.setImages(image);
             newProducts.setStock(stock);
+            newProducts.setBrandID(brandID);
 
             ProductDAO productDAO = new ProductImple();
             boolean addProducts = productDAO.addProduct(newProducts);
@@ -448,6 +483,11 @@ public class AdminController {
             }
             Integer stock = Integer.parseInt(add_stock.getText());
 
+            Brands selectedBrand = add_brandID.getSelectionModel().getSelectedItem();
+            if (selectedBrand == null){
+                showAlert(Alert.AlertType.ERROR, "Nhãn hiệu là bắt buộc");
+            }
+            int brandID = selectedBrand.getBrandID();
             Product updatedProducts = new Product();
             updatedProducts.setProductID(selectedProduct.getProductID());
             updatedProducts.setProductName(name);
@@ -455,6 +495,7 @@ public class AdminController {
             updatedProducts.setImages(images);
             updatedProducts.setPrice(price);
             updatedProducts.setStock(stock);
+            updatedProducts.setBrandID(brandID);
 
             ProductDAO productDAO = new ProductImple();
             productDAO.updateProduct(updatedProducts);
@@ -483,8 +524,6 @@ public class AdminController {
             showAlert(Alert.AlertType.ERROR, "Xóa sản phẩm thất bại!");
         }
     }
-
-
     //Xóa products
 
     public void menuDisplayCard() {
@@ -554,17 +593,25 @@ public class AdminController {
             home.setVisible(true);
             add.setVisible(false);
             order.setVisible(false);
+            staff.setVisible(false);
         } else if (event.getSource() == manage) {
             home.setVisible(false);
             add.setVisible(true);
             order.setVisible(false);
+            staff.setVisible(false);
             showProduct();
         } else if (event.getSource() == orderButton) {
             home.setVisible(false);
             add.setVisible(false);
             order.setVisible(true);
+            staff.setVisible(false);
             menuDisplayCard();
             showDisplayCard();
+        } else if (event.getSource() == staffbutton) {
+            staff.setVisible(true);
+            home.setVisible(false);
+            add.setVisible(false);
+            order.setVisible(false);
         }
     }
     //Thanh navbar

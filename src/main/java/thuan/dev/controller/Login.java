@@ -94,9 +94,9 @@ public class Login extends Application {
         }
 
         EmployeeImp emp = new EmployeeImp();
-        boolean isAuthenticated = emp.checkLogin(email.getText(), password.getText());
+        int role = emp.checkLogin(email.getText(), password.getText());
 
-        if (isAuthenticated) {
+        if (role == 0) {
             infoBox("Đăng nhập thành công", null, "Thành công");
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
@@ -107,8 +107,20 @@ public class Login extends Application {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        } else if (role == 1) {
+            infoBox("Đăng nhập thành công", null, "Thành công");
+            Stage currentStage = (Stage) loginButton.getScene().getWindow();
+            currentStage.close();
+            try {
+                User user = new User();
+                Stage stage = new Stage();
+                user.start(stage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else {
             infoBox("Đăng nhập thất bại", null, "Thất bại");
         }
     }
+
 }

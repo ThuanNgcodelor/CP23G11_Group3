@@ -10,13 +10,16 @@ public class Employees {
     private Date birth;
     private String email;
     private String password;
+    private int role;
+    private String fullname;
 
-    public Employees(String phone, String cccd, Date birth, String email, String password) {
+    public Employees(String phone, String cccd, Date birth, String email, String password, String fullname) {
         this.phone = phone;
         this.cccd = cccd;
         this.birth = birth;
         this.email = email;
         this.password = password;
+        this.fullname = fullname;
     }
 
     public Employees() {
@@ -69,5 +72,21 @@ public class Employees {
 
     public void setBirth(Date birth) {
         this.birth = birth;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 }

@@ -4,9 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -19,7 +17,7 @@ public class Admin extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/User.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Admin.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setTitle("Trang chủ");
@@ -28,6 +26,5 @@ public class Admin extends Application {
 
         AdminController controller = fxmlLoader.getController();
         controller.menu();
-
     }
 }

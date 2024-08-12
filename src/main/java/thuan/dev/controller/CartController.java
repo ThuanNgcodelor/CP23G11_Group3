@@ -1,16 +1,12 @@
 package thuan.dev.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,10 +14,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import thuan.dev.models.employee.Employees;
 import thuan.dev.models.orders.Order;
 import thuan.dev.models.orders.OrderDAO;
@@ -31,7 +25,6 @@ import thuan.dev.models.products.ProductDAO;
 import thuan.dev.models.products.ProductImple;
 
 public class CartController implements Initializable {
-
 
     @FXML
     private AnchorPane card_form;
@@ -56,7 +49,7 @@ public class CartController implements Initializable {
     @FXML
     private GridPane menu_gridPane;
 
-    private String prodID;
+    private Integer prodID;
 
     private SpinnerValueFactory<Integer> spin;
 
@@ -64,6 +57,7 @@ public class CartController implements Initializable {
     Employees emp;
 
     AdminController controller = new AdminController();
+    UserController controllerUser = new UserController();
 
 
     @FXML
@@ -77,7 +71,7 @@ public class CartController implements Initializable {
 
         int customerID = Data.customerID;
         if (customerID == -1) {
-            showAlert(Alert.AlertType.ERROR, "Customer ID is null");
+            showAlert(Alert.AlertType.ERROR, "Không nhận được customerID");
             return;
         }
         //check id quản lí đặt hàng
@@ -117,7 +111,7 @@ public class CartController implements Initializable {
 
     public void setData(Product pro) {
         this.product = pro;
-        this.prodID = pro.getProductName();
+        this.prodID = pro.getProductID();
 
         cart_name.setText(product.getProductName());
         cart_price.setText(String.valueOf(product.getPrice()));
