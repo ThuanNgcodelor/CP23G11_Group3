@@ -28,7 +28,7 @@
             <Button layoutX="353.0" layoutY="443.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Xác nhận cập nhập" />
             <AnchorPane layoutX="305.0" layoutY="22.0" prefHeight="406.0" prefWidth="326.0" AnchorPane.bottomAnchor="71.59999999999997" AnchorPane.rightAnchor="14.600000000000023" AnchorPane.topAnchor="22.0">
                <children>
-                  <TableView fx:id="table_category" layoutY="-1.0" prefHeight="406.0" prefWidth="326.0" styleClass="nav-btn1" stylesheets="@../resource/Admin.css">
+                  <TableView fx:id="table_brand" layoutY="-1.0" prefHeight="406.0" prefWidth="326.0" styleClass="nav-btn1" stylesheets="@../resource/Admin.css">
                      <columns>
                         <TableColumn fx:id="table_brandID" prefWidth="107.99994039535522" text="ID nhãn hàng" />
                         <TableColumn fx:id="table_brandName" prefWidth="212.7999496459961" text="Tên nhãn hàng" />

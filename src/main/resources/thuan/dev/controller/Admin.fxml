@@ -259,6 +259,24 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
+                  <Button layoutX="455.0" layoutY="153.0" mnemonicParsing="false" onAction="#buttonCategory" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Loại sản phẩm">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="table-view" />
+                        <String fx:value="nav-btn1" />
+                     </styleClass>
+                  </Button>
+                  <Button layoutX="612.0" layoutY="153.0" mnemonicParsing="false" onAction="#buttonBrand" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Nhãn hàng">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="table-view" />
+                        <String fx:value="nav-btn1" />
+                     </styleClass>
+                  </Button>
                </children>
                <styleClass>
                   <String fx:value="white-bg" />

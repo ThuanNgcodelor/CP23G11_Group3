@@ -615,4 +615,25 @@ public class AdminController {
         }
     }
     //Thanh navbar
+
+    @FXML
+    private void buttonCategory(ActionEvent event){
+        try{
+            CategoryController categoryController = new CategoryController();
+            Stage stage = new Stage();
+            categoryController.start(stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    private void buttonBrand(ActionEvent event){
+        try {
+            BrandController brandController = new BrandController();
+            Stage stage = new Stage();
+            brandController.start(stage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
