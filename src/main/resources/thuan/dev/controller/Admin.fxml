@@ -259,23 +259,15 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button layoutX="455.0" layoutY="153.0" mnemonicParsing="false" onAction="#buttonCategory" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Loại sản phẩm">
+                  <Button layoutX="478.0" layoutY="153.0" mnemonicParsing="false" onAction="#buttonCategory" prefHeight="40.0" prefWidth="130.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Loại sản phẩm" AnchorPane.bottomAnchor="153.6" AnchorPane.leftAnchor="634.4">
                      <font>
                         <Font size="15.0" />
                      </font>
-                     <styleClass>
-                        <String fx:value="table-view" />
-                        <String fx:value="nav-btn1" />
-                     </styleClass>
                   </Button>
-                  <Button layoutX="612.0" layoutY="153.0" mnemonicParsing="false" onAction="#buttonBrand" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Nhãn hàng">
+                  <Button layoutX="479.0" layoutY="153.0" mnemonicParsing="false" onAction="#buttonBrand" prefHeight="40.0" prefWidth="130.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Nhãn hàng" AnchorPane.bottomAnchor="153.39999999999998" AnchorPane.leftAnchor="479.0">
                      <font>
                         <Font size="15.0" />
                      </font>
-                     <styleClass>
-                        <String fx:value="table-view" />
-                        <String fx:value="nav-btn1" />
-                     </styleClass>
                   </Button>
                </children>
                <styleClass>
