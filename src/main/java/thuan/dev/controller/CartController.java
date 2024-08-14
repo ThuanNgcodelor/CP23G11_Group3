@@ -56,10 +56,6 @@ public class CartController implements Initializable {
     Order order;
     Employees emp;
 
-    AdminController controller = new AdminController();
-    UserController controllerUser = new UserController();
-
-
     @FXML
     void addBtn(ActionEvent event) {
         int quantity = cart_spinner.getValue();
@@ -67,14 +63,12 @@ public class CartController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Quantity cannot be zero!");
             return;
         }
-        //Check stock còn hay ko
 
         int customerID = Data.customerID;
         if (customerID == -1) {
             showAlert(Alert.AlertType.ERROR, "Không nhận được customerID");
             return;
         }
-        //check id quản lí đặt hàng
 
         double price = product.getPrice();
         double total = price * quantity;
@@ -96,18 +90,18 @@ public class CartController implements Initializable {
         if (addOrder) {
             productDAO.updateProductStock(product.getProductID(), currentStock - quantity);
             showAlert(Alert.AlertType.INFORMATION, "Thêm sản phẩm thành công!");
+            AdminController adminController = AppService.getInstance().adminController;
+            adminController.showDisplayCard();
+            //when adding products to cart and showDisplaycart
         } else {
             showAlert(Alert.AlertType.ERROR, "Thêm sản phẩm thất bại");
         }
-        controller.menu();
     }
-    //touch vào button để add products
 
     public void setQuantity() {
         spin = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
         cart_spinner.setValueFactory(spin);
     }
-    //Update quantity Products
 
     public void setData(Product pro) {
         this.product = pro;
@@ -120,7 +114,7 @@ public class CartController implements Initializable {
         cart_images.setImage(image);
         cart_spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1));
     }
-    //Show details sản phẩm ra
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setQuantity();
@@ -131,4 +125,6 @@ public class CartController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 }

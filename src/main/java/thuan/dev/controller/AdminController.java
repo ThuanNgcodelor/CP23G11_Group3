@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -96,7 +98,6 @@ public class AdminController {
 
     @FXML
     private TableColumn<Product, Integer> productID;
-
     @FXML
     private TableColumn<Product, String> productName;
     @FXML
@@ -170,7 +171,7 @@ public class AdminController {
 
     private ObservableList<Bills> billsList;
 
-    public void menu() {
+    public void menu() throws IOException {
         CategoryComboBox();
         showProduct();
         search();
@@ -186,59 +187,7 @@ public class AdminController {
         BrandComboBox();
     }
 
-    @FXML
-    private void search() {
-        search_products.setOnKeyReleased(e -> {
-            String keyword = search_products.getText().toLowerCase();
-            filteredList.setPredicate(product -> {
-                if (keyword.isEmpty()) {
-                    return true;
-                }
-                return product.getProductName().toLowerCase().contains(keyword)
-                || product.getCategoryName().toLowerCase().contains(keyword)
-                || product.getBrandName().toLowerCase().contains(keyword);
-            });
-        });
-    }
-    //search products
-
-    private void CategoryComboBox() {
-        if (add_categoryID != null) {
-            CategoryDAO categoryDAO = new CategoryImple();
-            List<Category> categories = categoryDAO.getAllCategory();
-            ObservableList<Category> categoryList = FXCollections.observableArrayList(categories);
-            add_categoryID.setItems(categoryList);
-        }
-    }
-
-    private void BrandComboBox() {
-        if (add_brandID != null) {
-            BrandDAO brandDAO = new BrandImple();
-            List<Brands> brands = brandDAO.getAllBrand();
-            ObservableList<Brands> brandsObservableList = FXCollections.observableArrayList(brands);
-            add_brandID.setItems(brandsObservableList);
-        }
-    }
-
-    public void showProduct() {
-        ProductDAO productDAO = new ProductImple();
-        List<Product> products = productDAO.show();
-        productList = FXCollections.observableArrayList(products);
-        filteredList = new FilteredList<>(productList, e -> true);
-
-        System.out.println(productID);
-        productID.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        categoryName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
-        price.setCellValueFactory(new PropertyValueFactory<>("price"));
-        images.setCellValueFactory(new PropertyValueFactory<>("images"));
-        stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        brandName.setCellValueFactory(new PropertyValueFactory<>("brandName"));
-
-        table.setItems(filteredList);
-    }
-
-    public void showListBill(){
+    public void showListBill() {
         BillDAO billDAO = new BillImple();
         List<Bills> bills = billDAO.getAllBills();
         billsList = FXCollections.observableArrayList(bills);
@@ -264,6 +213,12 @@ public class AdminController {
         totalPrice();
     }
 
+    @FXML
+    private void initialize(){
+        AppService.getInstance().setAdminController(this);
+    }
+    //gọi lai biến AppServiive để có thể nhân
+
     public void displayUsername() {
         username.setText(String.valueOf(Data.fullname));
     }
@@ -282,7 +237,7 @@ public class AdminController {
         orderDAO.updateOrder(selectedOrder.getOrderID());
 
         Bills bills = new Bills();
-        bills.setTotalPrice(Double.parseDouble(card_total.getText().replace("$"," ").trim()));
+        bills.setTotalPrice(Double.parseDouble(card_total.getText().replace("$", " ").trim()));
         bills.setCustomerID(Data.customerID);
         bills.setDate(new Date());
 
@@ -309,27 +264,27 @@ public class AdminController {
                     quantity += order.getQuantity();
                 }
             }
-             double finalTotal = total;
-             int finalQuantity = quantity;
+            double finalTotal = total;
+            int finalQuantity = quantity;
             Platform.runLater(() -> card_total.setText(String.format("$%.2f", finalTotal)));
             Platform.runLater(() -> cart_quantity.setText(String.format("%d", finalQuantity)));
         } else {
-            Platform.runLater(() -> card_total.setText("$0.00"));
+            Platform.runLater(() -> card_total.setText("0.00"));
             Platform.runLater(() -> cart_quantity.setText("0"));
         }
     }
     //Tính toán số tiền và hiển thị quantity
 
-    public void totalCustomers(){
+    public void totalCustomers() {
         BillDAO billDAO = new BillImple();
         List<Bills> selectedBills = billDAO.getAllBills();
         int totalPrice = 0;
         int customerID = 0;
 
-        if (selectedBills != null){
-            for (Bills bills : selectedBills){
-                if (bills != null){
-                    customerID ++;
+        if (selectedBills != null) {
+            for (Bills bills : selectedBills) {
+                if (bills != null) {
+                    customerID++;
                     totalPrice += bills.getTotalPrice();
                 }
             }
@@ -340,41 +295,87 @@ public class AdminController {
     }
     //Tính toán quantity customers
 
-
     private void displayProductDetails(Product product) {
         add_productName.setText(product.getProductName());
         add_price.setText(String.valueOf(product.getPrice()));
         add_stock.setText(String.valueOf(product.getStock()));
 
-        if (product.getCategoryID() != null && product.getCategoryName() != null) {
-            add_categoryID.getSelectionModel().select(new Category(product.getCategoryID(), product.getCategoryName()));
-        } else {
-            add_categoryID.getSelectionModel().clearSelection();
-        }
-
-
         String images = product.getImages();
-        if (images != null && !images.isEmpty()){
+        if (images != null && !images.isEmpty()) {
             try {
                 Image productImages = new Image(new File(images).toURI().toString(), 220, 220, false, true);
                 images_add.setImage(productImages);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }else {
+        } else {
             images_add.setImage(null);
         }
     }
     //Khi touch vào product sẽ hiện lại input ở để chỉnh sửa
+
     @FXML
-    private void buttonClear(ActionEvent event){
+    private void buttonClear(ActionEvent event) {
         clearInputFields();
     }
+
     @FXML
-    private void selectAllProducts(ActionEvent event){
+    private void selectAllProducts(ActionEvent event) {
         table.getSelectionModel().selectAll();
     }
     //Chọn tất cả sản phẩm để đặt hàng
+
+    @FXML
+    private void search() {
+        search_products.setOnKeyReleased(e -> {
+            String keyword = search_products.getText().toLowerCase();
+            filteredList.setPredicate(product -> {
+                if (keyword.isEmpty()) {
+                    return true;
+                }
+                return product.getProductName().toLowerCase().contains(keyword)
+                        || product.getCategoryName().toLowerCase().contains(keyword)
+                        || product.getBrandName().toLowerCase().contains(keyword);
+            });
+        });
+    }
+    //search products
+
+
+    private void CategoryComboBox() {
+        if (add_categoryID != null) {
+            CategoryDAO categoryDAO = new CategoryImple();
+            List<Category> categories = categoryDAO.getAllCategory();
+            ObservableList<Category> categoryList = FXCollections.observableArrayList(categories);
+            add_categoryID.setItems(categoryList);
+        }
+    }
+
+    private void BrandComboBox() {
+        if (add_brandID != null) {
+            BrandDAO brandDAO = new BrandImple();
+            List<Brands> brands = brandDAO.getAllBrand();
+            ObservableList<Brands> brandsObservableList = FXCollections.observableArrayList(brands);
+            add_brandID.setItems(brandsObservableList);
+        }
+    }
+
+    public void showProduct() {
+        ProductDAO productDAO = new ProductImple();
+        List<Product> products = productDAO.show();
+        productList = FXCollections.observableArrayList(products);
+        filteredList = new FilteredList<>(productList, e -> true);
+
+        productID.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        categoryName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
+        price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        images.setCellValueFactory(new PropertyValueFactory<>("images"));
+        stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        brandName.setCellValueFactory(new PropertyValueFactory<>("brandName"));
+
+        table.setItems(filteredList);
+    }
 
     public void addProducts() {
         try {
@@ -392,7 +393,7 @@ public class AdminController {
             int categoryID = selectedCategory.getId();
 
             Brands selectedBrand = add_brandID.getSelectionModel().getSelectedItem();
-            if (selectedBrand == null){
+            if (selectedBrand == null) {
                 showAlert(Alert.AlertType.ERROR, "Nhãn hàng là bắt buộc!");
                 return;
             }
@@ -436,15 +437,17 @@ public class AdminController {
             showAlert(Alert.AlertType.ERROR, "Đã xảy ra lỗi: " + e.getMessage());
         }
     }
+
     //Add product và check from tát cả input
     private Image image;
-    public void addImages(){
+
+    public void addImages() {
         FileChooser openFile = new FileChooser();
         openFile.getExtensionFilters().add(new FileChooser.ExtensionFilter("Open Image File", "*png", "*jpg"));
         File file = openFile.showOpenDialog(add.getScene().getWindow());
-        if (file != null){
+        if (file != null) {
             Data.path = file.getAbsolutePath();
-            image = new Image(file.toURI().toString(),220,220,false,true);
+            image = new Image(file.toURI().toString(), 220, 220, false, true);
             images_add.setImage(image);
         }
     }
@@ -454,58 +457,64 @@ public class AdminController {
         try {
             Product selectedProduct = table.getSelectionModel().getSelectedItem();
             if (selectedProduct == null) {
-                showAlert(Alert.AlertType.ERROR, "Vui lòng chọn sản phẩm để cập nhập");
+                showAlert(Alert.AlertType.ERROR, "Vui lòng chọn sản phẩm để cập nhật");
                 return;
             }
+
+            // Update fields only if they are not empty
             String name = add_productName.getText();
-            if (name.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, "Tên sản phẩm là bắt buộc!");
-                return;
+            if (!name.isEmpty()) {
+                selectedProduct.setProductName(name);
             }
+
             Category selectedCategory = add_categoryID.getSelectionModel().getSelectedItem();
-            if (selectedCategory == null) {
-                showAlert(Alert.AlertType.ERROR, "Danh mục là bắt buộc!");
+            if (selectedCategory != null) {
+                selectedProduct.setCategoryID(selectedCategory.getId());
+                selectedProduct.setCategoryName(selectedCategory.getName());
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Vui lòng chỉnh lại loai sản phẩm");
                 return;
             }
-            int categoryID = selectedCategory.getId();
 
             String priceText = add_price.getText();
-            if (priceText.isEmpty()) {
-                showAlert(Alert.AlertType.ERROR, "Giá là bắt buộc!");
-                return;
+            if (!priceText.isEmpty()) {
+                Double price = Double.parseDouble(priceText);
+                selectedProduct.setPrice(price);
             }
-            Double price = Double.parseDouble(priceText);
-            String images = "";
+
+            String images = (Data.path != null && !Data.path.isEmpty()) ? Data.path : selectedProduct.getImages();
+            selectedProduct.setImages(images);
 
             String stockText = add_stock.getText();
-            if (stockText == null) {
-                showAlert(Alert.AlertType.ERROR, "Loại sản phẩm là bắt buộc");
+            if (!stockText.isEmpty()) {
+                Integer stock = Integer.parseInt(stockText);
+                selectedProduct.setStock(stock);
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Vui lòng chỉnh lại ảnh");
+                return;
             }
-            Integer stock = Integer.parseInt(add_stock.getText());
 
             Brands selectedBrand = add_brandID.getSelectionModel().getSelectedItem();
-            if (selectedBrand == null){
-                showAlert(Alert.AlertType.ERROR, "Nhãn hiệu là bắt buộc");
+            if (selectedBrand != null) {
+                selectedProduct.setBrandID(selectedBrand.getBrandID());
+                selectedProduct.setBrandName(selectedBrand.getBrandName());
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Vui lòng chỉnh lại nhãn hàng");
+                return;
             }
-            int brandID = selectedBrand.getBrandID();
-            Product updatedProducts = new Product();
-            updatedProducts.setProductID(selectedProduct.getProductID());
-            updatedProducts.setProductName(name);
-            updatedProducts.setCategoryID(categoryID);
-            updatedProducts.setImages(images);
-            updatedProducts.setPrice(price);
-            updatedProducts.setStock(stock);
-            updatedProducts.setBrandID(brandID);
 
             ProductDAO productDAO = new ProductImple();
-            productDAO.updateProduct(updatedProducts);
-            showProduct();
+            productDAO.updateProduct(selectedProduct);
+
+            table.refresh();
             clearInputFields();
-            showAlert(Alert.AlertType.INFORMATION, "Cập nhập thành công!!!");
+            showAlert(Alert.AlertType.INFORMATION, "Cập nhật thành công!");
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            showAlert(Alert.AlertType.ERROR, "Đã xảy ra lỗi khi cập nhật sản phẩm: " + e.getMessage());
+            e.printStackTrace();
         }
     }
+
     //update product và check form khi update
 
     @FXML
@@ -548,7 +557,7 @@ public class AdminController {
                 }
 
                 GridPane.setMargin(pane, new Insets(15));
-                menu_gridPane.add(pane,column++,row); //
+                menu_gridPane.add(pane, column++, row);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -571,6 +580,8 @@ public class AdminController {
         if (images_add != null) {
             images_add.setImage(null);
         }
+        add_brandID.getSelectionModel().clearSelection();
+        add_categoryID.getSelectionModel().clearSelection();
     }
 
     @FXML
@@ -617,8 +628,8 @@ public class AdminController {
     //Thanh navbar
 
     @FXML
-    private void buttonCategory(ActionEvent event){
-        try{
+    private void buttonCategory(ActionEvent event) {
+        try {
             CategoryController categoryController = new CategoryController();
             Stage stage = new Stage();
             categoryController.start(stage);
@@ -626,8 +637,9 @@ public class AdminController {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
-    private void buttonBrand(ActionEvent event){
+    private void buttonBrand(ActionEvent event) {
         try {
             BrandController brandController = new BrandController();
             Stage stage = new Stage();

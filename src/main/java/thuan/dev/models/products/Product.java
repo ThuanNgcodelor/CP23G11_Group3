@@ -1,7 +1,7 @@
 package thuan.dev.models.products;
 
 public class Product {
-    private Integer productID;
+    private int productID;
     private String productName;
     private String images;
     private Integer categoryID;
@@ -25,11 +25,11 @@ public class Product {
     public Product() {
     }
 
-    public Integer getProductID() {
+    public int getProductID() {
         return productID;
     }
 
-    public void setProductID(Integer productID) {
+    public void setProductID(int productID) {
         this.productID = productID;
     }
 
