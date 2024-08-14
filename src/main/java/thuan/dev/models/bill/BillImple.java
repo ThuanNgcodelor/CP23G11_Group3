@@ -27,6 +27,7 @@ public class BillImple implements BillDAO{
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Bills bill = new Bills();
+                bill.setBillID(rs.getInt("billID"));
                 bill.setCustomerID(rs.getInt("customerID"));
                 bill.setTotalPrice(rs.getDouble("total"));
                 bill.setDate(new Date(rs.getDate("date").getTime()));

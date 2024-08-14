@@ -96,14 +96,12 @@ public class    ProductImple implements ProductDAO {
     public void updateProduct(Product pro) {
         try {
             PreparedStatement ptmt = conn.prepareStatement(
-                    "UPDATE product SET productName = ?, categoryID = ?, price = ?, images = ?, stock = ? ,brandID = ? WHERE productID = ?");
+                    "UPDATE product SET productName = ?, price = ?, images = ?, stock = ? WHERE productID = ?");
             ptmt.setString(1, pro.getProductName());
-            ptmt.setInt(2, pro.getCategoryID());
-            ptmt.setDouble(3, pro.getPrice());
-            ptmt.setString(4, pro.getImages());
-            ptmt.setInt(5, pro.getStock());
-            ptmt.setInt(6,pro.getBrandID());
-            ptmt.setInt(7, pro.getProductID());
+            ptmt.setDouble(2, pro.getPrice());
+            ptmt.setString(3, pro.getImages());
+            ptmt.setInt(4, pro.getStock());
+            ptmt.setInt(5, pro.getProductID());
             ptmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

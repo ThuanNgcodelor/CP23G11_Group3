@@ -46,6 +46,9 @@ public class AdminController {
     private AnchorPane staff;
 
     @FXML
+    private AnchorPane checkbill;
+
+    @FXML
     private Button staffbutton;
 
     @FXML
@@ -125,6 +128,9 @@ public class AdminController {
     private Button homeButton;
 
     @FXML
+    private Button buttonbill;
+
+    @FXML
     private Button logout;
 
     @FXML
@@ -193,6 +199,7 @@ public class AdminController {
         billsList = FXCollections.observableArrayList(bills);
 
         bill_id.setCellValueFactory(new PropertyValueFactory<>("billID"));
+        bill_total_price.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
         bill_customers.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         bill_date.setCellValueFactory(new PropertyValueFactory<>("date"));
 
@@ -379,12 +386,14 @@ public class AdminController {
 
     public void addProducts() {
         try {
+            // Get product name and validate
             String name = add_productName.getText();
             if (name.isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Tên sản phẩm là bắt buộc!");
                 return;
             }
 
+            // Get selected category and validate
             Category selectedCategory = add_categoryID.getSelectionModel().getSelectedItem();
             if (selectedCategory == null) {
                 showAlert(Alert.AlertType.ERROR, "Loại sản phẩm là bắt buộc!");
@@ -392,6 +401,7 @@ public class AdminController {
             }
             int categoryID = selectedCategory.getId();
 
+            // Get selected brand and validate
             Brands selectedBrand = add_brandID.getSelectionModel().getSelectedItem();
             if (selectedBrand == null) {
                 showAlert(Alert.AlertType.ERROR, "Nhãn hàng là bắt buộc!");
@@ -399,33 +409,55 @@ public class AdminController {
             }
             int brandID = selectedBrand.getBrandID();
 
+            // Get price and validate
             String priceText = add_price.getText();
             if (priceText.isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Giá là bắt buộc!");
                 return;
             }
-            Double price = Double.parseDouble(priceText);
+            double price;
+            try {
+                price = Double.parseDouble(priceText);
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Giá không hợp lệ!");
+                return;
+            }
 
-            String image = Data.path != null ? Data.path : "";
+            // Validate image path
+            if (Data.path == null || Data.path.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Vui lòng thêm ảnh");
+                return;
+            }
+            String images = Data.path;
 
+            // Get stock and validate
             String stockText = add_stock.getText();
-            if (stockText == null) {
+            if (stockText.isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Trạng thái nổi bật là bắt buộc!");
                 return;
             }
-            int stock = Integer.parseInt(stockText);
+            int stock;
+            try {
+                stock = Integer.parseInt(stockText);
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Trạng thái không hợp lệ!");
+                return;
+            }
 
+            // Create new product
             Product newProducts = new Product();
             newProducts.setProductName(name);
             newProducts.setCategoryID(categoryID);
             newProducts.setPrice(price);
-            newProducts.setImages(image);
+            newProducts.setImages(images);
             newProducts.setStock(stock);
             newProducts.setBrandID(brandID);
 
+            // Save product
             ProductDAO productDAO = new ProductImple();
             boolean addProducts = productDAO.addProduct(newProducts);
 
+            // Handle result
             if (addProducts) {
                 showProduct();
                 clearInputFields();
@@ -467,15 +499,6 @@ public class AdminController {
                 selectedProduct.setProductName(name);
             }
 
-            Category selectedCategory = add_categoryID.getSelectionModel().getSelectedItem();
-            if (selectedCategory != null) {
-                selectedProduct.setCategoryID(selectedCategory.getId());
-                selectedProduct.setCategoryName(selectedCategory.getName());
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Vui lòng chỉnh lại loai sản phẩm");
-                return;
-            }
-
             String priceText = add_price.getText();
             if (!priceText.isEmpty()) {
                 Double price = Double.parseDouble(priceText);
@@ -491,15 +514,6 @@ public class AdminController {
                 selectedProduct.setStock(stock);
             } else {
                 showAlert(Alert.AlertType.ERROR, "Vui lòng chỉnh lại ảnh");
-                return;
-            }
-
-            Brands selectedBrand = add_brandID.getSelectionModel().getSelectedItem();
-            if (selectedBrand != null) {
-                selectedProduct.setBrandID(selectedBrand.getBrandID());
-                selectedProduct.setBrandName(selectedBrand.getBrandName());
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Vui lòng chỉnh lại nhãn hàng");
                 return;
             }
 
@@ -605,17 +619,20 @@ public class AdminController {
             add.setVisible(false);
             order.setVisible(false);
             staff.setVisible(false);
+            checkbill.setVisible(false);
         } else if (event.getSource() == manage) {
             home.setVisible(false);
             add.setVisible(true);
             order.setVisible(false);
             staff.setVisible(false);
+            checkbill.setVisible(false);
             showProduct();
         } else if (event.getSource() == orderButton) {
             home.setVisible(false);
             add.setVisible(false);
             order.setVisible(true);
             staff.setVisible(false);
+            checkbill.setVisible(false);
             menuDisplayCard();
             showDisplayCard();
         } else if (event.getSource() == staffbutton) {
@@ -623,6 +640,13 @@ public class AdminController {
             home.setVisible(false);
             add.setVisible(false);
             order.setVisible(false);
+            checkbill.setVisible(false);
+        } else if (event.getSource() == buttonbill) {
+            staff.setVisible(false);
+            home.setVisible(false);
+            add.setVisible(false);
+            order.setVisible(false);
+            checkbill.setVisible(true);
         }
     }
     //Thanh navbar
