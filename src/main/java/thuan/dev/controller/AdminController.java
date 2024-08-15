@@ -94,6 +94,9 @@ public class AdminController {
     private TextField add_price;
 
     @FXML
+    private TextField sale_code;
+
+    @FXML
     private TextField add_productName;
 
     @FXML
@@ -244,7 +247,11 @@ public class AdminController {
         orderDAO.updateOrder(selectedOrder.getOrderID());
 
         Bills bills = new Bills();
-        bills.setTotalPrice(Double.parseDouble(card_total.getText().replace("$", " ").trim()));
+
+        // Loại bỏ ký tự không phải là số và khoảng trắng trong chuỗi giá tiền
+        String totalPriceString = card_total.getText().replaceAll("[^\\d.]", "").trim();
+
+        bills.setTotalPrice(Double.parseDouble(totalPriceString));
         bills.setCustomerID(Data.customerID);
         bills.setDate(new Date());
 
@@ -278,7 +285,7 @@ public class AdminController {
         int finalQuantity = quantity;
 
         Platform.runLater(() -> {
-            card_total.setText(String.format("%,.0f" +" VND ", finalTotal));
+            card_total.setText(String.format("%,.0f", finalTotal));
             cart_quantity.setText(String.format("%d", finalQuantity));
         });
     }

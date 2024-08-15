@@ -9,7 +9,17 @@
     -fx-background-color: linear-gradient(to bottom right, #0f6789, #286155);
 }
 
-.nav-btn{
+/*.nav-btn{*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-border-color: #fff;*/
+/*    -fx-border-width: .4px;*/
+/*    -fx-cursor: hand;*/
+/*    -fx-text-fill: #fff;*/
+/*    -fx-font-size: 14px;*/
+/*}*/
+
+/* Normal state */
+.nav-btn {
     -fx-background-color: transparent;
     -fx-border-color: #fff;
     -fx-border-width: .4px;
@@ -17,6 +27,17 @@
     -fx-text-fill: #fff;
     -fx-font-size: 14px;
 }
+
+/* When hovered */
+.nav-btn:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* When clicked */
+.nav-btn:pressed {
+    -fx-background-color: #1abc9c;
+}
+
 .nav-btn1:hover{
     -fx-background-color: #d21414;
     -fx-text-fill: #000;

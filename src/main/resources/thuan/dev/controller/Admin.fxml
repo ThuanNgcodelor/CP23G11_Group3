@@ -21,7 +21,7 @@
 
 <AnchorPane prefHeight="687.0" prefWidth="1329.0" stylesheets="@../resource/Admin.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.AdminController">
    <children>
-      <AnchorPane fx:id="home" layoutX="212.0" layoutY="1.0" prefHeight="734.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="1.0">
+      <AnchorPane fx:id="home" layoutX="212.0" layoutY="1.0" prefHeight="734.0" prefWidth="1118.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="1.0">
          <children>
             <AnchorPane prefHeight="242.0" prefWidth="1115.0" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                <styleClass>
@@ -166,7 +166,6 @@
                   </Label>
                </children>
                <styleClass>
-                  <String fx:value="nav-btn" />
                   <String fx:value="shadow" />
                   <String fx:value="white-bg" />
                   <String fx:value="radius" />
@@ -315,12 +314,12 @@
                      </font></Button>
                   <Button fx:id="card_remove" layoutX="4.0" layoutY="651.1999999999999" mnemonicParsing="false" prefHeight="40.0" prefWidth="174.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Xóa" AnchorPane.bottomAnchor="27.200000000000045" />
                   <Button fx:id="inbienlai" layoutX="251.0" layoutY="651.1999999999999" mnemonicParsing="false" prefHeight="40.0" prefWidth="174.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="In biên lai" AnchorPane.bottomAnchor="27.200000000000045" />
-                  <Label layoutX="126.0" layoutY="424.0" prefHeight="26.0" prefWidth="82.0" text="Tổng tiền" AnchorPane.bottomAnchor="268.0">
+                  <Label layoutX="125.0" layoutY="448.0" prefHeight="26.0" prefWidth="82.0" text="Tổng tiền" AnchorPane.bottomAnchor="243.2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="126.0" layoutY="478.0" prefHeight="26.0" prefWidth="82.0" text="Số lượng">
+                  <Label layoutX="125.0" layoutY="405.0" prefHeight="26.0" prefWidth="82.0" text="Số lượng">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -330,8 +329,14 @@
                         <Font size="13.0" />
                      </font>
                   </CheckBox>
-                  <Label fx:id="card_total" layoutX="228.0" layoutY="423.0" prefHeight="26.0" prefWidth="150.0" AnchorPane.bottomAnchor="269.0" AnchorPane.rightAnchor="76.80000000000001" />
-                  <Label fx:id="cart_quantity" layoutX="228.0" layoutY="479.0" prefHeight="26.0" prefWidth="150.0" />
+                  <Label fx:id="card_total" layoutX="215.0" layoutY="448.0" prefHeight="26.0" prefWidth="150.0" AnchorPane.bottomAnchor="244.0" AnchorPane.rightAnchor="77.80000000000001" />
+                  <Label fx:id="cart_quantity" layoutX="227.0" layoutY="406.0" prefHeight="26.0" prefWidth="150.0" />
+                  <Label layoutX="133.0" layoutY="491.0" prefHeight="27.0" prefWidth="66.0" text="Sale">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="sale_code" layoutX="207.0" layoutY="492.0" />
                </children>
             </AnchorPane>
          </children>
@@ -404,7 +409,7 @@
                </font>
             </Label>
          </children></AnchorPane>
-      <AnchorPane fx:id="checkbill" layoutX="212.0" layoutY="-1.0" prefHeight="720.0" prefWidth="1118.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="-1.0">
+      <AnchorPane fx:id="checkbill" layoutX="212.0" layoutY="-1.0" prefHeight="720.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="-1.0">
          <children>
             <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="700.0" prefWidth="530.0" styleClass="table-view">
                <children>

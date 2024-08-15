@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.Login">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css">
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../resource/Admin.css">
          <children>
             <Label layoutX="372.0" layoutY="31.0" prefHeight="62.0" prefWidth="170.0" text="Welcome back!">
                <font>
