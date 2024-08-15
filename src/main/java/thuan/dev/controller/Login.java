@@ -82,7 +82,7 @@ public class Login extends Application {
     }
 
     @FXML
-    private void loginOnAction(ActionEvent event) {
+    private void loginOnAction(ActionEvent event) throws IOException {
         if (email.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Lỗi!", "Vui lòng nhập lại email.");
             return;
@@ -100,21 +100,25 @@ public class Login extends Application {
             infoBox("Đăng nhập thành công", null, "Thành công");
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
-            try {
-                Admin admin = new Admin();
-                Stage stage = new Stage();
-                admin.start(stage);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Admin.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage adminStage = new Stage();
+            adminStage.setScene(new Scene(root));
+            adminStage.setTitle("Admin");
+            adminStage.show();
+            AdminController adminController = fxmlLoader.getController();
+            adminController.menu();
+
         } else if (role == 1) {
             infoBox("Đăng nhập thành công", null, "Thành công");
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
             try {
-                User user = new User();
-                Stage stage = new Stage();
-                user.start(stage);
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/User.fxml"));
+                Parent root = fxmlLoader.load();
+                Stage userStage = new Stage();
+                userStage.setScene(new Scene(root));
+                userStage.show();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

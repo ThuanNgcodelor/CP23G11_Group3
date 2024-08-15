@@ -31,7 +31,6 @@ public class UserController {
     @FXML
     private AnchorPane add;
 
-
     @FXML
     private TableColumn<?, ?> bill_customers;
 
@@ -183,7 +182,11 @@ public class UserController {
         orderDAO.updateOrder(selectedOrder.getOrderID());
 
         Bills bills = new Bills();
-        bills.setTotalPrice(Double.parseDouble(card_total.getText().replace("$"," ").trim()));
+
+        // Loại bỏ ký tự không phải là số và khoảng trắng trong chuỗi giá tiền
+        String totalPriceString = card_total.getText().replaceAll("[^\\d.]", "").trim();
+
+        bills.setTotalPrice(Double.parseDouble(totalPriceString));
         bills.setCustomerID(Data.customerID);
         bills.setDate(new Date());
 
@@ -234,7 +237,6 @@ public class UserController {
         }
     }
 
-
     public void showDisplayCard() {
         OrderDAO orderDAO = new OrderImplements();
         List<Order> orders = orderDAO.showDisplayCard();
@@ -249,28 +251,54 @@ public class UserController {
     }
 
     public void totalPrice() {
+        double total = 0;
+        int quantity = 0;
+
         if (ordersList != null) {
-            double total = 0;
-            int quantity = 0;
             for (Order order : ordersList) {
                 if (order != null) {
                     total += order.getTotal();
                     quantity += order.getQuantity();
                 }
             }
-            double finalTotal = total;
-            int finalQuantity = quantity;
-            Platform.runLater(() -> card_total.setText(String.format("$%.2f", finalTotal)));
-            Platform.runLater(() -> cart_quantity.setText(String.format("%d", finalQuantity)));
-        } else {
-            Platform.runLater(() -> card_total.setText("$0.00"));
-            Platform.runLater(() -> cart_quantity.setText("0"));
         }
+
+        double finalTotal = total;
+        int finalQuantity = quantity;
+
+        Platform.runLater(() -> {
+            card_total.setText(String.format("%,.0f", finalTotal));
+            cart_quantity.setText(String.format("%d", finalQuantity));
+        });
     }
     //Tính toán số tiền và hiển thị quantity
 
+    public void totalCustomers() {
+        BillDAO billDAO = new BillImple();
+        List<Bills> selectedBills = billDAO.getAllBills();
+        int totalPrice = 0;
+        int customerID = 0;
+
+        if (selectedBills != null) {
+            for (Bills bills : selectedBills) {
+                if (bills != null) {
+                    customerID++;
+                    totalPrice += bills.getTotalPrice();
+                }
+            }
+        }
+        double finalTotal = totalPrice;
+        Platform.runLater(() -> total_price.setText(String.format("$%.2f", finalTotal)));
+        total_bill.setText(String.valueOf(customerID));
+    }
+
     public void displayUsername() {
         username.setText(String.valueOf(Data.customerID));
+    }
+
+    @FXML
+    private void initialize(){
+        AppService.getInstance().setAdminController(this);
     }
 
     @FXML
@@ -284,7 +312,8 @@ public class UserController {
             order.setVisible(true);
             menuDisplayCard();
             displayUsername();
-
+            showDisplayCard();
+            totalCustomers();
         }
 
     }

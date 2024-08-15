@@ -90,9 +90,10 @@ public class CartController implements Initializable {
         if (addOrder) {
             productDAO.updateProductStock(product.getProductID(), currentStock - quantity);
             showAlert(Alert.AlertType.INFORMATION, "Thêm sản phẩm thành công!");
-            AdminController adminController = AppService.getInstance().adminController;
-            adminController.showDisplayCard();
-            //when adding products to cart and showDisplaycart
+
+            UserController userController = AppService.getInstance().userController;
+            userController.showDisplayCard();
+
         } else {
             showAlert(Alert.AlertType.ERROR, "Thêm sản phẩm thất bại");
         }

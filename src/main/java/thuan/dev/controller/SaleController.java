@@ -15,7 +15,6 @@ import java.io.IOException;
 
 public class SaleController extends Application {
 
-
     @FXML
     private ImageView images_sale;
 

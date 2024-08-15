@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.input.MouseEvent; // Correct import for JavaFX MouseEvent
+import javafx.scene.input.MouseEvent;
 import thuan.dev.models.brand.BrandDAO;
 import thuan.dev.models.brand.BrandImple;
 import thuan.dev.models.brand.Brands;

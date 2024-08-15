@@ -1,25 +1,19 @@
 package thuan.dev.controller;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import thuan.dev.models.employee.EmployeeDAO;
 import thuan.dev.models.employee.EmployeeImp;
 import thuan.dev.models.employee.Employees;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class SignUp extends Application {
+public class SignUp {
 
     private double x = 0;
     private double y = 0;
@@ -30,30 +24,6 @@ public class SignUp extends Application {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SignUp.class.getResource("Signup.fxml"));
-        Parent root = fxmlLoader.load();
-        root.setOnMousePressed((MouseEvent event) -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-
-        root.setOnMouseDragged((MouseEvent event) -> {
-            stage.setX(event.getScreenX() - x);
-            stage.setY(event.getScreenY() - y);
-        });
-        stage.initStyle(StageStyle.TRANSPARENT);
-        Scene scene = new Scene(root);
-        stage.setTitle("Sign Up");
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML
@@ -106,7 +76,6 @@ public class SignUp extends Application {
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Ngày tháng sinh phải là trước hiện tại.");
             return;
         }
-
 
         Date birthF = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 

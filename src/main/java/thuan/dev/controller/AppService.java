@@ -15,16 +15,16 @@ public class AppService {
         this.adminController = adminController;
     }
 
-    public void setUserController(UserController userController) {
-        this.userController = userController;
-    }
-
     public AdminController getAdminController(){
         return adminController;
     }
 
     public UserController getUserController(){
         return userController;
+    }
+
+    public void setAdminController(UserController userController) {
+        this.userController = userController;
     }
     //Sử dụng lớp singleton hoặc dịch vụ chung để chia sẻ dữ liệu và trạng thái giữa các controller.
 }
