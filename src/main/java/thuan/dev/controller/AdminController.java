@@ -262,24 +262,27 @@ public class AdminController {
     }
 
     public void totalPrice() {
+        double total = 0;
+        int quantity = 0;
+
         if (ordersList != null) {
-            double total = 0;
-            int quantity = 0;
             for (Order order : ordersList) {
                 if (order != null) {
                     total += order.getTotal();
                     quantity += order.getQuantity();
                 }
             }
-            double finalTotal = total;
-            int finalQuantity = quantity;
-            Platform.runLater(() -> card_total.setText(String.format("$%.2f", finalTotal)));
-            Platform.runLater(() -> cart_quantity.setText(String.format("%d", finalQuantity)));
-        } else {
-            Platform.runLater(() -> card_total.setText("0.00"));
-            Platform.runLater(() -> cart_quantity.setText("0"));
         }
+
+        double finalTotal = total;
+        int finalQuantity = quantity;
+
+        Platform.runLater(() -> {
+            card_total.setText(String.format("%,.0f" +" VND ", finalTotal));
+            cart_quantity.setText(String.format("%d", finalQuantity));
+        });
     }
+
     //Tính toán số tiền và hiển thị quantity
 
     public void totalCustomers() {
@@ -647,6 +650,7 @@ public class AdminController {
             add.setVisible(false);
             order.setVisible(false);
             checkbill.setVisible(true);
+            showListBill();
         }
     }
     //Thanh navbar
