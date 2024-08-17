@@ -361,79 +361,7 @@ public class AdminController {
 
 
 //-----------------------------------------ORDERS-----------------------------------------------------------------------------------------------------------------------------------------------
-//    @FXML
-//    public void updateCart(ActionEvent event) {
-//
-//        OrderDAO orderDAO = new OrderImplements();
-//        Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
-//
-//        if (selectedOrder == null) {
-//            showAlert(Alert.AlertType.ERROR, "Error","Vui lòng chọn đơn hàng để cập nhật!");
-//            return;
-//        }
-//        orderDAO.updateOrder(selectedOrder.getOrderID());
-//
-//        Bills bills = new Bills();
-//
-//        // Loại bỏ ký tự không phải là số và khoảng trắng trong chuỗi giá tiền
-//        String totalPriceString = card_total.getText().replaceAll("[^\\d.]", "").trim();
-//
-//        bills.setTotalPrice(Double.parseDouble(totalPriceString));
-//        bills.setCustomerID(Data.customerID);
-//        bills.setDate(new Date());
-//
-//        BillDAO billDAO = new BillImple();
-//        boolean selectBill = billDAO.addBill(bills);
-//        showAlert(Alert.AlertType.INFORMATION, "Success","Cập nhật đơn hàng thành công!");
-//        showDisplayCard();
-//        menuRestart();
-//    }
 
-
-//    public void showDisplayCard() {
-//        OrderDAO orderDAO = new OrderImplements();
-//        List<Order> orders = orderDAO.showDisplayCard();
-//        ordersList = FXCollections.observableArrayList(orders);
-//
-//        showcard_order.setCellValueFactory(new PropertyValueFactory<>("productName"));
-//        showcard_quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-//        showcard_price.setCellValueFactory(new PropertyValueFactory<>("total"));
-//
-//        card_display_table.setItems(ordersList);
-//        totalPrice();
-//    }
-    //Show ra màn hình nhân viên đặt hàng
-
-
-//    public void menuRestart() {
-//        card_display_table.getSelectionModel().getSelectedItem();
-//        card_total.setText("0.0 ");
-//        cart_quantity.setText("");
-//    }
-//
-//    public void totalPrice() {
-//        double total = 0;
-//        int quantity = 0;
-//
-//        if (ordersList != null) {
-//            for (Order order : ordersList) {
-//                if (order != null) {
-//                    total += order.getTotal();
-//                    quantity += order.getQuantity();
-//                }
-//            }
-//        }
-//
-//        double finalTotal = total;
-//        int finalQuantity = quantity;
-//
-//        Platform.runLater(() -> {
-//            card_total.setText(String.format("%,.0f", finalTotal));
-//            cart_quantity.setText(String.format("%d", finalQuantity));
-//        });
-//    }
-
-    //Tính toán số tiền và hiển thị quantity
 
     @FXML
     private void selectAllProducts(ActionEvent event) {
@@ -441,36 +369,6 @@ public class AdminController {
     }
     //Chọn tất cả sản phẩm để đặt hàng
 
-//    public void menuDisplayCard() {
-//        ProductDAO productDAO = new ProductImple();
-//        productList.clear();
-//        productList.addAll(productDAO.show());
-//        int row = 0;
-//        int column = 0;
-//        menu_gridPane.getChildren().clear();
-//
-//        for (Product product : productList) {
-//            try {
-//                FXMLLoader fxmlLoader = new FXMLLoader();
-//                fxmlLoader.setLocation(getClass().getResource("/thuan/dev/controller/cardProduct.fxml"));
-//                AnchorPane pane = fxmlLoader.load();
-//                CartController cartController = fxmlLoader.getController();
-//                cartController.setData(product);
-//
-//                if (column == 3) {
-//                    column = 0;
-//                    row++;
-//                }
-//
-//                GridPane.setMargin(pane, new Insets(15));
-//                menu_gridPane.add(pane, column++, row);
-//
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//    }
-    //Show menu products
     //-----------------------------------------ORDERS-------------------------------------------------------
 
 

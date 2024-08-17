@@ -119,13 +119,15 @@ public class OrderImplements implements OrderDAO {
 
     @Override
     public void updateOrder(int orderID) {
-        try (PreparedStatement statement = conn.prepareStatement("UPDATE orders SET order_detailsID = 0")) {
+        String sql = "DELETE FROM orders WHERE order_detailsID = 1";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public boolean addOrder(Order order) {
