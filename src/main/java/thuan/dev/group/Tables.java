@@ -1,4 +1,4 @@
-package thuan.dev.controller;
+package thuan.dev.group;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

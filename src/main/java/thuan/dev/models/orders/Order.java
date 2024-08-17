@@ -11,14 +11,24 @@ public class Order {
     private Integer quantity;
     private Integer total;
     private Date date;
+    private Integer productID;
 
-    public Order(Integer customerID, String productName, Double price, Integer quantity, Integer total, Date date) {
+    public Order(Integer customerID, String productName, Double price, Integer quantity, Integer total, Date date,Integer productID) {
         this.customerID = customerID;
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
         this.total = total;
         this.date = date;
+        this.productID = productID;
+    }
+
+    public Integer getProductID() {
+        return productID;
+    }
+
+    public void setProductID(Integer productID) {
+        this.productID = productID;
     }
 
     public Order() {

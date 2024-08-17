@@ -13,13 +13,14 @@ public class Employees {
     private int role;
     private String fullname;
 
-    public Employees(String phone, String cccd, Date birth, String email, String password, String fullname) {
+    public Employees(String phone, String cccd, Date birth, String email, String password, String fullname,Integer role) {
         this.phone = phone;
         this.cccd = cccd;
         this.birth = birth;
         this.email = email;
         this.password = password;
         this.fullname = fullname;
+        this.role = role;
     }
 
     public Employees() {

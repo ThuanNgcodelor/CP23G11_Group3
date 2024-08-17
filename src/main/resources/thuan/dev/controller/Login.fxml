@@ -23,9 +23,9 @@
             <Button fx:id="loginButton" layoutX="353.0" layoutY="267.0" mnemonicParsing="false" onAction="#loginOnAction" prefHeight="30.0" prefWidth="220.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Login" textFill="#252526" />
             <Button fx:id="cancelButton" layoutX="353.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancelOnAction" prefHeight="30.0" prefWidth="220.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Cancel" textAlignment="CENTER" />
             <Label fx:id="loginmess" layoutX="61.0" layoutY="93.0" prefHeight="18.0" prefWidth="182.0" />
-            <ImageView fitHeight="407.0" fitWidth="327.0" layoutX="-5.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="410.0" fitWidth="327.0" layoutX="-5.0" layoutY="-4.0" pickOnBounds="true" smooth="false">
                <image>
-                  <Image url="@../images/logo.jpg" />
+                  <Image url="@../images/z5737081390720_a2d476e5421c8e6c0679280379614070.jpg" />
                </image>
             </ImageView>
          </children>

@@ -1,4 +1,4 @@
-package thuan.dev.controller;
+package thuan.dev.group;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

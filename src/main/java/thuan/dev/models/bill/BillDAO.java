@@ -9,4 +9,5 @@ public interface BillDAO {
     public boolean addBill(Bills bills);
     public void totalPrice(Bills bills);
     public List<Bills> getAllBills();
+    public List<Bills> getAllBillDateNow();
 }

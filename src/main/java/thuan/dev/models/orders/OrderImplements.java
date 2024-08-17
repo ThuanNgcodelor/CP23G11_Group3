@@ -9,9 +9,45 @@ import java.util.List;
 
 public class OrderImplements implements OrderDAO {
     @Override
-    public void totalPrice() {
-
+    public void update(int productID, int quantity, int total) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE orders set quantity = ?,total = ? WHERE productID = ?");
+            statement.setInt(1, quantity);
+            statement.setInt(2, total);
+            statement.setInt(3,productID);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    @Override
+    public Order getOrder(int customerID, int productID) {
+        try {
+            PreparedStatement statement = conn.prepareStatement(
+                    "SELECT * FROM orders WHERE customerID = ? AND productID = ?"
+            );
+            statement.setInt(1, customerID);
+            statement.setInt(2, productID);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                return new Order(
+                        rs.getInt("customerID"),
+                        rs.getString("productName"),
+                        rs.getDouble("price"),
+                        rs.getInt("quantity"),
+                        rs.getInt("total"),
+                        rs.getDate("date"),
+                        rs.getInt("productID")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     @Override
     public void receipt() {
@@ -47,7 +83,6 @@ public class OrderImplements implements OrderDAO {
     public List<Order> showDisplayCard() {
         List<Order> orders = new ArrayList<>();
         try {
-            // Select all orders with the latest order_detailsID
             PreparedStatement statement = conn.prepareStatement(
                     "SELECT * FROM orders WHERE order_detailsID = 1"
             );
@@ -61,6 +96,7 @@ public class OrderImplements implements OrderDAO {
                 order.setQuantity(rs.getInt("quantity"));
                 order.setTotal(rs.getInt("total"));
                 order.setDate(rs.getDate("date"));
+                order.setProductID(rs.getInt("productID"));
                 orders.add(order);
             }
         } catch (Exception e) {
@@ -93,7 +129,7 @@ public class OrderImplements implements OrderDAO {
 
     @Override
     public boolean addOrder(Order order) {
-        try (PreparedStatement statement = conn.prepareStatement("INSERT INTO orders (customerID, productName, price, quantity, total, date,order_detailsID) VALUES (?, ?, ?, ?, ?, ?,?)")) {
+        try (PreparedStatement statement = conn.prepareStatement("INSERT INTO orders (customerID, productName, price, quantity, total, date,order_detailsID,productID) VALUES (?, ?, ?, ?, ?, ?,?,?)")) {
             statement.setInt(1, Data.customerID);
             statement.setString(2, order.getProductName());
             statement.setDouble(3, order.getPrice());
@@ -101,6 +137,7 @@ public class OrderImplements implements OrderDAO {
             statement.setDouble(5, order.getTotal());
             statement.setDate(6, new Date(order.getDate().getTime()));
             statement.setInt(7, 1);
+            statement.setInt(8,order.getProductID());
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {

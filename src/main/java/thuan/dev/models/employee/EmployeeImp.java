@@ -24,13 +24,14 @@ public class EmployeeImp implements EmployeeDAO {
     @Override
     public boolean addEmployee(Employees emp) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO customers(phone,birth,cccd,email,password,fullname) VALUES (?,?,?,?,?,?) ");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO customers(phone,birth,cccd,email,password,fullname,role) VALUES (?,?,?,?,?,?,?) ");
             stmt.setString(1, emp.getPhone());
             stmt.setDate(2, new java.sql.Date(emp.getBirth().getDate()));
             stmt.setString(3, emp.getCccd());
             stmt.setString(4, emp.getEmail());
             stmt.setString(5, emp.getPassword());
             stmt.setString(6,emp.getFullname());
+            stmt.setInt(7,emp.getRole());
             int check = stmt.executeUpdate();
             return check > 0;
         } catch (SQLException e) {

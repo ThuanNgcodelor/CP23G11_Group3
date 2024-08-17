@@ -3,7 +3,6 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -12,14 +11,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="687.0" prefWidth="1329.0" stylesheets="@../resource/Admin.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.AdminController">
+<AnchorPane prefHeight="728.0" prefWidth="691.0" stylesheets="@../resource/Admin.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.AdminController">
    <children>
       <AnchorPane fx:id="home" layoutX="212.0" layoutY="1.0" prefHeight="734.0" prefWidth="1118.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="1.0">
          <children>
@@ -46,7 +43,7 @@
                                           <Font size="30.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="total_bill" alignment="CENTER_RIGHT" layoutX="144.0" layoutY="35.0" prefHeight="30.0" prefWidth="138.0" text="0">
+                                    <Label fx:id="total_bill" alignment="CENTER_RIGHT" layoutX="144.0" layoutY="35.0" prefHeight="30.0" prefWidth="138.0" text="0" textFill="WHITE">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -65,7 +62,7 @@
                                           <Font size="30.0" />
                                        </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="147.0" layoutY="35.0" prefHeight="30.0" prefWidth="138.0" text="0">
+                                    <Label alignment="CENTER_RIGHT" layoutX="147.0" layoutY="35.0" prefHeight="30.0" prefWidth="138.0" text="0" textFill="WHITE">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -84,7 +81,7 @@
                                           <Font size="30.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="total_price" alignment="CENTER_RIGHT" layoutX="113.0" layoutY="35.0" prefHeight="30.0" prefWidth="174.0" text="0">
+                                    <Label fx:id="total_price" alignment="CENTER_RIGHT" layoutX="113.0" layoutY="35.0" prefHeight="30.0" prefWidth="174.0" text="0" textFill="WHITE">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -97,7 +94,7 @@
                                     <String fx:value="radius" />
                                  </styleClass>
                                  <children>
-                                    <Label alignment="CENTER_RIGHT" layoutX="102.0" layoutY="40.0" prefHeight="30.0" prefWidth="174.0" text="0">
+                                    <Label alignment="CENTER_RIGHT" layoutX="102.0" layoutY="40.0" prefHeight="30.0" prefWidth="174.0" text="0" textFill="WHITE">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -139,7 +136,7 @@
          <children>
             <AnchorPane layoutX="0.8" layoutY="-5.0" prefHeight="378.0" prefWidth="1118.0" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <TableView fx:id="table" layoutX="54.0" layoutY="64.0" prefHeight="300.0" prefWidth="1016.0" styleClass="nav-btn1" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.79999999999973">
+                  <TableView fx:id="table" layoutX="18.0" layoutY="64.0" prefHeight="300.0" prefWidth="1065.0" styleClass="btn-button" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0">
                      <columns>
                         <TableColumn fx:id="productID" prefWidth="112.79997706413269" text="ID " />
                         <TableColumn fx:id="productName" prefWidth="169.6000518798828" text="Tên sản phẩm" />
@@ -176,46 +173,41 @@
       
                   <AnchorPane fx:id="addproduct" layoutY="373.0" prefHeight="346.0" prefWidth="1118.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.7999999999999545">
                <children>
-                  <Label layoutX="107.0" layoutY="27.0" prefHeight="30.0" prefWidth="97.0" text="Tên sản phẩm" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="916.2" AnchorPane.topAnchor="27.0">
+                  <ComboBox fx:id="add_categoryID" layoutX="190.0" layoutY="94.0" prefHeight="30.0" prefWidth="182.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="94.0" />
+                  <ComboBox fx:id="add_brandID" layoutX="190.0" layoutY="160.0" prefHeight="30.0" prefWidth="182.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="160.0" />
+                  <Label layoutX="86.0" layoutY="94.0" prefHeight="30.0" prefWidth="98.0" text="Category" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="860.4" AnchorPane.topAnchor="94.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="add_categoryID" layoutX="214.0" layoutY="92.0" prefHeight="30.0" prefWidth="160.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="214.0" AnchorPane.topAnchor="92.0" />
-                  <ComboBox fx:id="add_brandID" layoutX="214.0" layoutY="158.0" prefHeight="30.0" prefWidth="160.0" styleClass="shadow" stylesheets="@../resource/Admin.css" />
-                  <Label layoutX="107.0" layoutY="92.0" prefHeight="30.0" prefWidth="98.0" text="Loại sản phẩm" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="910.0" AnchorPane.topAnchor="92.0">
+                  <Label layoutX="459.0" layoutY="29.0" prefHeight="30.0" prefWidth="72.0" text="Price" AnchorPane.leftAnchor="459.0" AnchorPane.topAnchor="29.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="478.0" layoutY="27.0" prefHeight="30.0" prefWidth="82.0" text="Giá tiền" AnchorPane.leftAnchor="478.0" AnchorPane.topAnchor="27.0">
+                  <TextField fx:id="add_price" layoutX="548.0" layoutY="29.0" prefHeight="30.0" prefWidth="182.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="548.0" AnchorPane.topAnchor="29.0" />
+                  <Label layoutX="520.0" layoutY="157.0" prefHeight="30.0" prefWidth="10.0" text="Số lượng" AnchorPane.leftAnchor="520.0" AnchorPane.rightAnchor="499.19999999999993" AnchorPane.topAnchor="157.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="add_price" layoutX="573.0" layoutY="27.0" prefHeight="30.0" prefWidth="160.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="573.0" AnchorPane.topAnchor="27.0" />
-                  <Label layoutX="479.0" layoutY="92.0" prefHeight="30.0" prefWidth="82.0" text="Số lượng" AnchorPane.leftAnchor="479.0" AnchorPane.rightAnchor="554.5999999999999" AnchorPane.topAnchor="92.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <AnchorPane layoutX="823.0" layoutY="14.0" prefHeight="220.0" prefWidth="220.0" stylesheets="@../resource/Admin.css" AnchorPane.rightAnchor="74.80000000000018" AnchorPane.topAnchor="14.0">
+                  <AnchorPane layoutX="784.0" layoutY="29.0" prefHeight="220.0" prefWidth="220.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="95.80000000000001" AnchorPane.leftAnchor="784.0" AnchorPane.topAnchor="29.0">
                      <styleClass>
                         <String fx:value="radius" />
                         <String fx:value="shadow" />
                         <String fx:value="white-bg" />
                      </styleClass>
                      <children>
-                        <ImageView fx:id="images_add" fitHeight="220.0" fitWidth="220.0" layoutX="-1.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="images_add" fitHeight="220.0" fitWidth="220.0" layoutX="-2.6" layoutY="2.4" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.6" AnchorPane.rightAnchor="3.4000000000000057" AnchorPane.topAnchor="2.4" />
                      </children>
                   </AnchorPane>
-                  <Button layoutX="873.0" layoutY="262.0" mnemonicParsing="false" onAction="#addImages" prefHeight="35.0" prefWidth="120.0" stylesheets="@../resource/Admin.css" text="Thêm" AnchorPane.bottomAnchor="49.19999999999999" AnchorPane.rightAnchor="124.80000000000018">
+                  <Button layoutX="834.0" layoutY="262.0" mnemonicParsing="false" onAction="#addImages" prefHeight="35.0" prefWidth="120.0" stylesheets="@../resource/Admin.css" text="Thêm" AnchorPane.bottomAnchor="49.19999999999999" AnchorPane.leftAnchor="834.0">
                      <styleClass>
                         <String fx:value="table-view" />
                         <String fx:value="nav-btn1" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="product_add" layoutX="114.0" layoutY="260.0" mnemonicParsing="false" onAction="#addProducts" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Thêm" AnchorPane.bottomAnchor="46.39999999999998" AnchorPane.leftAnchor="114.0">
+                  <Button fx:id="product_add" layoutX="85.0" layoutY="260.0" mnemonicParsing="false" onAction="#addProducts" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Thêm" AnchorPane.bottomAnchor="46.39999999999998" AnchorPane.leftAnchor="85.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -224,7 +216,7 @@
                         <String fx:value="nav-btn1" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="product_update" layoutX="282.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleUpdateProduct" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Chỉnh" AnchorPane.bottomAnchor="46.39999999999998" AnchorPane.leftAnchor="282.0">
+                  <Button fx:id="product_update" layoutX="253.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleUpdateProduct" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Chỉnh" AnchorPane.bottomAnchor="46.39999999999998" AnchorPane.leftAnchor="253.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -233,7 +225,7 @@
                         <String fx:value="nav-btn1" />
                      </styleClass>
                   </Button>
-                  <Button layoutX="452.0" layoutY="260.0" mnemonicParsing="false" onAction="#buttonClear" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Xóa hết " AnchorPane.bottomAnchor="46.39999999999998" AnchorPane.leftAnchor="452.0">
+                  <Button layoutX="423.0" layoutY="260.0" mnemonicParsing="false" onAction="#buttonClear" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Xóa hết " AnchorPane.bottomAnchor="46.39999999999998" AnchorPane.leftAnchor="423.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -242,7 +234,7 @@
                         <String fx:value="nav-btn1" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="product_delete" layoutX="612.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleDeleteProducts" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Xóa" AnchorPane.bottomAnchor="46.39999999999998" AnchorPane.leftAnchor="612.0">
+                  <Button fx:id="product_delete" layoutX="583.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleDeleteProducts" prefHeight="40.0" prefWidth="130.0" stylesheets="@../resource/Admin.css" text="Xóa" AnchorPane.bottomAnchor="46.39999999999998" AnchorPane.leftAnchor="583.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -251,23 +243,33 @@
                         <String fx:value="nav-btn1" />
                      </styleClass>
                   </Button>
-                  <TextField fx:id="add_stock" layoutX="573.0" layoutY="92.0" prefHeight="30.0" prefWidth="160.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="573.0" AnchorPane.topAnchor="92.0" />
-                  <TextField fx:id="add_productName" layoutX="214.0" layoutY="27.0" prefHeight="30.0" prefWidth="160.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="214.0" AnchorPane.topAnchor="27.0" />
-                  <Label layoutX="110.0" layoutY="158.0" prefHeight="30.0" prefWidth="98.0" text="Nhãn hiệu">
+                  <TextField fx:id="add_stock" layoutX="548.0" layoutY="95.2" prefHeight="30.0" prefWidth="182.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="548.0" AnchorPane.topAnchor="95.0" />
+                  <TextField fx:id="add_productName" layoutX="190.0" layoutY="29.0" prefHeight="30.0" prefWidth="182.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="29.0" />
+                  <Label layoutX="85.0" layoutY="160.0" prefHeight="30.0" prefWidth="98.0" text="Supplier">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Button layoutX="478.0" layoutY="153.0" mnemonicParsing="false" onAction="#buttonCategory" prefHeight="40.0" prefWidth="130.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Loại sản phẩm" AnchorPane.bottomAnchor="153.6" AnchorPane.leftAnchor="634.4">
+                  <Button layoutX="610.0" layoutY="154.0" mnemonicParsing="false" onAction="#buttonCategory" prefHeight="40.0" prefWidth="130.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Loại sản phẩm" AnchorPane.bottomAnchor="152.39999999999998" AnchorPane.leftAnchor="610.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button layoutX="479.0" layoutY="153.0" mnemonicParsing="false" onAction="#buttonBrand" prefHeight="40.0" prefWidth="130.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Nhãn hàng" AnchorPane.bottomAnchor="153.39999999999998" AnchorPane.leftAnchor="479.0">
+                  <Button layoutX="454.0" layoutY="154.0" mnemonicParsing="false" onAction="#buttonBrand" prefHeight="40.0" prefWidth="130.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Nhãn hàng" AnchorPane.bottomAnchor="152.39999999999998" AnchorPane.leftAnchor="454.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
+                  <Label layoutX="85.0" layoutY="29.0" prefHeight="30.0" prefWidth="98.0" text="ProductName">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="459.0" layoutY="94.0" prefHeight="30.0" prefWidth="82.0" text="Quantity">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                </children>
                <styleClass>
                   <String fx:value="white-bg" />
@@ -277,114 +279,45 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="order" layoutX="210.0" layoutY="3.0" prefHeight="720.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="5.600000000000023" AnchorPane.leftAnchor="212.8" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
+      <AnchorPane layoutY="106.4" nodeOrientation="LEFT_TO_RIGHT" prefHeight="622.0" prefWidth="211.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="106.0">
          <children>
-            <AnchorPane layoutX="3.0" layoutY="1.0" prefHeight="717.0" prefWidth="659.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="454.0" AnchorPane.topAnchor="1.0">
-               <styleClass>
-                  <String fx:value="shadow" />
-                  <String fx:value="table-view" />
-               </styleClass>
-               <children>
-                  <ScrollPane fx:id="menu_scrollPane" layoutX="7.199999999999999" layoutY="7.199999999999999" prefHeight="705.0" prefWidth="653.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="5.0">
-                     <content>
-                        <GridPane fx:id="menu_gridPane" gridLinesVisible="true" prefHeight="692.0" prefWidth="846.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="636.0" prefHeight="718.0" prefWidth="443.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <TableView fx:id="card_display_table" layoutX="2.4" layoutY="1.4" prefHeight="378.0" prefWidth="448.0" AnchorPane.leftAnchor="2.4" AnchorPane.rightAnchor="4.800000000000011" AnchorPane.topAnchor="1.4">
-                    <columns>
-                      <TableColumn fx:id="showcard_order" prefWidth="211.2001953125" text="Tên sản phẩm" />
-                        <TableColumn fx:id="showcard_quantity" prefWidth="93.599853515625" text="Số lượng" />
-                        <TableColumn fx:id="showcard_price" prefWidth="176.0" text="Giá" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-                  <Button fx:id="cardpay_btn" layoutX="3.0" layoutY="551.9999999999999" mnemonicParsing="false" onAction="#updateCart" prefHeight="63.0" prefWidth="425.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Đặt hàng" AnchorPane.bottomAnchor="103.20000000000005">
-                     <font>
-                        <Font size="96.0" />
-                     </font></Button>
-                  <Button fx:id="card_remove" layoutX="4.0" layoutY="651.1999999999999" mnemonicParsing="false" prefHeight="40.0" prefWidth="174.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Xóa" AnchorPane.bottomAnchor="27.200000000000045" />
-                  <Button fx:id="inbienlai" layoutX="251.0" layoutY="651.1999999999999" mnemonicParsing="false" prefHeight="40.0" prefWidth="174.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="In biên lai" AnchorPane.bottomAnchor="27.200000000000045" />
-                  <Label layoutX="125.0" layoutY="448.0" prefHeight="26.0" prefWidth="82.0" text="Tổng tiền" AnchorPane.bottomAnchor="243.2">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="125.0" layoutY="405.0" prefHeight="26.0" prefWidth="82.0" text="Số lượng">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <CheckBox layoutX="14.0" layoutY="386.0" mnemonicParsing="false" onAction="#selectAllProducts" prefHeight="18.0" prefWidth="98.0" text="Chọn tất cả ">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </CheckBox>
-                  <Label fx:id="card_total" layoutX="215.0" layoutY="448.0" prefHeight="26.0" prefWidth="150.0" AnchorPane.bottomAnchor="244.0" AnchorPane.rightAnchor="77.80000000000001" />
-                  <Label fx:id="cart_quantity" layoutX="227.0" layoutY="406.0" prefHeight="26.0" prefWidth="150.0" />
-                  <Label layoutX="133.0" layoutY="491.0" prefHeight="27.0" prefWidth="66.0" text="Sale">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="sale_code" layoutX="207.0" layoutY="492.0" />
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutY="106.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="575.0" prefWidth="211.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="101.39999999999998">
-         <children>
-            <Button fx:id="logout" layoutX="-3.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="38.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Đăng xuất" AnchorPane.bottomAnchor="-2.1316282072803006E-14" />
-            <Button fx:id="homeButton" layoutX="4.8" layoutY="26.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Trang chủ" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="8.800000000000011">
+            <Button fx:id="logout" layoutX="-3.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="38.0" prefWidth="110.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Đăng xuất" AnchorPane.bottomAnchor="0.0" />
+            <Button fx:id="homeButton" layoutX="4.8" layoutY="33.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Trang chủ" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="8.800000000000011">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="manage" layoutX="6.4" layoutY="206.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Thêm sản phẩm" AnchorPane.leftAnchor="6.4" AnchorPane.rightAnchor="7.199999999999989">
+            <Button fx:id="manage" layoutX="4.0" layoutY="161.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Thêm sản phẩm" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="9.599999999999994">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="orderButton" layoutX="6.4" layoutY="84.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Gọi món" AnchorPane.leftAnchor="6.4" AnchorPane.rightAnchor="6.400000000000006">
+            <Button fx:id="staffbutton" layoutX="4.0" layoutY="99.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Nhân sự">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="staffbutton" layoutX="6.0" layoutY="144.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Nhân sự">
+            <Button layoutX="3.0" layoutY="289.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Lương" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="10.599999999999994">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="5.6" layoutY="334.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Lương" AnchorPane.leftAnchor="5.6" AnchorPane.rightAnchor="8.0">
+            <Button layoutX="5.0" layoutY="352.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Số bàn" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="8.599999999999994">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="7.2" layoutY="397.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Số bàn" AnchorPane.leftAnchor="7.2" AnchorPane.rightAnchor="6.400000000000006">
+            <Button layoutX="3.0" layoutY="413.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Giao hàng" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="10.599999999999994">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="5.6" layoutY="458.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Giao hàng" AnchorPane.leftAnchor="5.6" AnchorPane.rightAnchor="8.0">
+            <Button fx:id="newsbutton" layoutX="3.0" layoutY="477.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Tin tức" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="8.199999999999989">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="newsbutton" layoutX="5.8" layoutY="522.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Tin tức" AnchorPane.leftAnchor="5.8" AnchorPane.rightAnchor="5.400000000000006">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonbill" layoutX="6.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Xem đơn hàng">
+            <Button fx:id="buttonbill" layoutX="4.0" layoutY="224.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Xem đơn hàng">
                <font>
                   <Font size="18.0" />
                </font>
@@ -398,28 +331,32 @@
       </AnchorPane>
       <AnchorPane layoutY="-4.0" prefHeight="122.0" prefWidth="211.0" styleClass="header" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-4.0">
          <children>
-            <Label fx:id="username" layoutX="66.0" layoutY="55.0" prefHeight="30.0" prefWidth="138.0" text="ThuanNgauDev">
+            <Label fx:id="username" layoutX="14.0" layoutY="85.0" prefHeight="30.0" prefWidth="160.0" text="ThuanNgauDev">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="7.0" layoutY="55.0" prefHeight="30.0" prefWidth="59.0" text="Hello: ">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
+            <ImageView fitHeight="73.0" fitWidth="130.0" layoutX="8.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/z5736919437600_0a8e8e5622ed9ebf0d77222dd3069456.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="58.0" fitWidth="120.0" layoutX="80.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cusc.jpg" />
+               </image>
+            </ImageView>
          </children></AnchorPane>
       <AnchorPane fx:id="checkbill" layoutX="212.0" layoutY="-1.0" prefHeight="720.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="-1.0">
          <children>
-            <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="700.0" prefWidth="530.0" styleClass="table-view">
+            <AnchorPane layoutX="14.0" layoutY="15.2" prefHeight="698.0" prefWidth="582.0" styleClass="table-view" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="448.0" AnchorPane.topAnchor="15.0">
                <children>
-                  <Line endX="408.60003662109375" endY="-5.999992370605469" layoutX="116.0" layoutY="78.0" startX="-115.00001525878906" startY="-5.999992370605469" />
-                  <Label layoutX="32.0" layoutY="14.0" prefHeight="30.0" prefWidth="262.0" text="Đơn hàng">
+                  <Label layoutX="32.0" layoutY="14.0" prefHeight="30.0" prefWidth="262.0" text="Đơn hàng" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="284.9558593749998" AnchorPane.topAnchor="14.0">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="table_orders" layoutX="15.0" layoutY="79.0" prefHeight="606.0" prefWidth="500.0">
+                  <TableView fx:id="table_orders" layoutX="15.0" layoutY="79.0" prefHeight="606.0" prefWidth="556.0" styleClass="btn-button" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="12.955859374999818" AnchorPane.rightAnchor="10.755859374999773" AnchorPane.topAnchor="79.0">
                     <columns>
                       <TableColumn fx:id="bill_id" prefWidth="79.20002746582031" text="ID" />
                       <TableColumn fx:id="bill_total_price" prefWidth="136.79998779296875" text="Tổng tiền " />
@@ -432,30 +369,50 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="571.0" layoutY="14.0" prefHeight="700.0" prefWidth="530.0" styleClass="table-view" />
+            <AnchorPane layoutX="580.6999847412108" layoutY="16.0" prefHeight="698.0" prefWidth="429.0" styleClass="table-view" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="16.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="staff" layoutX="213.0" layoutY="-1.0" prefHeight="728.0" prefWidth="1116.0" visible="false">
+      <AnchorPane fx:id="staff" layoutX="212.0" layoutY="-1.0" prefHeight="726.0" prefWidth="1101.0" visible="false" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-1.0">
          <children>
-            <AnchorPane layoutX="-2.0" layoutY="-1.0" prefHeight="718.0" prefWidth="500.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.topAnchor="12.0">
+            <AnchorPane layoutX="443.2" layoutY="1.0" prefHeight="718.0" prefWidth="657.0" styleClass="table-view" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="443.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="1.0">
                <children>
-                  <AnchorPane layoutY="-9.6" prefHeight="728.0" prefWidth="498.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="-10.0">
-                     <children>
-                        <Label layoutX="183.0" layoutY="44.0" prefHeight="40.0" prefWidth="110.0" stylesheets="@../resource/Admin.css" text="Nhân sự">
-                           <font>
-                              <Font size="26.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="phone" layoutX="98.0" layoutY="336.0" prefHeight="40.0" prefWidth="280.0" promptText="Số điên thoại" stylesheets="@../resource/Admin.css" />
-                        <TextField fx:id="cccd" layoutX="98.0" layoutY="180.0" prefHeight="40.0" prefWidth="280.0" promptText="Căn cước công dân" stylesheets="@../resource/Admin.css" />
-                        <DatePicker fx:id="birthdays" layoutX="98.0" layoutY="258.0" prefHeight="40.0" prefWidth="280.0" promptText="Ngày tháng năm sinh" stylesheets="@../resource/Admin.css" />
-                        <TextField fx:id="fullname" layoutX="98.0" layoutY="105.0" prefHeight="40.0" prefWidth="280.0" promptText="Ho và tên" stylesheets="@../resource/Admin.css" />
-                        <PasswordField fx:id="password" layoutX="98.0" layoutY="486.0" prefHeight="40.0" prefWidth="280.0" promptText="mật khẩu" stylesheets="@../resource/Admin.css" />
-                        <Button layoutX="99.0" layoutY="635.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="280.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Thêm nhân viên" />
-                        <TextField fx:id="email" layoutX="98.0" layoutY="410.0" prefHeight="40.0" prefWidth="280.0" promptText="Email" stylesheets="@../resource/Admin.css" />
-                        <ComboBox fx:id="role" layoutX="98.0" layoutY="559.0" prefHeight="40.0" prefWidth="280.0" />
-                     </children>
-                  </AnchorPane>
+                  <Label layoutX="14.0" layoutY="21.0" prefHeight="46.0" prefWidth="181.0" text="Đơn hàng">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="table_orders1" layoutX="7.0" layoutY="79.0" prefHeight="637.0" prefWidth="644.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="3.9999999999998863" AnchorPane.leftAnchor="4.7999999999999545" AnchorPane.rightAnchor="7.399999999999977" AnchorPane.topAnchor="79.0">
+                     <columns>
+                        <TableColumn fx:id="bill_id1" prefWidth="79.20002746582031" text="ID" />
+                        <TableColumn fx:id="bill_total_price1" prefWidth="136.79998779296875" text="Tổng tiền " />
+                        <TableColumn fx:id="bill_customers1" prefWidth="96.0" text="ID quản lí" />
+                        <TableColumn fx:id="bill_date1" prefWidth="179.20001220703125" text="Ngày giờ" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <styleClass>
+                        <String fx:value="header" />
+                        <String fx:value="btn-button" />
+                     </styleClass>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="1.0" prefHeight="726.0" prefWidth="443.0" AnchorPane.bottomAnchor="1.3999999999999773" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
+               <children>
+                  <Label layoutX="98.0" layoutY="35.0" prefHeight="50.0" prefWidth="280.0" stylesheets="@../resource/Admin.css" text="Staff management">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fullname" layoutX="98.0" layoutY="105.0" prefHeight="40.0" prefWidth="280.0" promptText="Ho và tên" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="64.79999999999995" />
+                  <TextField fx:id="cccd" layoutX="98.0" layoutY="180.0" prefHeight="40.0" prefWidth="280.0" promptText="Căn cước công dân" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.4" AnchorPane.rightAnchor="64.80000000000001" />
+                  <DatePicker fx:id="birthdays" layoutX="98.0" layoutY="258.0" prefHeight="40.0" prefWidth="280.0" promptText="Ngày tháng năm sinh" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="64.79999999999995" />
+                  <TextField fx:id="phone" layoutX="98.0" layoutY="336.0" prefHeight="40.0" prefWidth="280.0" promptText="Số điên thoại" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="64.79999999999995" />
+                  <TextField fx:id="email" layoutX="98.0" layoutY="410.0" prefHeight="40.0" prefWidth="280.0" promptText="Email" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.4" AnchorPane.rightAnchor="64.80000000000001" />
+                  <PasswordField fx:id="password" layoutX="98.0" layoutY="486.0" prefHeight="40.0" prefWidth="280.0" promptText="mật khẩu" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="64.79999999999995" />
+                  <ComboBox fx:id="role" layoutX="98.0" layoutY="559.0" prefHeight="40.0" prefWidth="280.0" AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="64.79999999999995" />
+                  <Button layoutX="98.4" layoutY="641.0" mnemonicParsing="false" onAction="#signUpAction" prefHeight="40.0" prefWidth="280.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Add employee" AnchorPane.leftAnchor="98.4" AnchorPane.rightAnchor="64.80000000000001" />
                </children>
             </AnchorPane>
          </children>

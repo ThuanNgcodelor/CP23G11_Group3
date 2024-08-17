@@ -83,21 +83,31 @@ public class CartController implements Initializable {
             return;
         }
 
-        Order order = new Order(customerID, product.getProductName(), price, quantity, (int) total, currentDate);
         OrderDAO orderDAO = new OrderImplements();
-        boolean addOrder = orderDAO.addOrder(order);
+        Order existingOrder = orderDAO.getOrder(customerID, product.getProductID());
 
-        if (addOrder) {
-            productDAO.updateProductStock(product.getProductID(), currentStock - quantity);
-            showAlert(Alert.AlertType.INFORMATION, "Thêm sản phẩm thành công!");
-
-            UserController userController = AppService.getInstance().userController;
-            userController.showDisplayCard();
-
+        if (existingOrder != null) {
+            int newQuantity = existingOrder.getQuantity()+quantity;
+            double newPrice = newQuantity * price;
+            orderDAO.update(product.getProductID(),newQuantity,(int)newPrice);
         } else {
-            showAlert(Alert.AlertType.ERROR, "Thêm sản phẩm thất bại");
+            Order newOrder = new Order(customerID, product.getProductName(), price, quantity, (int) total, currentDate, product.getProductID());
+            boolean addOrder = orderDAO.addOrder(newOrder);
+
+            if (addOrder) {
+                showAlert(Alert.AlertType.INFORMATION, "Thêm sản phẩm thành công!");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Thêm sản phẩm thất bại");
+                return;
+            }
         }
+        productDAO.updateProductStock(product.getProductID(), currentStock - quantity);
+
+        UserController userController = AppService.getInstance().userController;
+        userController.showDisplayCard();
     }
+
+
 
     public void setQuantity() {
         spin = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
