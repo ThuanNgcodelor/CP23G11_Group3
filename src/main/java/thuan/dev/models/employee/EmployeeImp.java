@@ -7,10 +7,54 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class EmployeeImp implements EmployeeDAO {
+    @Override
+    public void updateCustomer(Employees emp) {
+        try {
+            PreparedStatement statement = conn.prepareStatement(
+                    "UPDATE customers SET phone = ?, birth = ?, cccd = ?, email = ?, password = ?, fullname = ?, role = ? WHERE customerID = ?"
+            );
+            statement.setString(1, emp.getPhone());
+            statement.setDate(2, new java.sql.Date(emp.getBirth().getTime()));
+            statement.setString(3, emp.getCccd());
+            statement.setString(4, emp.getEmail());
+            statement.setString(5, emp.getPassword());
+            statement.setString(6, emp.getFullname());
+            statement.setInt(7, emp.getRole());
+            statement.setInt(8, emp.getEmployeeID());
+            statement.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Override
+    public boolean updatePassword(String email, String oldPassword, String newPassword) {
+        try{
+            PreparedStatement statement = conn.prepareStatement("SELECT * from customers WHERE email = ? AND password = ?");
+            statement.setString(1,email);
+            statement.setString(2,oldPassword);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()){
+                PreparedStatement updateStatement = conn.prepareStatement("UPDATE customers set password = ? where email = ?");
+                updateStatement.setString(1,newPassword);
+                updateStatement.setString(2,email);
+                int check = updateStatement.executeUpdate();
+                return check > 0;
+            }else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     Date date;
 
@@ -18,8 +62,29 @@ public class EmployeeImp implements EmployeeDAO {
 
     @Override
     public List<Employees> show() {
-        return List.of();
+        List<Employees> employees = new ArrayList<>();
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Employees emp = new Employees();
+                emp.setEmployeeID(rs.getInt("customerID"));
+                emp.setPhone(rs.getString("phone"));
+                emp.setBirth(rs.getDate("birth"));
+                emp.setCccd(rs.getString("cccd"));
+                emp.setEmail(rs.getString("email"));
+                emp.setPassword(rs.getString("password"));
+                emp.setFullname(rs.getString("fullname"));
+                emp.setRole(rs.getInt("role"));
+                employees.add(emp);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employees;
     }
+
 
     @Override
     public boolean addEmployee(Employees emp) {
@@ -37,11 +102,6 @@ public class EmployeeImp implements EmployeeDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void update(Employees emp) {
-
     }
 
     @Override
@@ -66,8 +126,33 @@ public class EmployeeImp implements EmployeeDAO {
 
     @Override
     public List<Employees> search(String keyword) {
-        return List.of();
+        List<Employees> employees = new ArrayList<>();
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE fullname LIKE ? OR phone LIKE ? OR email LIKE ? ");
+            String searchKeyword = "%" + keyword + "%";
+            stmt.setString(1, searchKeyword);
+            stmt.setString(2, searchKeyword);
+            stmt.setString(3, searchKeyword);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Employees emp = new Employees();
+                emp.setPhone(rs.getString("phone"));
+                emp.setBirth(new Date(rs.getDate("birth").getTime()));
+                emp.setCccd(rs.getString("cccd"));
+                emp.setEmail(rs.getString("email"));
+                emp.setPassword(rs.getString("password"));
+                emp.setFullname(rs.getString("fullname"));
+                emp.setRole(rs.getInt("role"));
+                employees.add(emp);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employees;
     }
+
 
     @Override
     public void delete(Employees emp) {

@@ -2,6 +2,7 @@ package thuan.dev.controller;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -249,6 +250,7 @@ public class UserController extends AdminController{
     }
     //Button Đặt hàng tại đây
 
+
     @FXML
     private void increase(ActionEvent event) {
         OrderDAO orderDAO = new OrderImplements();
@@ -328,43 +330,12 @@ public class UserController extends AdminController{
     }
     //Giảm so lượng
 
-    public void menuDisplayCard() {
-        ProductDAO productDAO = new ProductImple();
+    @FXML
+    private TextField table_search_product;
+    private FilteredList<Product> filteredList;
 
-        if (productList == null) {
-            productList = FXCollections.observableArrayList();
-        }
 
-        productList.clear();
-        List<Product> products = productDAO.show();
 
-        if (products != null && !products.isEmpty()) {
-            productList.addAll(products);
-            int row = 0;
-            int column = 0;
-            menu_gridPane.getChildren().clear();
-
-            for (Product product : productList) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("/thuan/dev/controller/cardProduct.fxml"));
-                    AnchorPane pane = fxmlLoader.load();
-
-                    CartController controller = fxmlLoader.getController();
-                    controller.setData(product);
-                    if (column == 3) {
-                        column = 0;
-                        row++;
-                    }
-                    GridPane.setMargin(pane, new Insets(15));
-                    menu_gridPane.add(pane, column++, row);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
 
     //Show sản phẩm ra menu
 
@@ -406,9 +377,67 @@ public class UserController extends AdminController{
     //Tính toán số tiền và hiển thị quantity
 
     @FXML
-    private void initialize(){
+    private void initialize() {
+        menuDisplayCard();
+
+        table_search_product.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(product -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return product.getProductName().toLowerCase().contains(lowerCaseFilter) ||
+                        product.getCategoryName().toLowerCase().contains(lowerCaseFilter) ||
+                        product.getBrandName().toLowerCase().contains(lowerCaseFilter);
+            });
+            displayFilteredProducts();
+        });
+
         AppService.getInstance().setAdminController(this);
     }
+
+    public void menuDisplayCard() {
+        ProductDAO productDAO = new ProductImple();
+        List<Product> products = productDAO.show();
+
+        if (products != null && !products.isEmpty()) {
+            productList = FXCollections.observableArrayList(products);
+            filteredList = new FilteredList<>(productList, p -> true);
+            displayFilteredProducts();
+        }
+
+    }
+
+    private void displayFilteredProducts() {
+        int row = 0;
+        int column = 0;
+        menu_gridPane.getChildren().clear();
+
+        for (Product product : filteredList) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/cardProduct.fxml"));
+                AnchorPane pane = fxmlLoader.load();
+
+                CartController controller = fxmlLoader.getController();
+                controller.setData(product);
+
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+
+                GridPane.setMargin(pane, new Insets(15));
+                menu_gridPane.add(pane, column++, row);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+
 
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------

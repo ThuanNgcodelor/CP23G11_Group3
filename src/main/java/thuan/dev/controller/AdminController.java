@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -111,6 +112,10 @@ public class AdminController {
 
     private ObservableList<Product> productList;
 
+    private FilteredList<Employees> employeesFilteredList;
+
+    private ObservableList<Employees> employeesList;
+
     @FXML
     private AnchorPane add;
 
@@ -160,6 +165,33 @@ public class AdminController {
     private TableColumn<Bills, BigDecimal> bill_total_price;
 
     @FXML
+    private TableColumn<Employees, String> table_cccd;
+
+    @FXML
+    private TableColumn<Employees, Date> table_date;
+
+    @FXML
+    private TableColumn<Employees, String> table_email;
+
+    @FXML
+    private TableColumn<Employees, String> table_name;
+
+    @FXML
+    private TableColumn<Employees, String> table_phone;
+
+    @FXML
+    private TableColumn<Employees, Integer> table_role;
+
+    @FXML
+    private TableColumn<Employees, Integer> table_id;
+
+    @FXML
+    private TextField table_search;
+
+    @FXML
+    private TableView<Employees> table_staff;
+
+    @FXML
     private Label username;
 
     private ObservableList<Bills> billsList;
@@ -178,6 +210,10 @@ public class AdminController {
         showListBill();
         BrandComboBox();
         RoleComBoBox();
+        showStaff();
+
+        table_search.textProperty().addListener((observable, oldValue, newValue)->searchStaff());
+
     }
 
     public void showListBill() {
@@ -199,7 +235,6 @@ public class AdminController {
         AppService.getInstance().setAdminController(this);
     }
     //gọi lai biến AppServiive để có thể nhân
-
 
 
     public void displayUsername() {
@@ -228,6 +263,7 @@ public class AdminController {
     //Tính toán quantity customers
 
 //-----------------------------------------STAFF,Customer-----------------------------------------------------------------------------------------------------------------------------------------------
+
 
     private void RoleComBoBox() {
         role.getItems().addAll(0, 1);
@@ -313,25 +349,80 @@ public class AdminController {
         role.getSelectionModel().clearSelection();
     }
 
+    private void showStaff() {
+        EmployeeDAO employeeDAO = new EmployeeImp();
+        List<Employees> customer = employeeDAO.show();
+        employeesList = FXCollections.observableList(customer);
+        employeesFilteredList = new FilteredList<>(employeesList, e -> true);
+
+        table_id.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
+        table_name.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        table_cccd.setCellValueFactory(new PropertyValueFactory<>("cccd"));
+        table_date.setCellValueFactory(new PropertyValueFactory<>("birth"));
+        table_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        table_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        table_role.setCellValueFactory(new PropertyValueFactory<>("role"));
+
+        table_staff.setItems(employeesFilteredList);
+    }
+
+    @FXML
+    private void searchStaff() {
+        table_search.setOnKeyReleased(e -> {
+            String keyword = table_search.getText().toLowerCase();
+
+            employeesFilteredList.setPredicate(employee -> {
+                if (keyword.isEmpty()) {
+                    return true;
+                }
+                String fullname = employee.getFullname() != null ? employee.getFullname().toLowerCase() : "";
+                String email = employee.getEmail() != null ? employee.getEmail().toLowerCase() : "";
+                String phone = employee.getPhone() != null ? employee.getPhone().toLowerCase() : "";
+
+                return fullname.contains(keyword) || email.contains(keyword) || phone.contains(keyword);
+            });
+        });
+    }
+
+
 //-----------------------------------------STAFF,Customer-----------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
-//-----------------------------------------ORDERS-----------------------------------------------------------------------------------------------------------------------------------------------
-
+//-----------------------------------------PRODUCTS--------------------------------------------------------------------------------------------------------------------------------------------------
 
     @FXML
-    private void selectAllProducts(ActionEvent event) {
-        table.getSelectionModel().selectAll();
+    private void search() {
+        search_products.setOnKeyReleased(e -> {
+            String keyword = search_products.getText().toLowerCase();
+            filteredList.setPredicate(product -> {
+                if (keyword.isEmpty()) {
+                    return true;
+                }
+                return product.getProductName().toLowerCase().contains(keyword)
+                        || product.getCategoryName().toLowerCase().contains(keyword)
+                        || product.getBrandName().toLowerCase().contains(keyword);
+            });
+        });
     }
-    //Chọn tất cả sản phẩm để đặt hàng
+    //search products
 
-    //-----------------------------------------ORDERS-------------------------------------------------------
+    public void showProduct() {
+        ProductDAO productDAO = new ProductImple();
+        List<Product> products = productDAO.show();
+        productList = FXCollections.observableArrayList(products);
+        filteredList = new FilteredList<>(productList, e -> true);
 
+        productID.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        categoryName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
+        price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        images.setCellValueFactory(new PropertyValueFactory<>("images"));
+        stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        brandName.setCellValueFactory(new PropertyValueFactory<>("brandName"));
 
-
-
-//-----------------------------------------PRODUCTS--------------------------------------------------------------------------------------------------------------------------------------------------
+        table.setItems(filteredList);
+    }
 
     private void displayProductDetails(Product product) {
         add_productName.setText(product.getProductName());
@@ -352,22 +443,6 @@ public class AdminController {
     }
     //Khi touch vào product sẽ hiện lại input ở để chỉnh sửa
 
-    @FXML
-    private void search() {
-        search_products.setOnKeyReleased(e -> {
-            String keyword = search_products.getText().toLowerCase();
-            filteredList.setPredicate(product -> {
-                if (keyword.isEmpty()) {
-                    return true;
-                }
-                return product.getProductName().toLowerCase().contains(keyword)
-                        || product.getCategoryName().toLowerCase().contains(keyword)
-                        || product.getBrandName().toLowerCase().contains(keyword);
-            });
-        });
-    }
-    //search products
-
     private void CategoryComboBox() {
         if (add_categoryID != null) {
             CategoryDAO categoryDAO = new CategoryImple();
@@ -384,23 +459,6 @@ public class AdminController {
             ObservableList<Brands> brandsObservableList = FXCollections.observableArrayList(brands);
             add_brandID.setItems(brandsObservableList);
         }
-    }
-
-    public void showProduct() {
-        ProductDAO productDAO = new ProductImple();
-        List<Product> products = productDAO.show();
-        productList = FXCollections.observableArrayList(products);
-        filteredList = new FilteredList<>(productList, e -> true);
-
-        productID.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        categoryName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
-        price.setCellValueFactory(new PropertyValueFactory<>("price"));
-        images.setCellValueFactory(new PropertyValueFactory<>("images"));
-        stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        brandName.setCellValueFactory(new PropertyValueFactory<>("brandName"));
-
-        table.setItems(filteredList);
     }
 
     public void addProducts() {
