@@ -164,6 +164,7 @@ public class UserController extends AdminController{
     @FXML
     void search(KeyEvent event) {
 
+
     }
 
     @FXML
@@ -173,7 +174,7 @@ public class UserController extends AdminController{
 
     public void showListBill() {
         BillDAO billDAO = new BillImple();
-        List<Bills> bills = billDAO.getAllBills();
+        List<Bills> bills = billDAO.getAllBillDateNow();
         billsList = FXCollections.observableArrayList(bills);
 
         bill_id.setCellValueFactory(new PropertyValueFactory<>("billID"));
@@ -187,8 +188,7 @@ public class UserController extends AdminController{
 //--------------------------------------------BILLS--------------------------------------------------------------------------------------------
 
 
-
-
+//--------------------------------------------ORDER--------------------------------------------------------------------------------------------
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------
     public void menuRestart() {
         card_display_table.getSelectionModel().getSelectedItem();
@@ -247,6 +247,86 @@ public class UserController extends AdminController{
             }
         }
     }
+    //Button Đặt hàng tại đây
+
+    @FXML
+    private void increase(ActionEvent event) {
+        OrderDAO orderDAO = new OrderImplements();
+        Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
+        ProductDAO productDAO = new ProductImple();
+
+        if (selectedOrder == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select an order to update!");
+            return;
+        }
+
+        int selectedIndex = card_display_table.getSelectionModel().getSelectedIndex();
+
+        int quantity = selectedOrder.getQuantity();
+        int productID = selectedOrder.getProductID();
+        double pricePerUnit = selectedOrder.getPrice();
+
+
+        int stock = productDAO.getProductStock(productID);
+        if (stock <= 0) {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Not enough stock to increase quantity!");
+            return;
+        }
+
+        int newQuantity = quantity + 1;
+        double newPrice = pricePerUnit * newQuantity;
+
+        // update quantity đơn hàng và giá mới
+        orderDAO.update(productID, newQuantity, (int) newPrice);
+
+        // update stock
+        int newStock = stock - 1;
+        productDAO.updateProductStock(productID, newStock);
+
+        selectedOrder.setQuantity(newQuantity);
+        selectedOrder.setPrice(newPrice);
+        card_display_table.refresh();
+        showDisplayCard();
+        totalPrice();
+        card_display_table.getSelectionModel().select(selectedIndex);
+    }
+    //Tăng số lượng
+
+    @FXML
+    private void reduce(ActionEvent event) {
+        OrderDAO orderDAO = new OrderImplements();
+        Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
+        ProductDAO productDAO = new ProductImple();
+
+        if (selectedOrder == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select an order to update!");
+            return;
+        }
+        int selectedIndex = card_display_table.getSelectionModel().getSelectedIndex();
+
+        int quantity = selectedOrder.getQuantity();
+        int productID = selectedOrder.getProductID();
+        double pricePerUnit = selectedOrder.getPrice();
+
+        if (quantity > 1) {
+            int newQuantity = quantity - 1;
+            double newPrice = pricePerUnit * newQuantity;
+            orderDAO.update(productID, newQuantity, (int) newPrice);
+
+            int stock = productDAO.getProductStock(productID);
+            int newStock = stock + 1;
+
+            productDAO.updateProductStock(productID, newStock);
+
+            selectedOrder.setQuantity(newQuantity);
+            selectedOrder.setPrice(newPrice);
+            card_display_table.refresh();
+            showDisplayCard();
+            totalPrice();
+            card_display_table.getSelectionModel().select(selectedIndex);
+        }
+    }
+    //Giảm so lượng
 
     public void menuDisplayCard() {
         ProductDAO productDAO = new ProductImple();
@@ -286,6 +366,8 @@ public class UserController extends AdminController{
         }
     }
 
+    //Show sản phẩm ra menu
+
     public void showDisplayCard() {
         OrderDAO orderDAO = new OrderImplements();
         List<Order> orders = orderDAO.showDisplayCard();
@@ -298,6 +380,7 @@ public class UserController extends AdminController{
         card_display_table.setItems(ordersList);
         totalPrice();
     }
+    //Show ra giỏ hàng
 
     public void totalPrice() {
         double total = 0;
@@ -322,6 +405,21 @@ public class UserController extends AdminController{
     }
     //Tính toán số tiền và hiển thị quantity
 
+    @FXML
+    private void initialize(){
+        AppService.getInstance().setAdminController(this);
+    }
+
+//--------------------------------------------ORDER--------------------------------------------------------------------------------------------
+//--------------------------------------------ORDER--------------------------------------------------------------------------------------------
+
+
+
+    public void displayUsername() {
+        username.setText(String.valueOf(Data.fullname));
+    }
+
+
     public void totalCustomers() {
         BillDAO billDAO = new BillImple();
         List<Bills> selectedBills = billDAO.getAllBills();
@@ -340,19 +438,6 @@ public class UserController extends AdminController{
         Platform.runLater(() -> total_price.setText(String.format("$%.2f", finalTotal)));
         total_bill.setText(String.valueOf(customerID));
     }
-
-
-    @FXML
-    private void initialize(){
-        AppService.getInstance().setAdminController(this);
-    }
-
-//--------------------------------------------ORDER--------------------------------------------------------------------------------------------
-
-    public void displayUsername() {
-        username.setText(String.valueOf(Data.fullname));
-    }
-
 
     @FXML
     private void switchForm(ActionEvent event) {

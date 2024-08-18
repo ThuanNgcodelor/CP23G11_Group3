@@ -19,4 +19,5 @@ public interface OrderDAO {
     public Order getOrder(int customerID,int productID);
 
     public void update(int productID, int quantity, int total);
+
 }

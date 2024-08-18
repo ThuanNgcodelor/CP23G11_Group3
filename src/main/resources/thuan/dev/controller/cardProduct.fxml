@@ -50,7 +50,11 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Spinner>
-            <Button fx:id="cart_add" mnemonicParsing="false" onAction="#addBtn" prefHeight="30.0" prefWidth="92.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Add" />
+            <Button fx:id="cart_add" mnemonicParsing="false" onAction="#addBtn" prefHeight="30.0" prefWidth="92.0" styleClass="btn" text="Add">
+               <stylesheets>
+                  <URL value="@../resource/cardDesign.css" />
+                  <URL value="@../resource/Admin.css" />
+               </stylesheets></Button>
          </children>
       </HBox>
    </children>

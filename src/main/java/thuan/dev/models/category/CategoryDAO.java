@@ -7,4 +7,5 @@ public interface CategoryDAO{
     public void updateCategory(Category cate);
     public boolean deleteCategory(Category cate);
     public List<Category> getAllCategory();
+    public List<Category> searchCategory(String keyword);
 }

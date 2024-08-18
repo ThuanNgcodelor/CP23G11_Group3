@@ -7,4 +7,5 @@ public interface BrandDAO {
     public void updateBrand(Brands brands);
     public boolean deleteBrand(Brands brands);
     public List<Brands> getAllBrand();
+    public List<Brands> searchBrand(String keyword);
 }

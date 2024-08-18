@@ -6,16 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -31,9 +26,6 @@ import thuan.dev.models.category.CategoryImple;
 import thuan.dev.models.employee.EmployeeDAO;
 import thuan.dev.models.employee.EmployeeImp;
 import thuan.dev.models.employee.Employees;
-import thuan.dev.models.orders.Order;
-import thuan.dev.models.orders.OrderDAO;
-import thuan.dev.models.orders.OrderImplements;
 import thuan.dev.models.products.Product;
 import thuan.dev.models.products.ProductDAO;
 import thuan.dev.models.products.ProductImple;
@@ -43,7 +35,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -79,33 +70,6 @@ public class AdminController {
 
     @FXML
     private ComboBox<Integer> role;
-
-    @FXML
-    private Button card_remove;
-
-
-    @FXML
-    private Label card_total;
-
-    @FXML
-    private Label cart_quantity;
-
-    @FXML
-    private TableColumn<Product, String> showcard_order;
-
-    @FXML
-    private TableColumn<Product, Double> showcard_price;
-
-    @FXML
-    private TableColumn<Product, Integer> showcard_quantity;
-
-    private ObservableList<Order> ordersList;
-
-    @FXML
-    private TableView<Order> card_display_table;
-
-    @FXML
-    private GridPane menu_gridPane;
 
     @FXML
     private ComboBox<Category> add_categoryID;
@@ -166,12 +130,6 @@ public class AdminController {
     private Button manage;
 
     @FXML
-    private AnchorPane order;
-
-    @FXML
-    private Button orderButton;
-
-    @FXML
     private TableView<Bills> table_orders;
 
     @FXML
@@ -216,7 +174,6 @@ public class AdminController {
                 displayProductDetails(newValue);
             }
         });
-//        totalPrice();
         totalCustomers();
         showListBill();
         BrandComboBox();

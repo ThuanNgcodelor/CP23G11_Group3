@@ -14,20 +14,20 @@
       <AnchorPane layoutY="-2.0" prefHeight="500.0" prefWidth="640.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
          <children>
             <TextField fx:id="categoryName" layoutX="40.0" layoutY="123.0" prefHeight="40.0" prefWidth="230.0" promptText="Nhập loại sản phẩm" stylesheets="@../resource/Admin.css" />
-            <Button layoutX="64.0" layoutY="371.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Xóa">
+            <Button layoutX="64.0" layoutY="371.0" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Xóa">
                <styleClass>
                   <String fx:value="table-view" />
                   <String fx:value="nav-btn1" />
                </styleClass>
             </Button>
-            <Label layoutX="40.0" layoutY="22.0" prefHeight="46.0" prefWidth="192.0" stylesheets="@../resource/Admin.css" text="Loại sản phẩm">
+            <Label layoutX="40.0" layoutY="14.0" prefHeight="46.0" prefWidth="139.0" stylesheets="@../resource/Admin.css" text="Category">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="305.0" layoutY="3.2" prefHeight="493.0" prefWidth="326.0" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="3.0">
+            <AnchorPane layoutX="305.0" layoutY="3.2" prefHeight="493.0" prefWidth="343.0" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="3.0">
                <children>
-                  <TableView fx:id="table_category" layoutY="50.0" prefHeight="442.0" prefWidth="326.0" styleClass="nav-btn1" stylesheets="@../resource/Admin.css">
+                  <TableView fx:id="table_category" layoutY="51.0" prefHeight="441.0" prefWidth="348.0" stylesheets="@../resource/Admin.css">
                      <columns>
                         <TableColumn fx:id="table_categoryID" prefWidth="120.79999089241028" text="ID loại sản phẩm" />
                         <TableColumn fx:id="table_categoryName" prefWidth="199.9999237060547" text="Loại sản phẩm" />
@@ -36,16 +36,17 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <TextField layoutX="6.0" layoutY="8.0" prefHeight="35.0" prefWidth="280.0" promptText="Tìm kiếm" stylesheets="@../resource/Admin.css" />
+                  <TextField fx:id="searchField" layoutX="11.0" layoutY="7.0" prefHeight="35.0" prefWidth="280.0" promptText="Tìm kiếm" stylesheets="@../resource/Admin.css" />
+                  <Button fx:id="close" layoutX="314.0" layoutY="-2.0" mnemonicParsing="false" onAction="#closeCategory" prefHeight="26.0" prefWidth="33.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="X" />
                </children>
             </AnchorPane>
-            <Button layoutX="62.0" layoutY="310.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Chỉnh sửa">
+            <Button layoutX="62.0" layoutY="310.0" mnemonicParsing="false" onAction="#updateCategory" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Chỉnh sửa">
                <styleClass>
                   <String fx:value="table-view" />
                   <String fx:value="nav-btn1" />
                </styleClass>
             </Button>
-            <Button layoutX="62.0" layoutY="250.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Thêm loại sản phẩm">
+            <Button layoutX="62.0" layoutY="250.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Thêm loại sản phẩm">
                <styleClass>
                   <String fx:value="table-view" />
                   <String fx:value="nav-btn1" />
