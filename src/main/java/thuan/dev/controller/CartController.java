@@ -44,6 +44,9 @@ public class CartController implements Initializable {
     @FXML
     private Spinner<Integer> cart_spinner;
 
+    @FXML
+    private Label cart_quantity;
+
     private Product product;
 
     @FXML
@@ -105,6 +108,7 @@ public class CartController implements Initializable {
 
         UserController userController = AppService.getInstance().userController;
         userController.showDisplayCard();
+        userController.menuDisplayCard();
     }
 
 
@@ -119,6 +123,7 @@ public class CartController implements Initializable {
         this.prodID = pro.getProductID();
 
         cart_name.setText(product.getProductName());
+        cart_quantity.setText(String.valueOf(product.getStock()));
         cart_price.setText(String.valueOf(product.getPrice()));
         String path = "file:" + product.getImages();
         Image image = new Image(path, 190, 94, false, true);

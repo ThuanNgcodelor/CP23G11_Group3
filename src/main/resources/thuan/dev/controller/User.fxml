@@ -131,7 +131,7 @@
                </children>
             </AnchorPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="order" layoutX="210.0" layoutY="3.0" prefHeight="720.0" prefWidth="1118.0" AnchorPane.bottomAnchor="5.600000000000023" AnchorPane.leftAnchor="212.8" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
+      <AnchorPane fx:id="order" layoutX="210.0" layoutY="3.0" prefHeight="720.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="5.600000000000023" AnchorPane.leftAnchor="212.8" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
          <children>
             <AnchorPane layoutX="3.0" layoutY="39.2" prefHeight="679.0" prefWidth="659.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="454.0" AnchorPane.topAnchor="39.0">
                <styleClass>

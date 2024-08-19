@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -211,8 +210,14 @@ public class AdminController {
         BrandComboBox();
         RoleComBoBox();
         showStaff();
+        searchStaff();
+        table_staff.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null){
+                displayCustomerDetails(newValue);
+            }
+        });
 
-        table_search.textProperty().addListener((observable, oldValue, newValue)->searchStaff());
+
 
     }
 
@@ -337,6 +342,7 @@ public class AdminController {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to add employee");
             }
         }
+        showStaff();
     }
 
     private void clearFormStaff(){
@@ -365,6 +371,7 @@ public class AdminController {
 
         table_staff.setItems(employeesFilteredList);
     }
+
 
     @FXML
     private void searchStaff() {
@@ -442,6 +449,18 @@ public class AdminController {
         }
     }
     //Khi touch vào product sẽ hiện lại input ở để chỉnh sửa
+
+    private void displayCustomerDetails(Employees emp){
+
+        fullname.setText(emp.getFullname());
+        email.setText(emp.getEmail());
+        phone.setText(emp.getPhone());
+        birthdays.setPromptText(emp.getBirth().toString());
+        cccd.setText(emp.getCccd());
+        password.setText(emp.getPassword());
+        role.getSelectionModel().getSelectedItem();
+
+    }
 
     private void CategoryComboBox() {
         if (add_categoryID != null) {

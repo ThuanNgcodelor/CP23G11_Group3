@@ -160,17 +160,10 @@ public class UserController extends AdminController{
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete the order!");
             }
         }
+        menuDisplayCard();
     }
 
-    @FXML
-    void search(KeyEvent event) {
 
-
-    }
-
-    @FXML
-    void selectAllProducts(ActionEvent event) {
-    }
 //--------------------------------------------BILLS--------------------------------------------------------------------------------------------
 
     public void showListBill() {
@@ -253,9 +246,18 @@ public class UserController extends AdminController{
 
     @FXML
     private void increase(ActionEvent event) {
+        updateQuantity(1);
+    }
+
+    @FXML
+    private void reduce(ActionEvent event) {
+        updateQuantity(-1);
+    }
+
+    private void updateQuantity(int ktr) {
         OrderDAO orderDAO = new OrderImplements();
-        Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
         ProductDAO productDAO = new ProductImple();
+        Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
 
         if (selectedOrder == null) {
             showAlert(Alert.AlertType.ERROR, "Error", "Please select an order to update!");
@@ -263,26 +265,29 @@ public class UserController extends AdminController{
         }
 
         int selectedIndex = card_display_table.getSelectionModel().getSelectedIndex();
-
         int quantity = selectedOrder.getQuantity();
         int productID = selectedOrder.getProductID();
         double pricePerUnit = selectedOrder.getPrice();
-
-
         int stock = productDAO.getProductStock(productID);
-        if (stock <= 0) {
+
+        int newQuantity = quantity + ktr;
+        if (newQuantity < 1) {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Quantity cannot be less than 1!");
+            return;
+        }
+
+        if (ktr > 0 && stock <= 0) {
             showAlert(Alert.AlertType.WARNING, "Warning", "Not enough stock to increase quantity!");
             return;
         }
 
-        int newQuantity = quantity + 1;
         double newPrice = pricePerUnit * newQuantity;
 
-        // update quantity đơn hàng và giá mới
+        // Update order quantity and price
         orderDAO.update(productID, newQuantity, (int) newPrice);
 
-        // update stock
-        int newStock = stock - 1;
+        // Update stock
+        int newStock = stock - ktr;
         productDAO.updateProductStock(productID, newStock);
 
         selectedOrder.setQuantity(newQuantity);
@@ -291,49 +296,13 @@ public class UserController extends AdminController{
         showDisplayCard();
         totalPrice();
         card_display_table.getSelectionModel().select(selectedIndex);
-    }
-    //Tăng số lượng
-
-    @FXML
-    private void reduce(ActionEvent event) {
-        OrderDAO orderDAO = new OrderImplements();
-        Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
-        ProductDAO productDAO = new ProductImple();
-
-        if (selectedOrder == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Please select an order to update!");
-            return;
-        }
-        int selectedIndex = card_display_table.getSelectionModel().getSelectedIndex();
-
-        int quantity = selectedOrder.getQuantity();
-        int productID = selectedOrder.getProductID();
-        double pricePerUnit = selectedOrder.getPrice();
-
-        if (quantity > 1) {
-            int newQuantity = quantity - 1;
-            double newPrice = pricePerUnit * newQuantity;
-            orderDAO.update(productID, newQuantity, (int) newPrice);
-
-            int stock = productDAO.getProductStock(productID);
-            int newStock = stock + 1;
-
-            productDAO.updateProductStock(productID, newStock);
-
-            selectedOrder.setQuantity(newQuantity);
-            selectedOrder.setPrice(newPrice);
-            card_display_table.refresh();
-            showDisplayCard();
-            totalPrice();
-            card_display_table.getSelectionModel().select(selectedIndex);
-        }
+        menuDisplayCard();
     }
     //Giảm so lượng
 
     @FXML
     private TextField table_search_product;
     private FilteredList<Product> filteredList;
-
 
 
 
@@ -378,7 +347,6 @@ public class UserController extends AdminController{
 
     @FXML
     private void initialize() {
-        menuDisplayCard();
 
         table_search_product.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(product -> {
@@ -386,9 +354,7 @@ public class UserController extends AdminController{
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                return product.getProductName().toLowerCase().contains(lowerCaseFilter) ||
-                        product.getCategoryName().toLowerCase().contains(lowerCaseFilter) ||
-                        product.getBrandName().toLowerCase().contains(lowerCaseFilter);
+                return product.getProductName().toLowerCase().contains(lowerCaseFilter);
             });
             displayFilteredProducts();
         });
@@ -403,9 +369,8 @@ public class UserController extends AdminController{
         if (products != null && !products.isEmpty()) {
             productList = FXCollections.observableArrayList(products);
             filteredList = new FilteredList<>(productList, p -> true);
-            displayFilteredProducts();
         }
-
+        displayFilteredProducts();
     }
 
     private void displayFilteredProducts() {
@@ -434,8 +399,6 @@ public class UserController extends AdminController{
             }
         }
     }
-
-
 
 
 
@@ -480,9 +443,9 @@ public class UserController extends AdminController{
             order.setVisible(true);
             bills.setVisible(false);
             menuDisplayCard();
-            displayUsername();
             showDisplayCard();
-            totalCustomers();
+            totalPrice();
+
         } else if (event.getSource() == billButton) {
             home.setVisible(false);
             order.setVisible(false);
