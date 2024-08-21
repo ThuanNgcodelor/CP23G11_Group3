@@ -1,2 +1,4 @@
-package thuan.dev;public class Thuan {
+package thuan.dev;
+
+public class Thuan {
 }
