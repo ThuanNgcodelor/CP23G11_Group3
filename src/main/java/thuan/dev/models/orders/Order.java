@@ -13,8 +13,7 @@ public class Order {
     private Date date;
     private Integer productID;
 
-    public Order(Integer customerID, String productName, Double price, Integer quantity, Integer total, Date date,Integer productID) {
-        this.customerID = customerID;
+    public Order(String productName, Double price, Integer quantity, Integer total, Date date,Integer productID) {
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;

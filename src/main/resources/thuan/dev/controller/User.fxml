@@ -131,7 +131,7 @@
                </children>
             </AnchorPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="order" layoutX="210.0" layoutY="3.0" prefHeight="720.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="5.600000000000023" AnchorPane.leftAnchor="212.8" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
+      <AnchorPane fx:id="order" layoutX="210.0" layoutY="3.0" prefHeight="720.0" prefWidth="1118.0" AnchorPane.bottomAnchor="5.600000000000023" AnchorPane.leftAnchor="212.8" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
          <children>
             <AnchorPane layoutX="3.0" layoutY="39.2" prefHeight="679.0" prefWidth="659.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="454.0" AnchorPane.topAnchor="39.0">
                <styleClass>
@@ -168,20 +168,26 @@
                      </font></Button>
                   <Button layoutX="4.0" layoutY="651.1999999999999" mnemonicParsing="false" onAction="#handleDeleteOrder" prefHeight="40.0" prefWidth="174.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Xóa" AnchorPane.bottomAnchor="27.200000000000045" />
                   <Button fx:id="inbienlai" layoutX="251.0" layoutY="651.1999999999999" mnemonicParsing="false" prefHeight="40.0" prefWidth="174.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="In biên lai" AnchorPane.bottomAnchor="27.200000000000045" />
-                  <Label layoutX="126.0" layoutY="424.0" prefHeight="26.0" prefWidth="82.0" text="Tổng tiền" AnchorPane.bottomAnchor="268.0">
+                  <Label layoutX="127.0" layoutY="441.0" prefHeight="26.0" prefWidth="82.0" text="Tổng tiền" AnchorPane.bottomAnchor="250.2">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="127.0" layoutY="478.0" prefHeight="26.0" prefWidth="82.0" text="Số lượng">
+                  <Label layoutX="127.0" layoutY="483.0" prefHeight="26.0" prefWidth="82.0" text="Số lượng">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="card_total" layoutX="228.0" layoutY="423.0" prefHeight="26.0" prefWidth="150.0" AnchorPane.bottomAnchor="269.0" AnchorPane.rightAnchor="76.80000000000001" />
-                  <Label fx:id="cart_quantity" layoutX="216.0" layoutY="478.0" prefHeight="26.0" prefWidth="150.0" />
+                  <Label fx:id="card_total" layoutX="217.0" layoutY="441.0" prefHeight="26.0" prefWidth="150.0" AnchorPane.bottomAnchor="251.0" AnchorPane.rightAnchor="75.80000000000001" />
+                  <Label fx:id="cart_quantity" layoutX="216.0" layoutY="483.0" prefHeight="26.0" prefWidth="150.0" />
                   <Button layoutX="54.0" layoutY="383.0" mnemonicParsing="false" onAction="#increase" prefHeight="20.0" prefWidth="30.0" text="&gt;" />
                   <Button layoutX="14.0" layoutY="383.0" mnemonicParsing="false" onAction="#reduce" prefHeight="20.0" prefWidth="30.0" text="&lt;" />
+                  <Label layoutX="128.0" layoutY="394.0" prefHeight="26.0" prefWidth="82.0" text="Voucher">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="sale_code" layoutX="209.0" layoutY="396.0" />
                </children>
             </AnchorPane>
             <TextField fx:id="table_search_product" layoutX="110.0" layoutY="3.0" prefHeight="30.0" prefWidth="218.0" />

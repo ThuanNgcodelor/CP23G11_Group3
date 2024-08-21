@@ -87,14 +87,13 @@ public class CartController implements Initializable {
         }
 
         OrderDAO orderDAO = new OrderImplements();
-        Order existingOrder = orderDAO.getOrder(customerID, product.getProductID());
-
+        Order existingOrder = orderDAO.getOrder(product.getProductID());
         if (existingOrder != null) {
             int newQuantity = existingOrder.getQuantity()+quantity;
             double newPrice = newQuantity * price;
-            orderDAO.update(product.getProductID(),newQuantity,(int)newPrice);
+            orderDAO.update1(product.getProductID(),newQuantity,(int)newPrice);
         } else {
-            Order newOrder = new Order(customerID, product.getProductName(), price, quantity, (int) total, currentDate, product.getProductID());
+            Order newOrder = new Order(product.getProductName(), price, quantity, (int) total, currentDate, product.getProductID());
             boolean addOrder = orderDAO.addOrder(newOrder);
 
             if (addOrder) {
@@ -110,8 +109,6 @@ public class CartController implements Initializable {
         userController.showDisplayCard();
         userController.menuDisplayCard();
     }
-
-
 
     public void setQuantity() {
         spin = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
@@ -141,6 +138,5 @@ public class CartController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 
 }

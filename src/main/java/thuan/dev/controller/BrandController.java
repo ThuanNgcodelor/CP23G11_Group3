@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class BrandController extends Application {
+
     private double x = 0;
     private double y = 0;
 
@@ -187,7 +188,7 @@ public class BrandController extends Application {
     }
 
     @FXML
-    private void closeBrand(ActionEvent event){
+    private void closeBrand(ActionEvent event) {
         Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }

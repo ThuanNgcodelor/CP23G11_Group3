@@ -16,8 +16,11 @@ public interface OrderDAO {
 
     public List<Order> menuOrder(Order ord);
 
-    public Order getOrder(int customerID,int productID);
+    public Order getOrder(int productID);
 
-    public void update(int productID, int quantity, int total);
+    public void update(int productID, int quantity, int total,int orderID);
+
+    public void update1(int productID, int quantity, int total);
+
 
 }

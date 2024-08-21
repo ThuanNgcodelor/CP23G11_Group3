@@ -97,7 +97,7 @@ public class Login extends Application {
         int role = emp.checkLogin(email.getText(), password.getText());
 
         if (role == 0) {
-            infoBox("Đăng nhập thành công", null, "Thành công");
+            infoBox("Login Success", null, "Success");
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Admin.fxml"));
@@ -110,20 +110,17 @@ public class Login extends Application {
             adminController.menu();
 
         } else if (role == 1) {
-            infoBox("Đăng nhập thành công", null, "Thành công");
+            infoBox("Login Success", null, "Success");
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/User.fxml"));
-                Parent root = fxmlLoader.load();
-                Stage userStage = new Stage();
-                userStage.setScene(new Scene(root));
-                userStage.show();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/User.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage userStage = new Stage();
+            userStage.setScene(new Scene(root));
+            userStage.show();
         } else {
-            infoBox("Đăng nhập thất bại", null, "Thất bại");
+            infoBox("Login fails", null, "Fails");
         }
     }
 

@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CategoryController extends Application {
+
     private double x = 0;
     private double y = 0;
 
@@ -186,8 +187,8 @@ public class CategoryController extends Application {
     }
 
     @FXML
-    private void closeCategory(ActionEvent event){
-        Stage stage = (Stage)close.getScene().getWindow();
+    private void closeCategory(ActionEvent event) {
+        Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }
 

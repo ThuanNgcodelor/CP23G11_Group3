@@ -84,9 +84,6 @@ public class AdminController {
     private TextField add_price;
 
     @FXML
-    private TextField sale_code;
-
-    @FXML
     private TextField add_productName;
 
     @FXML
@@ -113,7 +110,7 @@ public class AdminController {
 
     private FilteredList<Employees> employeesFilteredList;
 
-    private ObservableList<Employees> employeesList;
+    ObservableList<Employees> employeesList;
 
     @FXML
     private AnchorPane add;
@@ -193,7 +190,7 @@ public class AdminController {
     @FXML
     private Label username;
 
-    private ObservableList<Bills> billsList;
+    ObservableList<Bills> billsList;
 
     public void menu() throws IOException {
         CategoryComboBox();
@@ -212,12 +209,10 @@ public class AdminController {
         showStaff();
         searchStaff();
         table_staff.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null){
+            if (newValue != null) {
                 displayCustomerDetails(newValue);
             }
         });
-
-
 
     }
 
@@ -236,11 +231,10 @@ public class AdminController {
     //Dashbound
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         AppService.getInstance().setAdminController(this);
     }
     //gọi lai biến AppServiive để có thể nhân
-
 
     public void displayUsername() {
         username.setText(String.valueOf(Data.fullname));
@@ -268,8 +262,6 @@ public class AdminController {
     //Tính toán quantity customers
 
 //-----------------------------------------STAFF,Customer-----------------------------------------------------------------------------------------------------------------------------------------------
-
-
     private void RoleComBoBox() {
         role.getItems().addAll(0, 1);
 
@@ -278,6 +270,7 @@ public class AdminController {
             public String toString(Integer role) {
                 return role == 0 ? "Admin" : "Staff";
             }
+
             @Override
             public Integer fromString(String string) {
                 return null;
@@ -345,7 +338,7 @@ public class AdminController {
         showStaff();
     }
 
-    private void clearFormStaff(){
+    private void clearFormStaff() {
         phone.clear();
         cccd.clear();
         email.clear();
@@ -372,7 +365,6 @@ public class AdminController {
         table_staff.setItems(employeesFilteredList);
     }
 
-
     @FXML
     private void searchStaff() {
         table_search.setOnKeyReleased(e -> {
@@ -391,13 +383,8 @@ public class AdminController {
         });
     }
 
-
 //-----------------------------------------STAFF,Customer-----------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
 //-----------------------------------------PRODUCTS--------------------------------------------------------------------------------------------------------------------------------------------------
-
     @FXML
     private void search() {
         search_products.setOnKeyReleased(e -> {
@@ -450,7 +437,7 @@ public class AdminController {
     }
     //Khi touch vào product sẽ hiện lại input ở để chỉnh sửa
 
-    private void displayCustomerDetails(Employees emp){
+    private void displayCustomerDetails(Employees emp) {
 
         fullname.setText(emp.getFullname());
         email.setText(emp.getEmail());
@@ -568,7 +555,7 @@ public class AdminController {
         }
     }
 
-    private Image image;
+    Image image;
 
     public void addImages() {
         FileChooser openFile = new FileChooser();
@@ -594,7 +581,6 @@ public class AdminController {
             confirmationAlert.setTitle("Xác nhận cập nhật");
             confirmationAlert.setHeaderText("Bạn có muốn cập nhật sản phẩm này?");
             confirmationAlert.setContentText("Sản phẩm: " + selectedProduct.getProductName());
-
 
             ButtonType buttonYes = new ButtonType("Xác nhận", ButtonBar.ButtonData.OK_DONE);
             ButtonType buttonNo = new ButtonType("Hủy", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -634,18 +620,16 @@ public class AdminController {
             }
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Đã xảy ra lỗi khi cập nhật sản phẩm: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("Error: ");
         }
     }
 
-
     //update product và check form khi update
-
     @FXML
     public void handleDeleteProducts() {
         Product selectedProduct = table.getSelectionModel().getSelectedItem();
         if (selectedProduct == null) {
-            showAlert(Alert.AlertType.ERROR, "Error","Vui lòng chọn sản phẩm để xóa!!");
+            showAlert(Alert.AlertType.ERROR, "Error", "Vui lòng chọn sản phẩm để xóa!!");
             return;
         }
         Alert comfirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -653,11 +637,9 @@ public class AdminController {
         comfirmAlert.setHeaderText("Do you want to delete this product?");
         comfirmAlert.setContentText("Product: " + selectedProduct.getProductName());
 
-
         ButtonType buttonYes = new ButtonType("Xác nhận", ButtonBar.ButtonData.OK_DONE);
         ButtonType buttonNo = new ButtonType("Hủy", ButtonBar.ButtonData.CANCEL_CLOSE);
         comfirmAlert.getButtonTypes().setAll(buttonYes, buttonNo);
-
 
         Optional<ButtonType> result = comfirmAlert.showAndWait();
         if (result.isPresent() && result.get() == buttonYes) {
@@ -691,7 +673,6 @@ public class AdminController {
     }
 
 // -----------------------------------------PRODUCTS-------------------------------------------------------
-
     @FXML
     private void switchForm(ActionEvent event) {
         if (event.getSource() == homeButton) {
@@ -705,8 +686,7 @@ public class AdminController {
             staff.setVisible(false);
             checkbill.setVisible(false);
             showProduct();
-        }
-        else if (event.getSource() == staffbutton) {
+        } else if (event.getSource() == staffbutton) {
             staff.setVisible(true);
             home.setVisible(false);
             add.setVisible(false);

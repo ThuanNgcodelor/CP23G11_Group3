@@ -24,7 +24,7 @@
                   <TextField fx:id="shipper_phone" layoutX="98.0" layoutY="164.0" prefHeight="30.0" prefWidth="220.0" promptText="CCCD" stylesheets="@../resource/Admin.css" text="Số điện thoại" AnchorPane.leftAnchor="98.0" />
                   <DatePicker fx:id="shipper_date" layoutX="100.0" layoutY="290.0" prefHeight="30.0" prefWidth="220.0" promptText="BirthDays" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="100.0" />
                   <Button layoutX="98.0" layoutY="429.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Xác nhận" AnchorPane.bottomAnchor="130.0" />
-                  <Button layoutX="389.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelOnAction" stylesheets="@../resource/Admin.css" text="&lt;-" />
+                  <Button layoutX="389.0" layoutY="10.0" mnemonicParsing="false"  stylesheets="@../resource/Admin.css" text="&lt;-" />
                   <TextField fx:id="shipper_cccd" layoutX="98.0" layoutY="226.0" prefHeight="30.0" prefWidth="220.0" promptText="Email" stylesheets="@../resource/Admin.css" text="Căn cước" AnchorPane.leftAnchor="98.0" />
                   <TextField fx:id="shipper_email" layoutX="98.0" layoutY="353.0" prefHeight="30.0" prefWidth="220.0" promptText="Email" stylesheets="@../resource/Admin.css" text="Email" AnchorPane.leftAnchor="98.0" />
                   <Button layoutX="98.0" layoutY="509.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="220.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Làm lại" AnchorPane.bottomAnchor="50.0" />

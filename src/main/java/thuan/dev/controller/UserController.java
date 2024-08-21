@@ -1,4 +1,5 @@
 package thuan.dev.controller;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public class UserController extends AdminController{
+public class UserController extends AdminController {
 
     @FXML
     private TableColumn<Bills, Integer> bill_customers;
@@ -43,14 +43,11 @@ public class UserController extends AdminController{
     @FXML
     private TableColumn<Bills, BigDecimal> bill_total_price;
 
-
     @FXML
     private TableView<Order> card_display_table;
 
-
     @FXML
     private Label card_total;
-
 
     @FXML
     private Label cart_quantity;
@@ -100,14 +97,17 @@ public class UserController extends AdminController{
     @FXML
     private Label username;
 
-    private ObservableList<Product> productList;
+    ObservableList<Product> productList;
 
     private ObservableList<Order> ordersList;
 
-    private ObservableList<Bills> billsList;
+    ObservableList<Bills> billsList;
 
     @FXML
-    void handleLogout(ActionEvent event) {
+    private TextField sale_code;
+
+    @FXML
+    public void handleLogout(ActionEvent event) {
         try {
             Stage stage = (Stage) logout.getScene().getWindow();
             stage.close();
@@ -123,7 +123,6 @@ public class UserController extends AdminController{
     void handleDeleteOrder(ActionEvent event) {
         Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
         Product product = new Product();
-
 
         if (selectedOrder == null) {
             showAlert(Alert.AlertType.ERROR, "Error", "Please select an order to delete!");
@@ -141,13 +140,13 @@ public class UserController extends AdminController{
 
         Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (result.isPresent() && result.get() == buttonYes) {
-           int quantity = selectedOrder.getQuantity();
-           int productID = selectedOrder.getProductID();
+            int quantity = selectedOrder.getQuantity();
+            int productID = selectedOrder.getProductID();
 
-           ProductDAO productDAO = new ProductImple();
-           int stock = productDAO.getProductStock(productID);
-           int newStock = stock + quantity;
-           productDAO.updateProductStock(productID,newStock);
+            ProductDAO productDAO = new ProductImple();
+            int stock = productDAO.getProductStock(productID);
+            int newStock = stock + quantity;
+            productDAO.updateProductStock(productID, newStock);
 
             OrderDAO orderDAO = new OrderImplements();
             boolean success = orderDAO.removeOrder(selectedOrder);
@@ -163,9 +162,7 @@ public class UserController extends AdminController{
         menuDisplayCard();
     }
 
-
 //--------------------------------------------BILLS--------------------------------------------------------------------------------------------
-
     public void showListBill() {
         BillDAO billDAO = new BillImple();
         List<Bills> bills = billDAO.getAllBillDateNow();
@@ -180,8 +177,6 @@ public class UserController extends AdminController{
     }
 
 //--------------------------------------------BILLS--------------------------------------------------------------------------------------------
-
-
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------
     public void menuRestart() {
@@ -205,18 +200,18 @@ public class UserController extends AdminController{
         Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
 
         if (selectedOrder == null) {
-            showAlert(Alert.AlertType.ERROR, "Error","Please select an order to update!");
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select an order to update!");
             return;
         }
 
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Confirm Order");
         confirmationAlert.setHeaderText("Are you sure you want to update this order?");
-        confirmationAlert.setContentText("Price: "+selectedOrder.getPrice());
+        confirmationAlert.setContentText("Price: " + selectedOrder.getPrice());
 
-        ButtonType buttonYes = new ButtonType("Confirm",ButtonBar.ButtonData.OK_DONE);
-        ButtonType buttonNo  = new ButtonType("Cancel",ButtonBar.ButtonData.CANCEL_CLOSE);
-        confirmationAlert.getButtonTypes().setAll(buttonYes,buttonNo);
+        ButtonType buttonYes = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmationAlert.getButtonTypes().setAll(buttonYes, buttonNo);
 
         Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (result.isPresent() && result.get() == buttonYes) {
@@ -242,7 +237,6 @@ public class UserController extends AdminController{
         }
     }
     //Button Đặt hàng tại đây
-
 
     @FXML
     private void increase(ActionEvent event) {
@@ -284,7 +278,7 @@ public class UserController extends AdminController{
         double newPrice = pricePerUnit * newQuantity;
 
         // Update order quantity and price
-        orderDAO.update(productID, newQuantity, (int) newPrice);
+        orderDAO.update(productID, newQuantity, (int) newPrice,selectedOrder.getOrderID());
 
         // Update stock
         int newStock = stock - ktr;
@@ -304,10 +298,7 @@ public class UserController extends AdminController{
     private TextField table_search_product;
     private FilteredList<Product> filteredList;
 
-
-
     //Show sản phẩm ra menu
-
     public void showDisplayCard() {
         OrderDAO orderDAO = new OrderImplements();
         List<Order> orders = orderDAO.showDisplayCard();
@@ -395,22 +386,16 @@ public class UserController extends AdminController{
                 menu_gridPane.add(pane, column++, row);
 
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error: " + e);
             }
         }
     }
 
-
-
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------
-
-
-
     public void displayUsername() {
         username.setText(String.valueOf(Data.fullname));
     }
-
 
     public void totalCustomers() {
         BillDAO billDAO = new BillImple();
@@ -422,7 +407,7 @@ public class UserController extends AdminController{
             for (Bills bills : selectedBills) {
                 if (bills != null) {
                     customerID++;
-                    totalPrice += bills.getTotalPrice();
+                    totalPrice += (int) bills.getTotalPrice();
                 }
             }
         }

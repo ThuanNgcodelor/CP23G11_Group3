@@ -8,14 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderImplements implements OrderDAO {
-
     @Override
-    public void update(int productID, int quantity, int total) {
+    public void update1(int productID, int quantity, int total) {
         try {
-            PreparedStatement statement = conn.prepareStatement("UPDATE orders set quantity = ?,total = ? WHERE productID = ?");
+            PreparedStatement statement = conn.prepareStatement(
+                    "UPDATE orders SET quantity = ?, total = ? WHERE productID = ? AND order_detailsID = 1"
+            );
             statement.setInt(1, quantity);
             statement.setInt(2, total);
-            statement.setInt(3,productID);
+            statement.setInt(3, productID);
             statement.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -23,18 +24,33 @@ public class OrderImplements implements OrderDAO {
     }
 
     @Override
-    public Order getOrder(int customerID, int productID) {
+    public void update(int productID, int quantity, int total, int orderID) {
         try {
             PreparedStatement statement = conn.prepareStatement(
-                    "SELECT * FROM orders WHERE customerID = ? AND productID = ?"
+                    "UPDATE orders SET quantity = ?, total = ? WHERE productID = ? AND orderID = ?"
             );
-            statement.setInt(1, customerID);
-            statement.setInt(2, productID);
+            statement.setInt(1, quantity);
+            statement.setInt(2, total);
+            statement.setInt(3, productID);
+            statement.setInt(4, orderID);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Order getOrder( int productID) {
+        try {
+            PreparedStatement statement = conn.prepareStatement(
+                    "SELECT * FROM orders WHERE productID = ? and order_detailsID = ? "
+            );
+            statement.setInt(1, productID);
+            statement.setInt(2,1);
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
                 return new Order(
-                        rs.getInt("customerID"),
                         rs.getString("productName"),
                         rs.getDouble("price"),
                         rs.getInt("quantity"),
@@ -48,6 +64,7 @@ public class OrderImplements implements OrderDAO {
         }
         return null;
     }
+
 
 
     @Override
@@ -85,13 +102,12 @@ public class OrderImplements implements OrderDAO {
         List<Order> orders = new ArrayList<>();
         try {
             PreparedStatement statement = conn.prepareStatement(
-                    "SELECT * FROM orders WHERE order_detailsID = 1"
+                    "SELECT * FROM orders WHERE order_detailsID = 1 and status = 1"
             );
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Order order = new Order();
                 order.setOrderID(rs.getInt("orderID"));
-                order.setCustomerID(rs.getInt("customerID"));
                 order.setProductName(rs.getString("productName"));
                 order.setPrice(rs.getDouble("price"));
                 order.setQuantity(rs.getInt("quantity"));
@@ -120,8 +136,10 @@ public class OrderImplements implements OrderDAO {
 
     @Override
     public void updateOrder(int orderID) {
-        String sql = "DELETE FROM orders WHERE order_detailsID = 1";
+        String sql = "UPDATE orders SET status = ? WHERE order_detailsID = ?";
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, 0);
+            statement.setInt(2, 1);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,14 +150,14 @@ public class OrderImplements implements OrderDAO {
 
     @Override
     public boolean addOrder(Order order) {
-        try (PreparedStatement statement = conn.prepareStatement("INSERT INTO orders (customerID, productName, price, quantity, total, date,order_detailsID,productID) VALUES (?, ?, ?, ?, ?, ?,?,?)")) {
-            statement.setInt(1, Data.customerID);
-            statement.setString(2, order.getProductName());
-            statement.setDouble(3, order.getPrice());
-            statement.setInt(4, order.getQuantity());
-            statement.setDouble(5, order.getTotal());
-            statement.setDate(6, new Date(order.getDate().getTime()));
-            statement.setInt(7, 1);
+        try (PreparedStatement statement = conn.prepareStatement("INSERT INTO orders (productName, price, quantity, total, date,order_detailsID,status,productID) VALUES ( ?, ?, ?, ?, ?,?,?,?)")) {
+            statement.setString(1, order.getProductName());
+            statement.setDouble(2, order.getPrice());
+            statement.setInt(3, order.getQuantity());
+            statement.setDouble(4, order.getTotal());
+            statement.setDate(5, new Date(order.getDate().getTime()));
+            statement.setInt(6, 1);
+            statement.setInt(7,1);
             statement.setInt(8,order.getProductID());
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
