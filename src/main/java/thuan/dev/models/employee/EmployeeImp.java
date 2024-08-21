@@ -13,7 +13,7 @@ import java.util.List;
 
 public class EmployeeImp implements EmployeeDAO {
     @Override
-    public void updateCustomer(Employees emp) {
+    public boolean updateCustomer(Employees emp) {
         try {
             PreparedStatement statement = conn.prepareStatement(
                     "UPDATE customers SET phone = ?, birth = ?, cccd = ?, email = ?, password = ?, fullname = ?, role = ? WHERE customerID = ?"
@@ -26,13 +26,14 @@ public class EmployeeImp implements EmployeeDAO {
             statement.setString(6, emp.getFullname());
             statement.setInt(7, emp.getRole());
             statement.setInt(8, emp.getEmployeeID());
-            statement.executeUpdate();
-            conn.close();
+
+            int rowsUpdated = statement.executeUpdate();
+
+            return rowsUpdated > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public boolean updatePassword(String email, String oldPassword, String newPassword) {
@@ -156,6 +157,13 @@ public class EmployeeImp implements EmployeeDAO {
 
     @Override
     public void delete(Employees emp) {
-
+        try {
+            PreparedStatement statement = conn.prepareStatement("DELETE FROM customers WHERE customerID = ?");
+            statement.setInt(1, emp.getEmployeeID());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 }

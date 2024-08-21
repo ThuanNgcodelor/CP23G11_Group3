@@ -104,6 +104,21 @@ public class UserController extends AdminController {
     ObservableList<Bills> billsList;
 
     @FXML
+    private TableColumn<Order, String> bill_details_name;
+
+    @FXML
+    private TableColumn<Order, Double> bill_details_price;
+
+    @FXML
+    private TableColumn<Order, Integer> bill_details_quantity;
+
+    @FXML
+    private TextField table_search_product;
+
+    private FilteredList<Product> filteredList;
+
+
+    @FXML
     private TextField sale_code;
 
     @FXML
@@ -175,6 +190,8 @@ public class UserController extends AdminController {
 
         table_orders.setItems(billsList);
     }
+
+
 
 //--------------------------------------------BILLS--------------------------------------------------------------------------------------------
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------
@@ -294,10 +311,6 @@ public class UserController extends AdminController {
     }
     //Giảm so lượng
 
-    @FXML
-    private TextField table_search_product;
-    private FilteredList<Product> filteredList;
-
     //Show sản phẩm ra menu
     public void showDisplayCard() {
         OrderDAO orderDAO = new OrderImplements();
@@ -335,6 +348,14 @@ public class UserController extends AdminController {
         });
     }
     //Tính toán số tiền và hiển thị quantity
+    @FXML
+    private Button showDetailsButton;
+
+    @FXML
+    private Button hideDetailsButton;
+
+    @FXML
+    private TableView<Order> orderDetailsTable;
 
     @FXML
     private void initialize() {
@@ -350,8 +371,35 @@ public class UserController extends AdminController {
             displayFilteredProducts();
         });
 
+        showDetailsButton.setOnAction(event -> {
+            Bills selectedBill = table_orders.getSelectionModel().getSelectedItem();
+            if (selectedBill != null) {
+                showOrderDetails(selectedBill);
+            }
+        });
+        // bam nut de hien thi don hang
+        hideDetailsButton.setOnAction(event -> hideOrderDetails());
+
         AppService.getInstance().setAdminController(this);
     }
+
+    private void hideOrderDetails() {
+        orderDetailsTable.getItems().clear();
+
+    }
+    private void showOrderDetails(Bills selectedBill) {
+        BillDAO billDAO = new BillImple();
+        List<Order> orderDetails = billDAO.showDetailsBill(selectedBill);
+        ObservableList<Order> orderDetailsList = FXCollections.observableArrayList(orderDetails);
+
+        bill_details_name.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        bill_details_quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        bill_details_price.setCellValueFactory(new PropertyValueFactory<>("total"));
+
+        orderDetailsTable.setItems(orderDetailsList);
+
+    }
+    // hiển thị chi tiet don hong
 
     public void menuDisplayCard() {
         ProductDAO productDAO = new ProductImple();

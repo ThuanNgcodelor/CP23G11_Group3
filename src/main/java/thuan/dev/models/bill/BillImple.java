@@ -1,8 +1,8 @@
 package thuan.dev.models.bill;
 
-import javafx.scene.control.Label;
 import thuan.dev.config.MyConnection;
 import thuan.dev.controller.Data;
+import thuan.dev.models.orders.Order;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -10,6 +10,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BillImple implements BillDAO{
+    Connection conn = MyConnection.getConnection();
+
+    @Override
+    public List<Order> showDetailsBill(Bills bills) {
+        List<Order> orderList = new ArrayList<>();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM orders WHERE bills = ?");
+            statement.setInt(1, bills.getBillID());
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Order order = new Order(
+                        resultSet.getString("productName"),
+                        resultSet.getDouble("price"),
+                        resultSet.getInt("quantity"),
+                        resultSet.getInt("total"),
+                        resultSet.getDate("date"),
+                        resultSet.getInt("productID")
+                );
+                orderList.add(order);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orderList;
+    }
+
+
     @Override
     public List<Bills> getAllBillDateNow() {
         List<Bills> bills = new ArrayList<>();
@@ -37,7 +65,6 @@ public class BillImple implements BillDAO{
 
     }
 
-    Connection conn = MyConnection.getConnection();
 
     @Override
     public List<Bills> getAllBills() {

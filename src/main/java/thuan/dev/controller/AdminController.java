@@ -26,6 +26,7 @@ import thuan.dev.models.category.CategoryImple;
 import thuan.dev.models.employee.EmployeeDAO;
 import thuan.dev.models.employee.EmployeeImp;
 import thuan.dev.models.employee.Employees;
+import thuan.dev.models.orders.Order;
 import thuan.dev.models.products.Product;
 import thuan.dev.models.products.ProductDAO;
 import thuan.dev.models.products.ProductImple;
@@ -192,6 +193,24 @@ public class AdminController {
 
     ObservableList<Bills> billsList;
 
+    @FXML
+    private Button showDetailsButton;
+
+    @FXML
+    private Button hideDetailsButton;
+
+    @FXML
+    private TableColumn<Order, String> bill_details_name;
+
+    @FXML
+    private TableColumn<Order, Double> bill_details_price;
+
+    @FXML
+    private TableColumn<Order, Integer> bill_details_quantity;
+
+    @FXML
+    private TableView<Order> orderDetailsTable;
+
     public void menu() throws IOException {
         CategoryComboBox();
         showProduct();
@@ -213,6 +232,32 @@ public class AdminController {
                 displayCustomerDetails(newValue);
             }
         });
+
+        showDetailsButton.setOnAction(event -> {
+            Bills selectedBill = table_orders.getSelectionModel().getSelectedItem();
+            if (selectedBill != null) {
+                showOrderDetails(selectedBill);
+            }
+        });
+        // bam nut de hien thi don hang
+        hideDetailsButton.setOnAction(event -> hideOrderDetails());
+
+    }
+
+    private void hideOrderDetails() {
+        orderDetailsTable.getItems().clear();
+
+    }
+    private void showOrderDetails(Bills selectedBill) {
+        BillDAO billDAO = new BillImple();
+        List<Order> orderDetails = billDAO.showDetailsBill(selectedBill);
+        ObservableList<Order> orderDetailsList = FXCollections.observableArrayList(orderDetails);
+
+        bill_details_name.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        bill_details_quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        bill_details_price.setCellValueFactory(new PropertyValueFactory<>("total"));
+
+        orderDetailsTable.setItems(orderDetailsList);
 
     }
 
@@ -281,6 +326,81 @@ public class AdminController {
     }
 
     @FXML
+    private void updateStaffAction(ActionEvent event) {
+        Employees selectedEmployee = table_staff.getSelectionModel().getSelectedItem();
+
+        if (selectedEmployee == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select an employee to update");
+            return;
+        }
+
+        String phoneF = phone.getText();
+        String cccdF = cccd.getText();
+        LocalDate localDate = birthdays.getValue();
+        String emailF = email.getText();
+        String passwordF = password.getText();
+        String fullnameF = fullname.getText();
+        Integer roleF = role.getValue();
+
+        // Validation checks
+        if (phoneF.isEmpty() || cccdF.isEmpty() || localDate == null || emailF.isEmpty() || passwordF.isEmpty() || fullnameF.isEmpty() || roleF == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please enter complete data");
+            return;
+        }
+        if (!phoneF.matches("\\d+")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Phone number must be a number");
+            return;
+        }
+        if (!emailF.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Invalid email");
+            return;
+        }
+        if (!cccdF.matches("\\d{10}")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Invalid passport number");
+            return;
+        }
+        if (!localDate.isBefore(LocalDate.now())) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Date of birth must be before the current date");
+            return;
+        }
+
+        Date birthF = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirm Update");
+        confirmationAlert.setHeaderText("Do you want to update this employee?");
+        confirmationAlert.setContentText("Employee: " + fullnameF);
+
+        ButtonType buttonYes = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmationAlert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.isPresent() && result.get() == buttonYes) {
+            selectedEmployee.setPhone(phoneF);
+            selectedEmployee.setCccd(cccdF);
+            selectedEmployee.setBirth(birthF);
+            selectedEmployee.setEmail(emailF);
+            selectedEmployee.setPassword(passwordF);
+            selectedEmployee.setFullname(fullnameF);
+            selectedEmployee.setRole(roleF);
+
+            EmployeeDAO employeeDAO = new EmployeeImp();
+            boolean flag = employeeDAO.updateCustomer(selectedEmployee);
+
+            if (flag) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Employee updated successfully");
+                clearFormStaff();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to update employee");
+            }
+        }
+        showStaff();
+        clearFormStaff();
+    }
+
+
+    @FXML
     private void signUpAction(ActionEvent event) {
         String phoneF = phone.getText();
         String cccdF = cccd.getText();
@@ -336,6 +456,7 @@ public class AdminController {
             }
         }
         showStaff();
+        clearFormStaff();
     }
 
     private void clearFormStaff() {
@@ -346,6 +467,39 @@ public class AdminController {
         fullname.clear();
         birthdays.setValue(null);
         role.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void deleteStaffAction(ActionEvent event) {
+        Employees selectedEmployee = table_staff.getSelectionModel().getSelectedItem();
+
+        if (selectedEmployee == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select an employee to delete");
+            return;
+        }
+
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirm Delete");
+        confirmationAlert.setHeaderText("Do you want to delete this employee?");
+        confirmationAlert.setContentText("Employee: " + selectedEmployee.getFullname());
+
+        ButtonType buttonYes = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmationAlert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.isPresent() && result.get() == buttonYes) {
+            EmployeeDAO employeeDAO = new EmployeeImp();
+            employeeDAO.delete(selectedEmployee);
+
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Employee deleted successfully");
+            showStaff();
+        }
+    }
+
+    @FXML
+    private void resetStaff(ActionEvent event){
+        clearFormStaff();
     }
 
     private void showStaff() {

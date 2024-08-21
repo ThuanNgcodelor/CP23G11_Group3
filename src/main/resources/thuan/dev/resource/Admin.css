@@ -18,12 +18,15 @@
     -fx-text-fill: #fff;
     -fx-font-size: 14px;
     -fx-alignment: CENTER_LEFT;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px 45px;
 }
 
 
 /* When hovered */
 .nav-btn:hover {
     -fx-background-color: #ecb107;
+
 }
 
 /* When clicked */
