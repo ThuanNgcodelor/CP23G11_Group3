@@ -12,6 +12,7 @@ module thuan.dev.controller {
     opens thuan.dev.models.products to javafx.base;
     opens thuan.dev.models.brand to javafx.base;
     opens thuan.dev.models.employee to javafx.base;
+    exports thuan.dev.controller.dat to javafx.graphics;
 
     exports thuan.dev.controller;
     opens thuan.dev.models.bill to javafx.base;
@@ -20,5 +21,7 @@ module thuan.dev.controller {
     opens thuan.dev.main to javafx.fxml;
     exports thuan.dev.group;
     opens thuan.dev.group to javafx.fxml;
+    exports thuan.dev.models.tables;
+    opens thuan.dev.models.tables to javafx.fxml;
 
 }

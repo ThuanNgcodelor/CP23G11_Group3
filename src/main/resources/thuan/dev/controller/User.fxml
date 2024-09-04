@@ -131,7 +131,7 @@
                </children>
             </AnchorPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="order" layoutX="210.0" layoutY="3.0" prefHeight="720.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="5.600000000000023" AnchorPane.leftAnchor="212.8" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
+      <AnchorPane fx:id="order" layoutX="210.0" layoutY="3.0" prefHeight="720.0" prefWidth="1118.0" AnchorPane.bottomAnchor="5.600000000000023" AnchorPane.leftAnchor="212.8" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
          <children>
             <AnchorPane layoutX="3.0" layoutY="39.2" prefHeight="679.0" prefWidth="659.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="454.0" AnchorPane.topAnchor="39.0">
                <styleClass>
@@ -150,7 +150,7 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="636.0" prefHeight="718.0" prefWidth="443.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="636.0" prefHeight="718.0" prefWidth="451.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <TableView fx:id="card_display_table" layoutX="2.4" layoutY="1.4" prefHeight="378.0" prefWidth="448.0" styleClass="btn-button" AnchorPane.leftAnchor="2.4" AnchorPane.rightAnchor="4.800000000000011" AnchorPane.topAnchor="1.4">
                     <columns>
@@ -162,28 +162,29 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button layoutX="4.0" layoutY="651.1999999999999" mnemonicParsing="false" onAction="#handleDeleteOrder" prefHeight="40.0" prefWidth="174.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Xóa" AnchorPane.bottomAnchor="27.200000000000045" />
-                  <Button fx:id="inbienlai" layoutX="251.0" layoutY="651.1999999999999" mnemonicParsing="false" prefHeight="40.0" prefWidth="174.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="In biên lai" AnchorPane.bottomAnchor="27.200000000000045" />
-                  <Label layoutX="127.0" layoutY="441.0" prefHeight="26.0" prefWidth="82.0" text="Tổng tiền" AnchorPane.bottomAnchor="250.2">
+                  <Button layoutX="37.0" layoutY="651.0" mnemonicParsing="false" onAction="#handleDeleteOrder" prefHeight="40.0" prefWidth="170.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Delete" AnchorPane.bottomAnchor="27.399999999999977" />
+                  <Button layoutX="240.0" layoutY="651.0" mnemonicParsing="false" onAction="#handleExportPDF" prefHeight="40.0" prefWidth="170.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Print receipt" AnchorPane.bottomAnchor="27.399999999999977" />
+                  <Label layoutX="127.0" layoutY="441.0" prefHeight="27.0" prefWidth="110.0" text="Total amount" AnchorPane.bottomAnchor="250.0">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="127.0" layoutY="483.0" prefHeight="26.0" prefWidth="82.0" text="Số lượng">
+                  <Label layoutX="127.0" layoutY="483.0" prefHeight="26.0" prefWidth="82.0" text="Quantity">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="card_total" layoutX="217.0" layoutY="441.0" prefHeight="26.0" prefWidth="150.0" AnchorPane.bottomAnchor="251.0" AnchorPane.rightAnchor="75.80000000000001" />
-                  <Label fx:id="cart_quantity" layoutX="216.0" layoutY="483.0" prefHeight="26.0" prefWidth="150.0" />
+                  <Label fx:id="card_total" layoutX="237.0" layoutY="441.0" prefHeight="26.0" prefWidth="150.0" AnchorPane.bottomAnchor="251.0" AnchorPane.rightAnchor="63.80000000000001" />
+                  <Label fx:id="cart_quantity" layoutX="236.0" layoutY="483.0" prefHeight="26.0" prefWidth="150.0" />
                   <Button layoutX="54.0" layoutY="383.0" mnemonicParsing="false" onAction="#increase" prefHeight="20.0" prefWidth="30.0" text="&gt;" />
                   <Button layoutX="14.0" layoutY="383.0" mnemonicParsing="false" onAction="#reduce" prefHeight="20.0" prefWidth="30.0" text="&lt;" />
                   <Label layoutX="128.0" layoutY="394.0" prefHeight="26.0" prefWidth="82.0" text="Voucher">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
                   <TextField fx:id="sale_code" layoutX="209.0" layoutY="396.0" />
+                  <Button layoutX="37.0" layoutY="566.0" mnemonicParsing="false" onAction="#updateCart" prefHeight="54.0" prefWidth="374.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Order" />
                </children>
             </AnchorPane>
             <TextField fx:id="table_search_product" layoutX="110.0" layoutY="3.0" prefHeight="30.0" prefWidth="218.0" />
@@ -201,17 +202,17 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="salarybutton" layoutX="6.0" layoutY="136.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Lương" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="7.600000000000023">
+            <Button layoutX="6.0" layoutY="136.0" mnemonicParsing="false" onAction="#buttonNews" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="News" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="7.600000000000023">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="orderButton" layoutX="7.0" layoutY="65.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Gọi món" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="5.799999999999983">
+            <Button fx:id="orderButton" layoutX="7.0" layoutY="65.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Orders" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="5.799999999999983">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="billButton" layoutX="5.0" layoutY="209.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Đơn hàng đã bán">
+            <Button fx:id="billButton" layoutX="5.0" layoutY="209.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage bills">
                <font>
                   <Font size="18.0" />
                </font>
@@ -228,7 +229,7 @@
             <String fx:value="shadow" />
          </styleClass>
       </AnchorPane>
-      <AnchorPane fx:id="bills" layoutX="212.0" layoutY="-1.0" prefHeight="720.0" prefWidth="1118.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="-1.0">
+      <AnchorPane fx:id="bills" layoutX="212.0" layoutY="-1.0" prefHeight="720.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="-1.0">
          <children>
             <AnchorPane layoutX="14.0" layoutY="15.2" prefHeight="698.0" prefWidth="616.0" styleClass="table-view" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="486.0" AnchorPane.topAnchor="15.0">
                <children>
@@ -237,7 +238,7 @@
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="table_orders" layoutX="15.0" layoutY="79.0" prefHeight="606.0" prefWidth="500.0" styleClass="btn-button" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.799999999999955" AnchorPane.topAnchor="79.0">
+                  <TableView fx:id="table_orders" layoutX="21.599999999999998" layoutY="87.2" prefHeight="611.0" prefWidth="579.0" styleClass="btn-button" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="85.0">
                     <columns>
                       <TableColumn fx:id="bill_id" prefWidth="79.20002746582031" text="ID" />
                       <TableColumn fx:id="bill_total_price" prefWidth="136.79998779296875" text="Total" />
@@ -261,7 +262,7 @@
             </AnchorPane>
             <AnchorPane layoutX="641.2" layoutY="15.2" prefHeight="698.0" prefWidth="463.0" styleClass="table-view" AnchorPane.bottomAnchor="15.200000000000045" AnchorPane.rightAnchor="11.799999999999955" AnchorPane.topAnchor="15.2">
                <children>
-                  <TableView fx:id="orderDetailsTable" layoutX="13.0" layoutY="83.0" prefHeight="602.0" prefWidth="436.0" styleClass="btn-button">
+                  <TableView fx:id="orderDetailsTable" layoutX="13.0" layoutY="84.0" prefHeight="605.0" prefWidth="436.0" styleClass="btn-button">
                      <columns>
                         <TableColumn fx:id="bill_details_name" prefWidth="121.60003662109375" text="ProductName" />
                         <TableColumn fx:id="bill_details_quantity" prefWidth="149.60003662109375" text="Quantity" />

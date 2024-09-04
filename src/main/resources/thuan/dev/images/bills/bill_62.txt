@@ -1,0 +1,16 @@
+
+3k Chicken Shop
+====================
+
+Products:
+- Mì ý s?t gà: 5 
+- Gà ô ma chi: 5 
+
+CustomerID: 12
+Date: 2024-09-04
+Total: 427500.00
+Status: 0
+
+====================
+
+Thank you

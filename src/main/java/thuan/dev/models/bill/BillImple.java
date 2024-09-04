@@ -13,6 +13,19 @@ public class BillImple implements BillDAO{
     Connection conn = MyConnection.getConnection();
 
     @Override
+    public boolean updateStatusBill(Bills bills) {
+        try{
+            PreparedStatement statement = conn.prepareStatement("UPDATE bill set status = ? where billID = ?");
+            statement.setInt(1,1);
+            statement.setInt(2,bills.getBillID());
+            statement.executeQuery();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    @Override
     public List<Order> showDetailsBill(Bills bills) {
         List<Order> orderList = new ArrayList<>();
         try {
@@ -37,13 +50,12 @@ public class BillImple implements BillDAO{
         return orderList;
     }
 
-
     @Override
     public List<Bills> getAllBillDateNow() {
         List<Bills> bills = new ArrayList<>();
         LocalDate today = LocalDate.now();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM bill where date = ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM bill where date = ? and status = 0");
             statement.setDate(1,java.sql.Date.valueOf(today));
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -61,16 +73,10 @@ public class BillImple implements BillDAO{
     }
 
     @Override
-    public void totalPrice(Bills bills) {
-
-    }
-
-
-    @Override
     public List<Bills> getAllBills() {
         List<Bills> bills = new ArrayList<>();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM bill");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM bill where status = 0");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Bills bill = new Bills();
@@ -86,15 +92,12 @@ public class BillImple implements BillDAO{
         return bills;
     }
 
-
     @Override
     public boolean addBill(Bills bills) {
         try {
             conn.setAutoCommit(false);
-
-
             PreparedStatement statement = conn.prepareStatement(
-                    "INSERT INTO bill(customerID, date, total) VALUES (?, ?, ?)",
+                    "INSERT INTO bill(customerID, date, total,status) VALUES (?, ?, ?, 0)",
                     Statement.RETURN_GENERATED_KEYS
             );
             statement.setInt(1, Data.customerID);
@@ -144,8 +147,5 @@ public class BillImple implements BillDAO{
             }
         }
     }
-
-
-
 
 }

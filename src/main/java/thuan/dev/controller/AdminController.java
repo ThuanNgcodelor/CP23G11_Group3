@@ -212,7 +212,6 @@ public class AdminController {
     private TableView<Order> orderDetailsTable;
 
     public void menu() throws IOException {
-        CategoryComboBox();
         showProduct();
         search();
         displayUsername();
@@ -224,6 +223,7 @@ public class AdminController {
         totalCustomers();
         showListBill();
         BrandComboBox();
+        CategoryComboBox();
         RoleComBoBox();
         showStaff();
         searchStaff();
@@ -260,6 +260,7 @@ public class AdminController {
         orderDetailsTable.setItems(orderDetailsList);
 
     }
+    //Hien thị chi tiết bills
 
     public void showListBill() {
         BillDAO billDAO = new BillImple();
@@ -307,6 +308,7 @@ public class AdminController {
     //Tính toán quantity customers
 
 //-----------------------------------------STAFF,Customer-----------------------------------------------------------------------------------------------------------------------------------------------
+
     private void RoleComBoBox() {
         role.getItems().addAll(0, 1);
 
@@ -398,7 +400,6 @@ public class AdminController {
         showStaff();
         clearFormStaff();
     }
-
 
     @FXML
     private void signUpAction(ActionEvent event) {
@@ -494,6 +495,9 @@ public class AdminController {
 
             showAlert(Alert.AlertType.INFORMATION, "Success", "Employee deleted successfully");
             showStaff();
+        }else {
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Xoas ddeo duoc");
+
         }
     }
 
@@ -514,10 +518,25 @@ public class AdminController {
         table_date.setCellValueFactory(new PropertyValueFactory<>("birth"));
         table_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         table_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+
         table_role.setCellValueFactory(new PropertyValueFactory<>("role"));
+        table_role.setCellFactory(e ->{
+            return new TableCell<Employees,Integer>(){
+              @Override
+              protected void updateItem(Integer role,boolean empty){
+                  super.updateItem(role, empty);
+                  if (empty || role == null){
+                      setText(null);
+                  }else {
+                      setText(role == 0 ? "Admin" : "Staff");
+                  }
+              }
+            };
+        });
 
         table_staff.setItems(employeesFilteredList);
     }
+
 
     @FXML
     private void searchStaff() {
@@ -592,11 +611,10 @@ public class AdminController {
     //Khi touch vào product sẽ hiện lại input ở để chỉnh sửa
 
     private void displayCustomerDetails(Employees emp) {
-
         fullname.setText(emp.getFullname());
         email.setText(emp.getEmail());
         phone.setText(emp.getPhone());
-        birthdays.setPromptText(emp.getBirth().toString());
+        birthdays.setValue(LocalDate.parse(emp.getBirth().toString()));
         cccd.setText(emp.getCccd());
         password.setText(emp.getPassword());
         role.getSelectionModel().getSelectedItem();
@@ -676,12 +694,12 @@ public class AdminController {
             }
 
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmationAlert.setTitle("Xác nhận thêm sản phẩm");
-            confirmationAlert.setHeaderText("Bạn có muốn thêm sản phẩm này?");
-            confirmationAlert.setContentText("Sản phẩm: " + name);
+            confirmationAlert.setTitle("Confirm more products");
+            confirmationAlert.setHeaderText("Would you like to add this product?");
+            confirmationAlert.setContentText("Products: " + name);
 
-            ButtonType buttonYes = new ButtonType("Xác nhận", ButtonBar.ButtonData.OK_DONE);
-            ButtonType buttonNo = new ButtonType("Hủy", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType buttonYes = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
+            ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
             confirmationAlert.getButtonTypes().setAll(buttonYes, buttonNo);
 
             Optional<ButtonType> result = confirmationAlert.showAndWait();
@@ -727,17 +745,17 @@ public class AdminController {
         try {
             Product selectedProduct = table.getSelectionModel().getSelectedItem();
             if (selectedProduct == null) {
-                showAlert(Alert.AlertType.ERROR, "Error", "Vui lòng chọn sản phẩm để cập nhật");
+                showAlert(Alert.AlertType.ERROR, "Error", "Please select a product to update");
                 return;
             }
 
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmationAlert.setTitle("Xác nhận cập nhật");
-            confirmationAlert.setHeaderText("Bạn có muốn cập nhật sản phẩm này?");
-            confirmationAlert.setContentText("Sản phẩm: " + selectedProduct.getProductName());
+            confirmationAlert.setTitle("Confirm update");
+            confirmationAlert.setHeaderText("Do you want to update this product?");
+            confirmationAlert.setContentText("Products: " + selectedProduct.getProductName());
 
-            ButtonType buttonYes = new ButtonType("Xác nhận", ButtonBar.ButtonData.OK_DONE);
-            ButtonType buttonNo = new ButtonType("Hủy", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType buttonYes = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
+            ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
             confirmationAlert.getButtonTypes().setAll(buttonYes, buttonNo);
 
             Optional<ButtonType> result = confirmationAlert.showAndWait();
@@ -761,7 +779,7 @@ public class AdminController {
                     Integer stock = Integer.parseInt(stockText);
                     selectedProduct.setStock(stock);
                 } else {
-                    showAlert(Alert.AlertType.ERROR, "Error", "Vui lòng chỉnh lại ảnh");
+                    showAlert(Alert.AlertType.ERROR, "Error", "Please edit the photo");
                     return;
                 }
 
@@ -770,10 +788,10 @@ public class AdminController {
 
                 table.refresh();
                 clearInputFields();
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Cập nhật thành công!");
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Updated successfully!");
             }
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Đã xảy ra lỗi khi cập nhật sản phẩm: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while updating the product: " + e.getMessage());
             System.out.println("Error: ");
         }
     }
@@ -783,7 +801,7 @@ public class AdminController {
     public void handleDeleteProducts() {
         Product selectedProduct = table.getSelectionModel().getSelectedItem();
         if (selectedProduct == null) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Vui lòng chọn sản phẩm để xóa!!");
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select a product to delete!");
             return;
         }
         Alert comfirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -791,8 +809,8 @@ public class AdminController {
         comfirmAlert.setHeaderText("Do you want to delete this product?");
         comfirmAlert.setContentText("Product: " + selectedProduct.getProductName());
 
-        ButtonType buttonYes = new ButtonType("Xác nhận", ButtonBar.ButtonData.OK_DONE);
-        ButtonType buttonNo = new ButtonType("Hủy", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType buttonYes = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         comfirmAlert.getButtonTypes().setAll(buttonYes, buttonNo);
 
         Optional<ButtonType> result = comfirmAlert.showAndWait();
@@ -873,6 +891,17 @@ public class AdminController {
             Stage stage = new Stage();
             brandController.start(stage);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    private void buttonNewController(ActionEvent event){
+        try {
+            NewsController newsController = new NewsController();
+            Stage stage = new Stage();
+            newsController.start(stage);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

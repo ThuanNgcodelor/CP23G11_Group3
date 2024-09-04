@@ -7,6 +7,7 @@ public class Bills {
     private double totalPrice;
     private int customerID;
     private Date date;
+    private int status;
 
     public Bills(int billID, double totalPrice, int customerID, Date date) {
         this.billID = billID;
@@ -18,8 +19,17 @@ public class Bills {
     public Bills() {
     }
 
+
     public int getBillID() {
         return billID;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public void setBillID(int billID) {

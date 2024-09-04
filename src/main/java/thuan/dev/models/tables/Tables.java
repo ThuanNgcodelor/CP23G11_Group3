@@ -8,13 +8,15 @@ public class Tables {
     private String fullname;
     private String address;
     private Date ngaythang;
+    private int status;
 
-    public Tables(int tableID, String table_name, String fullname, String address, Date ngaythang) {
+    public Tables(int tableID, String table_name, String fullname, String address, Date ngaythang,int status) {
         this.tableID = tableID;
         this.table_name = table_name;
         this.fullname = fullname;
         this.address = address;
         this.ngaythang = ngaythang;
+        this.status = status;
     }
 
     public Tables() {
@@ -61,5 +63,13 @@ public class Tables {
 
     public void setNgaythang(Date ngaythang) {
         this.ngaythang = ngaythang;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

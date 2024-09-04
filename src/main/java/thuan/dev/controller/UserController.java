@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.w3c.dom.Document;
+import thuan.dev.config.MyConnection;
 import thuan.dev.models.bill.BillDAO;
 import thuan.dev.models.bill.BillImple;
 import thuan.dev.models.bill.Bills;
@@ -23,8 +25,11 @@ import thuan.dev.models.products.Product;
 import thuan.dev.models.products.ProductDAO;
 import thuan.dev.models.products.ProductImple;
 
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -137,7 +142,6 @@ public class UserController extends AdminController {
     @FXML
     void handleDeleteOrder(ActionEvent event) {
         Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
-        Product product = new Product();
 
         if (selectedOrder == null) {
             showAlert(Alert.AlertType.ERROR, "Error", "Please select an order to delete!");
@@ -191,6 +195,103 @@ public class UserController extends AdminController {
         table_orders.setItems(billsList);
     }
 
+    @FXML
+    private void handleExportPDF(ActionEvent event) {
+        try {
+            Connection conn = MyConnection.getConnection();
+
+            String maxBillIdQuery = "SELECT MAX(billID) AS maxBillID FROM bill";
+            //gọi bill max
+            PreparedStatement maxBillIdStmt = conn.prepareStatement(maxBillIdQuery);
+            ResultSet maxBillIdResult = maxBillIdStmt.executeQuery();
+
+            int billID = -1;
+            // nho hon 0 -> bao loi
+            if (maxBillIdResult.next()) {
+                billID = maxBillIdResult.getInt("maxBillID");
+            }
+
+            if (billID != -1) {
+                String fileName = "bill_" + billID + ".txt";
+                File outputFile = new File("C:\\Users\\kkk\\Desktop\\Group_3\\src\\main\\resources\\thuan\\dev\\images\\bills\\" + fileName);
+
+                try (FileWriter writer = new FileWriter(outputFile)) {
+                    writer.write("\n3k Chicken Shop\n");
+                    writer.write("====================\n\n");
+
+                    String query1 = "SELECT * FROM orders WHERE bills = ?";
+                    PreparedStatement statement1 = conn.prepareStatement(query1);
+                    statement1.setInt(1, billID);
+                    ResultSet resultSet1 = statement1.executeQuery();
+
+                    writer.write("Products:\n");
+
+                    while (resultSet1.next()) {
+                        String productName = resultSet1.getString("productName");
+                        int quantity = resultSet1.getInt("quantity");
+
+                        String productDetails = String.format("- %s: %d \n", productName, quantity);
+                        writer.write(productDetails);
+                    }
+
+                    String query2 = "SELECT customerID, date, total, status FROM bill WHERE billID = ?";
+                    PreparedStatement statement2 = conn.prepareStatement(query2);
+                    statement2.setInt(1, billID);
+                    ResultSet resultSet2 = statement2.executeQuery();
+
+                    if (resultSet2.next()) {
+                        int customerID = resultSet2.getInt("customerID");
+                        Date date = resultSet2.getDate("date");
+                        double total = resultSet2.getDouble("total");
+                        int status = resultSet2.getInt("status");
+
+                        String billDetails = String.format("\nCustomerID: %d\nDate: %s\nTotal: %.2f\nStatus: %d\n\n",
+                                customerID, date, total, status);
+                        writer.write(billDetails);
+                    }
+
+                    writer.write("====================\n");
+                    writer.write("\nThank you\n");
+
+                    resultSet1.close();
+                    statement1.close();
+                    resultSet2.close();
+                    statement2.close();
+                    conn.close();
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Printed bills successfully");
+                    alert.showAndWait();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Export Failed");
+                    alert.setHeaderText(null);
+                    alert.setContentText("An error occurred while exporting data.");
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No Bills Found");
+                alert.setHeaderText(null);
+                alert.setContentText("No bills were found in the database.");
+                alert.showAndWait();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("An error occurred while retrieving the maximum bill ID.");
+            alert.showAndWait();
+        }
+    }
 
 
 //--------------------------------------------BILLS--------------------------------------------------------------------------------------------
@@ -224,7 +325,6 @@ public class UserController extends AdminController {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Confirm Order");
         confirmationAlert.setHeaderText("Are you sure you want to update this order?");
-        confirmationAlert.setContentText("Price: " + selectedOrder.getPrice());
 
         ButtonType buttonYes = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
         ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -462,6 +562,17 @@ public class UserController extends AdminController {
         double finalTotal = totalPrice;
         Platform.runLater(() -> total_price.setText(String.format("$%.2f", finalTotal)));
         total_bill.setText(String.valueOf(customerID));
+    }
+
+    @FXML
+    private void buttonNews(ActionEvent event){
+        try{
+            ShowNews showNews = new ShowNews();
+            Stage stage = new Stage();
+            showNews.start(stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

@@ -4,15 +4,13 @@ public class News {
     private int newsID;
     private String newsName;
     private String newsDetails;
-    private String newsImages;
+    private String Images;
 
-
-    public News(int newsID, String newsName, String newsDetails, String newsImages) {
+    public News(int newsID, String newsName, String newsDetails, String Images) {
         this.newsID = newsID;
         this.newsName = newsName;
         this.newsDetails = newsDetails;
-        this.newsImages = newsImages;
-
+        this.Images = Images;
     }
 
     public News() {
@@ -43,10 +41,15 @@ public class News {
     }
 
     public String getNewsImages() {
-        return newsImages;
+        return Images;
     }
 
-    public void setNewsImages(String newsImages) {
-        this.newsImages = newsImages;
+    public void setNewsImages(String v) {
+        this.Images = Images;
+    }
+
+    @Override
+    public String toString() {
+        return newsName;
     }
 }
