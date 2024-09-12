@@ -13,6 +13,51 @@ import java.util.List;
 
 public class EmployeeImp implements EmployeeDAO {
     @Override
+    public boolean updateProfile(Employees emp) {
+        try {
+            String sql = "UPDATE customers SET phone = ?, birth = ?, cccd = ?, email = ?, password = ?, fullname = ? WHERE customerID = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, emp.getPhone());
+            statement.setDate(2, new java.sql.Date(emp.getBirth().getTime()));
+            statement.setString(3, emp.getCccd());
+            statement.setString(4, emp.getEmail());
+            statement.setString(5, emp.getPassword());
+            statement.setString(6, emp.getFullname());
+            statement.setInt(7, Data.customerID);
+
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public List<Employees> selectProfile() {
+        List<Employees> employee = new ArrayList<>();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM customers WHERE customerID = ?");
+            statement.setInt(1, Data.customerID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Employees emp = new Employees();
+                emp.setEmployeeID(rs.getInt("customerID"));
+                emp.setPhone(rs.getString("phone"));
+                emp.setBirth(rs.getDate("birth"));
+                emp.setCccd(rs.getString("cccd"));
+                emp.setEmail(rs.getString("email"));
+                emp.setPassword(rs.getString("password"));
+                emp.setFullname(rs.getString("fullname"));
+                employee.add(emp);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return employee;
+    }
+
+    @Override
     public boolean updateCustomer(Employees emp) {
         try {
             PreparedStatement statement = conn.prepareStatement(
@@ -35,27 +80,6 @@ public class EmployeeImp implements EmployeeDAO {
         }
     }
 
-    @Override
-    public boolean updatePassword(String email, String oldPassword, String newPassword) {
-        try{
-            PreparedStatement statement = conn.prepareStatement("SELECT * from customers WHERE email = ? AND password = ?");
-            statement.setString(1,email);
-            statement.setString(2,oldPassword);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()){
-                PreparedStatement updateStatement = conn.prepareStatement("UPDATE customers set password = ? where email = ?");
-                updateStatement.setString(1,newPassword);
-                updateStatement.setString(2,email);
-                int check = updateStatement.executeUpdate();
-                return check > 0;
-            }else {
-                return false;
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     Date date;
 

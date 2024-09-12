@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -34,10 +36,12 @@ import thuan.dev.models.products.ProductImple;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class AdminController {
@@ -144,9 +148,6 @@ public class AdminController {
     private Label total_price;
 
     @FXML
-    private Label price_inDate;
-
-    @FXML
     private ImageView images_add;
 
     @FXML
@@ -211,6 +212,11 @@ public class AdminController {
     @FXML
     private TableView<Order> orderDetailsTable;
 
+    @FXML
+    private AreaChart<String, Double> areachart;
+
+
+
     public void menu() throws IOException {
         showProduct();
         search();
@@ -241,7 +247,7 @@ public class AdminController {
         });
         // bam nut de hien thi don hang
         hideDetailsButton.setOnAction(event -> hideOrderDetails());
-
+        dashboardChart();
     }
 
     private void hideOrderDetails() {
@@ -261,6 +267,19 @@ public class AdminController {
 
     }
     //Hien thị chi tiết bills
+
+    public void dashboardChart(){
+     BillDAO billDAO = new BillImple();
+     Map<java.sql.Date, Double> billSum = billDAO.sumBill();
+     XYChart.Series<String,Double> areaSeries = new XYChart.Series<>();
+
+     for (Map.Entry<java.sql.Date, Double> entry : billSum.entrySet()){
+         String date = new SimpleDateFormat("yyyy-MM-dd").format(entry.getKey());
+         Double value = entry.getValue();
+         areaSeries.getData().add(new XYChart.Data<>(date,value));
+     }
+     areachart.getData().add(areaSeries);
+    }
 
     public void showListBill() {
         BillDAO billDAO = new BillImple();
@@ -873,36 +892,67 @@ public class AdminController {
     }
     //Thanh navbar
 
+    private Stage categoryStage;
     @FXML
     private void buttonCategory(ActionEvent event) {
-        try {
-            CategoryController categoryController = new CategoryController();
-            Stage stage = new Stage();
-            categoryController.start(stage);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (categoryStage == null || !categoryStage.isShowing()) {
+            try {
+                CategoryController categoryController = new CategoryController();
+                categoryStage= new Stage();
+                categoryController.start(categoryStage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            showAlert(Alert.AlertType.ERROR,"Error","The category window is already open.");
         }
     }
 
+    private Stage brandStage;
     @FXML
     private void buttonBrand(ActionEvent event) {
-        try {
-            BrandController brandController = new BrandController();
-            Stage stage = new Stage();
-            brandController.start(stage);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (brandStage == null || !brandStage.isShowing()) {
+            try {
+                BrandController brandController = new BrandController();
+                brandStage= new Stage();
+                brandController.start(brandStage);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            showAlert(Alert.AlertType.ERROR,"Error","The supplier window is already open.");
         }
     }
 
+    private Stage newsStage;
     @FXML
     private void buttonNewController(ActionEvent event){
-        try {
-            NewsController newsController = new NewsController();
-            Stage stage = new Stage();
-            newsController.start(stage);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+       if (newsStage == null || !newsStage.isShowing()){
+           try{
+               NewsController newsController = new NewsController();
+               newsStage = new Stage();
+               newsController.start(newsStage);
+           } catch (Exception e) {
+               throw new RuntimeException(e);
+           }
+       }else {
+           showAlert(Alert.AlertType.ERROR,"Error", "The news window is already open.");
+       }
+    }
+
+    private Stage shipperStage;
+    @FXML
+    private void buttonManageShipper(ActionEvent event){
+        if (shipperStage == null || !shipperStage.isShowing()){
+            try {
+                ShipperController shipperController = new ShipperController();
+                shipperStage = new Stage();
+                shipperController.start(shipperStage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            showAlert(Alert.AlertType.ERROR, "Error", "The Shipper window is already open.");
         }
     }
 

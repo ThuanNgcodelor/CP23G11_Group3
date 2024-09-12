@@ -2,6 +2,9 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -18,7 +21,7 @@
 
 <AnchorPane prefHeight="728.0" prefWidth="691.0" stylesheets="@../resource/Admin.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.AdminController">
    <children>
-      <AnchorPane fx:id="home" layoutX="212.0" layoutY="1.0" prefHeight="734.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="1.0">
+      <AnchorPane fx:id="home" layoutX="212.0" layoutY="1.0" prefHeight="734.0" prefWidth="1118.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="1.0">
          <children>
             <AnchorPane prefHeight="242.0" prefWidth="1115.0" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                <styleClass>
@@ -115,24 +118,27 @@
                   <String fx:value="white-bg" />
                </styleClass>
                <children>
-                  <AnchorPane layoutX="18.4" layoutY="16.2" prefHeight="430.0" prefWidth="660.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="18.19999999999999" AnchorPane.leftAnchor="18.4" AnchorPane.rightAnchor="431.20000000000016" AnchorPane.topAnchor="16.2">
+                  <AnchorPane layoutX="18.4" layoutY="16.0" prefHeight="429.0" prefWidth="992.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="16.0">
                      <styleClass>
                         <String fx:value="white-bg" />
                         <String fx:value="radius" />
                         <String fx:value="table-view" />
                      </styleClass>
-                  </AnchorPane>
-                  <AnchorPane layoutX="695.0" layoutY="15.0" prefHeight="430.0" prefWidth="400.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="18.600000000000023" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="15.0">
-                     <styleClass>
-                        <String fx:value="white-bg" />
-                        <String fx:value="radius" />
-                        <String fx:value="table-view" />
-                     </styleClass>
+                     <children>
+                        <AreaChart fx:id="areachart" layoutX="6.0" layoutY="5.0" prefHeight="418.0" prefWidth="559.0" AnchorPane.bottomAnchor="3.7999999999999545" AnchorPane.leftAnchor="3.3558593750000227" AnchorPane.rightAnchor="7.755859375" AnchorPane.topAnchor="5.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </AreaChart>
+                     </children>
                   </AnchorPane>
                </children>
             </AnchorPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="add" layoutX="213.0" prefHeight="719.0" prefWidth="1118.0" AnchorPane.bottomAnchor="5.2000000000000455" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
+      <AnchorPane fx:id="add" layoutX="213.0" prefHeight="719.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="5.2000000000000455" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
          <children>
             <AnchorPane layoutX="0.8" layoutY="-5.0" prefHeight="378.0" prefWidth="1118.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="345.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.684341886080802E-14">
                <children>
@@ -307,7 +313,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="3.0" layoutY="413.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage shipper" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="10.599999999999994">
+            <Button layoutX="3.0" layoutY="413.0" mnemonicParsing="false" onAction="#buttonManageShipper" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage shipper" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="10.599999999999994">
                <font>
                   <Font size="18.0" />
                </font>
@@ -349,9 +355,9 @@
                   <Image url="@../images/z5736919437600_0a8e8e5622ed9ebf0d77222dd3069456.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="58.0" fitWidth="120.0" layoutX="80.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="48.0" fitWidth="82.0" layoutX="106.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/cusc.jpg" />
+                  <Image url="@../images/cusc.png" />
                </image>
             </ImageView>
          </children></AnchorPane>
@@ -444,17 +450,17 @@
                         <Font size="34.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="fullname" layoutX="92.0" layoutY="93.0" prefHeight="40.0" prefWidth="120.0" promptText="Fullname" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="71.19999999999999" />
-                  <TextField fx:id="cccd" layoutX="92.0" layoutY="151.0" prefHeight="40.0" prefWidth="120.0" promptText="Citizen identification card" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="71.19999999999999" />
-                  <DatePicker fx:id="birthdays" layoutX="92.0" layoutY="209.0" prefHeight="40.0" prefWidth="120.0" promptText="Date of birth" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="71.19999999999999" />
-                  <TextField fx:id="phone" layoutX="92.0" layoutY="268.0" prefHeight="40.0" prefWidth="120.0" promptText="Phone number" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="71.19999999999999" />
-                  <TextField fx:id="email" layoutX="48.8" layoutY="327.0" prefHeight="40.0" prefWidth="280.0" promptText="Email" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="71.0" />
-                  <PasswordField fx:id="password" layoutX="92.0" layoutY="383.0" prefHeight="40.0" prefWidth="120.0" promptText="Password" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="71.19999999999999" />
-                  <ComboBox fx:id="role" layoutX="92.0" layoutY="444.0" prefHeight="40.0" prefWidth="120.0" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="71.19999999999999" />
-                  <Button layoutX="91.0" layoutY="522.0" mnemonicParsing="false" onAction="#signUpAction" prefHeight="40.0" prefWidth="120.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Add staff" AnchorPane.leftAnchor="91.0" AnchorPane.rightAnchor="72.19999999999999" />
-                  <Button layoutX="91.0" layoutY="587.0" mnemonicParsing="false" onAction="#updateStaffAction" prefHeight="40.0" prefWidth="237.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Update staff" />
-                  <Button layoutX="218.0" layoutY="654.0" mnemonicParsing="false" onAction="#deleteStaffAction" prefHeight="40.0" prefWidth="110.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Delete" />
-                  <Button layoutX="91.0" layoutY="654.0" mnemonicParsing="false" onAction="#resetStaff" prefHeight="40.0" prefWidth="110.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="reset" />
+                  <TextField fx:id="fullname" layoutX="70.0" layoutY="98.0" prefHeight="40.0" prefWidth="262.0" promptText="Fullname" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="68.39999999999998" />
+                  <TextField fx:id="cccd" layoutX="70.0" layoutY="156.0" prefHeight="40.0" prefWidth="262.0" promptText="Citizen identification card" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="68.39999999999998" />
+                  <DatePicker fx:id="birthdays" layoutX="70.0" layoutY="214.0" prefHeight="40.0" prefWidth="262.0" promptText="Date of birth" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="68.39999999999998" />
+                  <TextField fx:id="phone" layoutX="70.4" layoutY="275.0" prefHeight="40.0" prefWidth="262.0" promptText="Phone number" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="70.4" AnchorPane.rightAnchor="68.0" />
+                  <TextField fx:id="email" layoutX="70.0" layoutY="332.0" prefHeight="40.0" prefWidth="262.0" promptText="Email" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="68.39999999999998" />
+                  <PasswordField fx:id="password" layoutX="70.4" layoutY="395.0" prefHeight="40.0" prefWidth="262.0" promptText="Password" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="70.4" AnchorPane.rightAnchor="68.0" />
+                  <ComboBox fx:id="role" layoutX="70.0" layoutY="456.0" prefHeight="40.0" prefWidth="262.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="68.39999999999998" />
+                  <Button layoutX="68.8" layoutY="526.0" mnemonicParsing="false" onAction="#signUpAction" prefHeight="40.0" prefWidth="262.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Add staff" AnchorPane.leftAnchor="68.8" AnchorPane.rightAnchor="69.59999999999997" />
+                  <Button layoutX="69.0" layoutY="590.0" mnemonicParsing="false" onAction="#updateStaffAction" prefHeight="40.0" prefWidth="262.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Update staff" />
+                  <Button layoutX="210.0" layoutY="657.0" mnemonicParsing="false" onAction="#deleteStaffAction" prefHeight="40.0" prefWidth="120.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Delete" />
+                  <Button layoutX="69.0" layoutY="657.0" mnemonicParsing="false" onAction="#resetStaff" prefHeight="40.0" prefWidth="120.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="reset" />
                </children>
             </AnchorPane>
          </children>

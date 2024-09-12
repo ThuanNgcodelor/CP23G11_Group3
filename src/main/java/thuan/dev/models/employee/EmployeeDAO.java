@@ -8,7 +8,7 @@ public interface EmployeeDAO {
 
     public boolean addEmployee(Employees emp);
 
-    public boolean updatePassword(String email,String oldPassword, String newPassword);
+    public boolean updateProfile(Employees emp);
 
     public int checkLogin(String email, String password);
 
@@ -17,6 +17,8 @@ public interface EmployeeDAO {
     public void delete(Employees emp);
 
     public boolean updateCustomer(Employees emp);
+
+    public List<Employees> selectProfile();
 
 
 }

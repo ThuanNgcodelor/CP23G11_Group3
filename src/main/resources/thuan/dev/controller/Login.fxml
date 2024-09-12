@@ -28,6 +28,7 @@
                   <Image url="@../images/z5737081390720_a2d476e5421c8e6c0679280379614070.jpg" />
                </image>
             </ImageView>
+            <TextField fx:id="password_show" layoutX="353.0" layoutY="191.0" prefHeight="35.0" prefWidth="220.0" styleClass="column-header" visible="false" />
          </children>
       </AnchorPane>
    </children>

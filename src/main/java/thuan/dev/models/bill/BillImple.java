@@ -6,11 +6,47 @@ import thuan.dev.models.orders.Order;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BillImple implements BillDAO{
+    @Override
+    public Map<Date, Double> sumBill() {
+        Map<Date, Double> billSumByDate = new HashMap<>();
+        try {
+            PreparedStatement statement = conn.prepareStatement(
+                    "SELECT date, SUM(total) AS total_sum FROM bill GROUP BY date ORDER BY date;"
+            );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Date date = rs.getDate("date");
+                double totalSum = rs.getDouble("total_sum");
+                billSumByDate.put(date, totalSum);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return billSumByDate;
+    }
+
+
     Connection conn = MyConnection.getConnection();
+
+    @Override
+    public void updateOrder(Bills bills) {
+        try{
+            PreparedStatement statement = conn.prepareStatement("update bill set status = ? where billID = ?");
+            statement.setInt(1,1);
+            statement.setInt(2,bills.getBillID());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public boolean updateStatusBill(Bills bills) {
@@ -53,10 +89,41 @@ public class BillImple implements BillDAO{
     @Override
     public List<Bills> getAllBillDateNow() {
         List<Bills> bills = new ArrayList<>();
-        LocalDate today = LocalDate.now();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDate today = now.toLocalDate();
+        LocalTime midnight = LocalTime.MIDNIGHT;
+        LocalDateTime startOfDay = LocalDateTime.of(today, midnight);
+
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM bill where date = ? and status = 0");
-            statement.setDate(1,java.sql.Date.valueOf(today));
+            PreparedStatement statement = conn.prepareStatement(
+                    "SELECT * FROM bill WHERE date >= ? AND date < ? AND status = 1"
+            );
+
+            // Set the parameters for the prepared statement
+            statement.setTimestamp(1, Timestamp.valueOf(startOfDay));
+            statement.setTimestamp(2, Timestamp.valueOf(startOfDay.plusDays(1)));
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Bills bill = new Bills();
+                bill.setBillID(rs.getInt("billID"));
+                bill.setCustomerID(rs.getInt("customerID"));
+                bill.setTotalPrice(rs.getDouble("total"));
+                bill.setDate(new Date(rs.getTimestamp("date").getTime()));
+                bills.add(bill);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return bills;
+    }
+
+
+    @Override
+    public List<Bills> getAllBills() {
+        List<Bills> bills = new ArrayList<>();
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM bill where status = 1");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Bills bill = new Bills();
@@ -73,7 +140,7 @@ public class BillImple implements BillDAO{
     }
 
     @Override
-    public List<Bills> getAllBills() {
+    public List<Bills> getAllBills2() {
         List<Bills> bills = new ArrayList<>();
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM bill where status = 0");
@@ -94,6 +161,7 @@ public class BillImple implements BillDAO{
 
     @Override
     public boolean addBill(Bills bills) {
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         try {
             conn.setAutoCommit(false);
             PreparedStatement statement = conn.prepareStatement(
@@ -101,7 +169,7 @@ public class BillImple implements BillDAO{
                     Statement.RETURN_GENERATED_KEYS
             );
             statement.setInt(1, Data.customerID);
-            statement.setDate(2, new Date(bills.getDate().getTime()));
+            statement.setTimestamp(2, new Timestamp(bills.getDate().getTime()));
             statement.setObject(3, bills.getTotalPrice());
 
             int check = statement.executeUpdate();

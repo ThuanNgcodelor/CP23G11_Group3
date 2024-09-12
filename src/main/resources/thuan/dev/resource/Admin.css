@@ -107,3 +107,24 @@
 .btn:hover{
     -fx-background-color: #654525;
 }
+
+.text{
+    -fx-background-color: rgb(246, 243, 243);
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: black;
+}
+
+/* Nút hiện/ẩn mật khẩu */
+.show-password-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+.show {
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20px 20px;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}

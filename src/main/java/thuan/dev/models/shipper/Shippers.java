@@ -1,23 +1,33 @@
 package thuan.dev.models.shipper;
 
+import java.util.Date;
+
 public class Shippers {
     private int shipperID;
     private String ShipperName;
     private int shipperPhone;
     private int billID;
     private int cccd;
-    private int age;
+    private String email;
 
-    public Shippers(int shipperID, String shipperName, int shipperPhone, int billID, int cccd, int age) {
+    public Shippers(int shipperID, String shipperName, int shipperPhone, int billID, int cccd, String email) {
         this.shipperID = shipperID;
-        ShipperName = shipperName;
+        this.ShipperName = shipperName;
         this.shipperPhone = shipperPhone;
         this.billID = billID;
         this.cccd = cccd;
-        this.age = age;
+        this.email = email;
     }
 
     public Shippers() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getShipperID() {
@@ -58,13 +68,5 @@ public class Shippers {
 
     public void setCccd(int cccd) {
         this.cccd = cccd;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 }

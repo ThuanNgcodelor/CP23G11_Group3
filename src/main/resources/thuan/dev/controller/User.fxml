@@ -3,7 +3,9 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,125 +15,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="687.0" prefWidth="1329.0" stylesheets="@../resource/Admin.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.UserController">
    <children>
-      <AnchorPane fx:id="home" layoutX="212.0" layoutY="1.0" prefHeight="734.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="1.0">
-         <children>
-            <AnchorPane prefHeight="242.0" prefWidth="1115.0" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
-               <styleClass>
-                  <String fx:value="shadow" />
-                  <String fx:value="white-bg" />
-                  <String fx:value="radius" />
-               </styleClass>
-               <children>
-                  <ScrollPane hbarPolicy="ALWAYS" prefHeight="242.0" prefWidth="1115.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="209.0" prefWidth="1310.0">
-                           <children>
-                              <AnchorPane layoutX="21.0" layoutY="15.0" prefHeight="200.0" prefWidth="300.0">
-                                 <styleClass>
-                                    <String fx:value="nav-form" />
-                                    <String fx:value="radius" />
-                                 </styleClass>
-                                 <children>
-                                    <FontAwesomeIcon glyphName="USERS" layoutX="16.0" layoutY="76.0" size="6em" />
-                                    <Label layoutX="4.0" layoutY="130.0" prefHeight="50.0" prefWidth="291.0" text="Số lượng khách hàng" textFill="#fff3f3">
-                                       <font>
-                                          <Font size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="total_bill" alignment="CENTER_RIGHT" layoutX="144.0" layoutY="35.0" prefHeight="30.0" prefWidth="138.0" text="0">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane layoutX="346.0" layoutY="15.0" prefHeight="200.0" prefWidth="300.0">
-                                 <styleClass>
-                                    <String fx:value="nav-form" />
-                                    <String fx:value="radius" />
-                                 </styleClass>
-                                 <children>
-                                    <FontAwesomeIcon glyphName="DOLLAR" layoutX="16.0" layoutY="76.0" size="6em" />
-                                    <Label layoutX="6.0" layoutY="129.0" prefHeight="50.0" prefWidth="288.0" text="Thu nhập trong ngày" textFill="#fff3f3">
-                                       <font>
-                                          <Font size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="147.0" layoutY="35.0" prefHeight="30.0" prefWidth="138.0" text="0">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane layoutX="672.0" layoutY="15.0" prefHeight="200.0" prefWidth="300.0">
-                                 <styleClass>
-                                    <String fx:value="nav-form" />
-                                    <String fx:value="radius" />
-                                 </styleClass>
-                                 <children>
-                                    <FontAwesomeIcon glyphName="MONEY" layoutX="17.0" layoutY="76.0" size="6em" />
-                                    <Label layoutX="27.0" layoutY="123.0" prefHeight="50.0" prefWidth="245.0" text="Tổng thu nhập" textFill="#fff3f3">
-                                       <font>
-                                          <Font size="30.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="total_price" alignment="CENTER_RIGHT" layoutX="113.0" layoutY="35.0" prefHeight="30.0" prefWidth="174.0" text="0">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane layoutX="996.0" layoutY="15.0" prefHeight="200.0" prefWidth="300.0">
-                                 <styleClass>
-                                    <String fx:value="nav-form" />
-                                    <String fx:value="radius" />
-                                 </styleClass>
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" layoutX="102.0" layoutY="40.0" prefHeight="30.0" prefWidth="174.0" text="0">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <FontAwesomeIcon layoutX="14.0" layoutY="71.0" size="6em" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="4.0" layoutY="255.40000000000003" prefHeight="463.0" prefWidth="1109.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="9.399999999999977" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.2000000000000455" AnchorPane.topAnchor="255.2">
-               <styleClass>
-                  <String fx:value="shadow" />
-                  <String fx:value="radius" />
-                  <String fx:value="white-bg" />
-               </styleClass>
-               <children>
-                  <AnchorPane layoutX="18.4" layoutY="16.2" prefHeight="430.0" prefWidth="660.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="18.19999999999999" AnchorPane.leftAnchor="18.4" AnchorPane.rightAnchor="431.20000000000016" AnchorPane.topAnchor="16.2">
-                     <styleClass>
-                        <String fx:value="white-bg" />
-                        <String fx:value="radius" />
-                        <String fx:value="table-view" />
-                     </styleClass>
-                  </AnchorPane>
-                  <AnchorPane layoutX="695.0" layoutY="15.0" prefHeight="430.0" prefWidth="400.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="18.600000000000023" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="15.0">
-                     <styleClass>
-                        <String fx:value="white-bg" />
-                        <String fx:value="radius" />
-                        <String fx:value="table-view" />
-                     </styleClass>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
-         </children></AnchorPane>
-      <AnchorPane fx:id="order" layoutX="210.0" layoutY="3.0" prefHeight="720.0" prefWidth="1118.0" AnchorPane.bottomAnchor="5.600000000000023" AnchorPane.leftAnchor="212.8" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
+      <AnchorPane fx:id="order" layoutX="210.0" layoutY="3.0" prefHeight="720.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="5.600000000000023" AnchorPane.leftAnchor="212.8" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="4.0">
          <children>
             <AnchorPane layoutX="3.0" layoutY="39.2" prefHeight="679.0" prefWidth="659.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="454.0" AnchorPane.topAnchor="39.0">
                <styleClass>
@@ -145,6 +34,9 @@
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints />
+                           </rowConstraints>
                         </GridPane>
                      </content>
                   </ScrollPane>
@@ -197,31 +89,48 @@
       </AnchorPane>
       <AnchorPane layoutY="106.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="575.0" prefWidth="211.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="101.39999999999998">
          <children>
-            <Button fx:id="homeButton" layoutX="6.0" layoutY="279.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Trang chủ" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="7.600000000000023">
+            <Button fx:id="homeButton" layoutX="8.0" layoutY="56.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Trang chủ" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="6.400000000000006">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="6.0" layoutY="136.0" mnemonicParsing="false" onAction="#buttonNews" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="News" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="7.600000000000023">
+            <Button layoutX="4.8" layoutY="357.0" mnemonicParsing="false" onAction="#buttonNews" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="News" AnchorPane.leftAnchor="4.8" AnchorPane.rightAnchor="9.599999999999994">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="orderButton" layoutX="7.0" layoutY="65.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Orders" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="5.799999999999983">
+            <Button fx:id="orderButton" layoutX="7.2" layoutY="130.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Orders" AnchorPane.leftAnchor="7.2" AnchorPane.rightAnchor="5.599999999999994">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="billButton" layoutX="5.0" layoutY="209.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage bills">
+            <Button fx:id="billButton" layoutX="6.0" layoutY="204.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage bills">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
             <Button fx:id="logout" layoutX="-3.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="38.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Đăng xuất" AnchorPane.bottomAnchor="-2.1316282072803006E-14" />
-            <FontAwesomeIcon fill="WHITE" glyphName="MONEY" layoutX="14.0" layoutY="96.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" glyphName="SHIP" layoutX="14.0" layoutY="167.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" glyphName="CHECK" layoutX="14.0" layoutY="240.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" glyphName="HOME" layoutX="14.0" layoutY="310.0" size="2em" />
+            <FontAwesomeIcon fill="WHITE" glyphName="MONEY" layoutX="13.0" layoutY="162.0" size="2em" text="" />
+            <FontAwesomeIcon fill="WHITE" glyphName="SHIP" layoutX="12.0" layoutY="389.0" size="2em" text="" />
+            <FontAwesomeIcon fill="WHITE" glyphName="CHECK" layoutX="14.0" layoutY="235.0" size="2em" />
+            <FontAwesomeIcon fill="WHITE" glyphName="HOME" layoutX="15.0" layoutY="90.0" size="2em" />
+            <Button layoutX="6.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonBillOrders" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Orders in kitchen">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="5.0" layoutY="430.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Feedback">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <FontAwesomeIcon fill="WHITE" glyphName="MONEY" layoutX="14.0" layoutY="311.0" size="2em" />
+            <Button layoutX="6.0" layoutY="504.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Table">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <FontAwesomeIcon fill="WHITE" glyphName="SEND" layoutX="14.0" layoutY="461.0" size="2em" />
          </children>
          <styleClass>
             <String fx:value="radius" />
@@ -292,13 +201,74 @@
                   <Image url="@../images/z5736919437600_0a8e8e5622ed9ebf0d77222dd3069456.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="58.0" fitWidth="120.0" layoutX="80.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="48.0" fitWidth="82.0" layoutX="106.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/cusc.jpg" />
+                  <Image url="@../images/cusc.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="home" layoutX="211.0" layoutY="3.2" prefHeight="723.0" prefWidth="1231.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <AnchorPane layoutX="0.8" layoutY="-3.0" prefHeight="727.0" prefWidth="1116.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-3.0">
+               <children>
+                  <Label layoutX="52.0" layoutY="14.0" prefHeight="50.0" prefWidth="280.0" stylesheets="@../resource/Admin.css" text="Profile settings">
+                     <font>
+                        <Font name="System Bold" size="27.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fullname" layoutX="293.0" layoutY="109.0" prefHeight="40.0" prefWidth="671.0" styleClass="text" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="163.79999999999995" />
+                  <TextField fx:id="cccd" layoutX="295.0" layoutY="183.0" prefHeight="40.0" prefWidth="662.0" styleClass="text" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="171.39999999999998" />
+                  <DatePicker fx:id="birthdays" layoutX="295.0" layoutY="262.0" prefHeight="40.0" prefWidth="170.0" styleClass="text" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="651.0" />
+                  <TextField fx:id="phone" layoutX="293.0" layoutY="339.0" prefHeight="40.0" prefWidth="671.0" styleClass="text" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="163.79999999999995" />
+                  <TextField fx:id="email" layoutX="295.0" layoutY="485.0" prefHeight="40.0" prefWidth="671.0" styleClass="text" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="161.80000000000007" />
+                  <PasswordField fx:id="password" layoutX="293.0" layoutY="569.0" prefHeight="40.0" prefWidth="671.0" styleClass="text" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="163.79999999999995" />
+                  <Button layoutX="444.0" layoutY="649.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="46.0" prefWidth="227.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="reset" />
+                  <Label layoutX="107.0" layoutY="109.0" prefHeight="34.0" prefWidth="138.0" text="Full name">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="107.0" layoutY="185.0" prefHeight="34.0" prefWidth="183.0" text="Citizen identification card">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="107.0" layoutY="262.0" prefHeight="34.0" prefWidth="138.0" text="Date of birth">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="107.0" layoutY="339.0" prefHeight="34.0" prefWidth="163.0" text="Phone number">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="107.0" layoutY="485.0" prefHeight="34.0" prefWidth="138.0" text="Email">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="107.0" layoutY="567.0" prefHeight="34.0" prefWidth="138.0" text="Password">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="password_show" layoutX="293.0" layoutY="569.0" prefHeight="40.0" prefWidth="659.0" styleClass="text" stylesheets="@../resource/Admin.css" visible="false" />
+                  <Label layoutX="52.0" layoutY="400.0" prefHeight="50.0" prefWidth="163.0" stylesheets="@../resource/Admin.css" text="Important">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="34.0" fitWidth="46.0" layoutX="918.0" layoutY="572.0" pickOnBounds="true" preserveRatio="true" styleClass="show" AnchorPane.leftAnchor="917.8000000000001" AnchorPane.rightAnchor="164.20000000000005">
+                     <image>
+                        <Image url="@../images/showpass.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="show" layoutX="912.0" layoutY="572.0" mnemonicParsing="false" onAction="#passwordShow" prefHeight="34.0" prefWidth="46.0" styleClass="show" />
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
    </children>
    <styleClass>
       <String fx:value="radius" />

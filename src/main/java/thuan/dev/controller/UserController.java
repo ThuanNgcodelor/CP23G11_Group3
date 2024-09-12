@@ -1,6 +1,7 @@
 package thuan.dev.controller;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,11 +14,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.w3c.dom.Document;
 import thuan.dev.config.MyConnection;
 import thuan.dev.models.bill.BillDAO;
 import thuan.dev.models.bill.BillImple;
 import thuan.dev.models.bill.Bills;
+import thuan.dev.models.employee.EmployeeDAO;
+import thuan.dev.models.employee.EmployeeImp;
+import thuan.dev.models.employee.Employees;
 import thuan.dev.models.orders.Order;
 import thuan.dev.models.orders.OrderDAO;
 import thuan.dev.models.orders.OrderImplements;
@@ -30,11 +33,29 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 public class UserController extends AdminController {
+
+
+    @FXML
+    private Button show;
+
+    @FXML
+    private TextField password_show;
+
+    @FXML
+    private Button showDetailsButton;
+
+    @FXML
+    private Button hideDetailsButton;
+
+    @FXML
+    private TableView<Order> orderDetailsTable;
 
     @FXML
     private TableColumn<Bills, Integer> bill_customers;
@@ -122,9 +143,111 @@ public class UserController extends AdminController {
 
     private FilteredList<Product> filteredList;
 
-
     @FXML
     private TextField sale_code;
+
+    @FXML
+    private TextField cccd;
+
+    @FXML
+    private TextField email;
+
+    @FXML
+    private TextField fullname;
+
+    @FXML
+    private PasswordField password;
+
+    @FXML
+    private TextField phone;
+
+    @FXML
+    private DatePicker birthdays;
+
+    private void displayProfile() {
+        EmployeeDAO employeeDAO = new EmployeeImp();
+        List<Employees> employees = employeeDAO.selectProfile();
+
+        if (!employees.isEmpty()) {
+            Employees emp = employees.get(0);
+
+            phone.setText(emp.getPhone());
+            cccd.setText(emp.getCccd());
+            email.setText(emp.getEmail());
+            password.setText(emp.getPassword());
+            fullname.setText(emp.getFullname());
+            password_show.setText(emp.getPassword());
+            Bindings.bindBidirectional(password.textProperty(), password_show.textProperty());
+
+
+            if (emp.getBirth() != null) {
+                birthdays.setValue(LocalDate.parse(emp.getBirth().toString()));
+            }
+        }
+    }
+    @FXML
+    private void updateProfile() {
+        String phoneF = phone.getText();
+        String cccdF = cccd.getText();
+        LocalDate localDate = birthdays.getValue();
+        String emailF = email.getText();
+        String passwordF = password.getText();
+        String fullnameF = fullname.getText();
+
+        if (phoneF.isEmpty() || cccdF.isEmpty() || localDate == null || emailF.isEmpty() || passwordF.isEmpty() || fullnameF.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please enter complete data");
+            return;
+        }
+        if (!phoneF.matches("\\d+")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Phone number must be numeric");
+            return;
+        }
+        if (!emailF.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Invalid email format");
+            return;
+        }
+        if (!cccdF.matches("\\d{10}")) {
+            showAlert(Alert.AlertType.ERROR, "Error", "CCCD must be 10 digits");
+            return;
+        }
+        if (!localDate.isBefore(LocalDate.now())) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Date of birth must be before the current date");
+            return;
+        }
+
+        Date birthF = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirm Update");
+        confirmationAlert.setHeaderText("Do you want to update this employee?");
+        confirmationAlert.setContentText("Employee: " + fullnameF);
+
+        ButtonType buttonYes = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmationAlert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.isPresent() && result.get() == buttonYes) {
+
+            Employees updatedEmployee = new Employees();
+            updatedEmployee.setPhone(phoneF);
+            updatedEmployee.setBirth(birthF);
+            updatedEmployee.setCccd(cccdF);
+            updatedEmployee.setEmail(emailF);
+            updatedEmployee.setPassword(passwordF);
+            updatedEmployee.setFullname(fullnameF);
+
+            EmployeeDAO employeeDAO = new EmployeeImp();
+            boolean success = employeeDAO.updateProfile(updatedEmployee);
+
+            if (success) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Employee updated successfully!");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to update employee.");
+            }
+        }
+    }
+
 
     @FXML
     public void handleLogout(ActionEvent event) {
@@ -174,6 +297,8 @@ public class UserController extends AdminController {
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Order deleted successfully!");
                 showDisplayCard();
                 totalPrice();
+
+                //tạo thông báo cho lieu thu 2
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete the order!");
             }
@@ -332,7 +457,7 @@ public class UserController extends AdminController {
 
         Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (result.isPresent() && result.get() == buttonYes) {
-            orderDAO.updateOrder(selectedOrder.getOrderID());
+                orderDAO.updateOrder(selectedOrder.getOrderID());
 
             Bills bills = new Bills();
 
@@ -448,18 +573,11 @@ public class UserController extends AdminController {
         });
     }
     //Tính toán số tiền và hiển thị quantity
-    @FXML
-    private Button showDetailsButton;
 
-    @FXML
-    private Button hideDetailsButton;
-
-    @FXML
-    private TableView<Order> orderDetailsTable;
 
     @FXML
     private void initialize() {
-
+        displayProfile();
         table_search_product.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(product -> {
                 if (newValue == null || newValue.isEmpty()) {
@@ -576,12 +694,39 @@ public class UserController extends AdminController {
     }
 
     @FXML
+    private void buttonBillOrders(ActionEvent event) {
+        try {
+            BillOrdersController billOrdersController = new BillOrdersController();
+            Stage stage = new Stage();
+            billOrdersController.start(stage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @FXML
+    private void passwordShow(ActionEvent event){
+        if (password.isVisible()) {
+            password_show.setText(password.getText());
+            password_show.setVisible(true);
+            password.setVisible(false);
+        } else {
+            password.setText(password_show.getText());
+            password_show.setVisible(false);
+            password.setVisible(true);
+        }
+    }
+
+
+    @FXML
     private void switchForm(ActionEvent event) {
         if (event.getSource() == homeButton) {
             home.setVisible(true);
             order.setVisible(false);
             bills.setVisible(false);
             displayUsername();
+            displayProfile();
         } else if (event.getSource() == orderButton) {
             home.setVisible(false);
             order.setVisible(true);
