@@ -21,7 +21,7 @@
 
 <AnchorPane prefHeight="728.0" prefWidth="691.0" stylesheets="@../resource/Admin.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.AdminController">
    <children>
-      <AnchorPane fx:id="home" layoutX="212.0" layoutY="1.0" prefHeight="734.0" prefWidth="1118.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="1.0">
+      <AnchorPane fx:id="home" layoutX="212.0" layoutY="1.0" prefHeight="734.0" prefWidth="1118.0" visible="false" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="1.0">
          <children>
             <AnchorPane prefHeight="242.0" prefWidth="1115.0" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                <styleClass>
@@ -293,49 +293,43 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="manage" layoutX="4.0" layoutY="161.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage product" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="9.599999999999994">
+            <Button fx:id="manage" layoutX="4.0" layoutY="177.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage product" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="9.599999999999994">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="staffbutton" layoutX="4.0" layoutY="99.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage staff">
+            <Button fx:id="staffbutton" layoutX="4.0" layoutY="105.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage staff">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="3.0" layoutY="289.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Lương" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="10.599999999999994">
+            <Button layoutX="3.2" layoutY="322.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Table" AnchorPane.leftAnchor="3.2" AnchorPane.rightAnchor="10.400000000000006">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="5.0" layoutY="352.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Table" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="8.599999999999994">
+            <Button layoutX="2.4" layoutY="394.0" mnemonicParsing="false" onAction="#buttonManageShipper" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage shipper" AnchorPane.leftAnchor="2.4" AnchorPane.rightAnchor="11.199999999999989">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="3.0" layoutY="413.0" mnemonicParsing="false" onAction="#buttonManageShipper" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage shipper" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="10.599999999999994">
+            <Button layoutX="2.4" layoutY="465.0" mnemonicParsing="false" onAction="#buttonNewController" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage news" AnchorPane.leftAnchor="2.4" AnchorPane.rightAnchor="8.800000000000011">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="3.0" layoutY="477.0" mnemonicParsing="false" onAction="#buttonNewController" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage news" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="8.199999999999989">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonbill" layoutX="4.0" layoutY="224.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage bills">
+            <Button fx:id="buttonbill" layoutX="3.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage bills">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
             <FontAwesomeIcon fill="WHITE" glyphName="HOME" layoutX="14.0" layoutY="64.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" glyphName="USER" layoutX="14.0" layoutY="130.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" glyphName="EDIT" layoutX="14.0" layoutY="192.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" glyphName="CHECK" layoutX="14.0" layoutY="255.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" layoutX="14.0" layoutY="320.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" glyphName="TABLE" layoutX="14.0" layoutY="383.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" glyphName="SHIP" layoutX="14.0" layoutY="444.0" size="2em" />
-            <FontAwesomeIcon fill="WHITE" glyphName="STAR" layoutX="14.0" layoutY="508.0" size="2em" />
+            <FontAwesomeIcon fill="WHITE" glyphName="USER" layoutX="14.0" layoutY="136.0" size="2em" />
+            <FontAwesomeIcon fill="WHITE" glyphName="EDIT" layoutX="14.0" layoutY="208.0" size="2em" />
+            <FontAwesomeIcon fill="WHITE" glyphName="CHECK" layoutX="13.0" layoutY="281.0" size="2em" />
+            <FontAwesomeIcon fill="WHITE" glyphName="TABLE" layoutX="11.0" layoutY="354.0" size="2em" text="" />
+            <FontAwesomeIcon fill="WHITE" glyphName="SHIP" layoutX="8.0" layoutY="425.0" size="2em" />
+            <FontAwesomeIcon fill="WHITE" glyphName="STAR" layoutX="14.0" layoutY="496.0" size="2em" />
          </children>
          <styleClass>
             <String fx:value="radius" />
@@ -413,7 +407,7 @@
                </children></AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="staff" layoutX="212.0" layoutY="-1.0" prefHeight="726.0" prefWidth="1101.0" visible="false" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-1.0">
+      <AnchorPane fx:id="staff" layoutX="212.0" layoutY="-1.0" prefHeight="726.0" prefWidth="1101.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="-1.0">
          <children>
             <AnchorPane layoutX="400.0" layoutY="1.0" prefHeight="718.0" prefWidth="627.0" styleClass="table-view" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="1.0">
                <children>
@@ -423,15 +417,15 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="table_staff" layoutX="11.0" layoutY="71.0" prefHeight="638.0" prefWidth="611.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="13.799999999999955" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.399999999999977" AnchorPane.topAnchor="71.0">
+                  <TableView fx:id="table_staff" layoutX="7.0" layoutY="82.0" prefHeight="620.0" prefWidth="619.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="20.399999999999977" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.399999999999977" AnchorPane.topAnchor="82.0">
                      <columns>
                         <TableColumn fx:id="table_id" prefWidth="42.400025963783264" text="ID" />
                         <TableColumn fx:id="table_name" prefWidth="147.99999237060547" text="FullName" />
                         <TableColumn fx:id="table_cccd" prefWidth="80.79998016357422" text="CCCD" />
                         <TableColumn fx:id="table_date" prefWidth="124.80006408691406" text="Date of birth" />
                         <TableColumn fx:id="table_phone" prefWidth="101.5999755859375" text="Phone" />
-                        <TableColumn fx:id="table_email" prefWidth="143.199951171875" text="Email" />
-                        <TableColumn fx:id="table_role" minWidth="0.0" prefWidth="40.95578613281248" text="Role" />
+                        <TableColumn fx:id="table_email" prefWidth="118.40005493164062" text="Email" />
+                        <TableColumn fx:id="table_role" minWidth="0.0" prefWidth="44.7999267578125" text="Role" />
                      </columns>
                      <styleClass>
                         <String fx:value="header" />
@@ -441,6 +435,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <Button layoutX="498.0" layoutY="27.2" mnemonicParsing="false" onAction="#deleteStaffAction" prefHeight="40.0" prefWidth="98.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="View salary" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="25.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutY="1.0" prefHeight="723.0" prefWidth="400.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">

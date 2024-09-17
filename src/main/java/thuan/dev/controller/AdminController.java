@@ -270,13 +270,13 @@ public class AdminController {
 
     public void dashboardChart(){
      BillDAO billDAO = new BillImple();
-     Map<java.sql.Date, Double> billSum = billDAO.sumBill();
+     Map<java.sql.Timestamp, Double> billSum = billDAO.sumBill();
      XYChart.Series<String,Double> areaSeries = new XYChart.Series<>();
 
-     for (Map.Entry<java.sql.Date, Double> entry : billSum.entrySet()){
-         String date = new SimpleDateFormat("yyyy-MM-dd").format(entry.getKey());
+     for (Map.Entry<java.sql.Timestamp, Double> entry : billSum.entrySet()){
+         String dateTime = new SimpleDateFormat("yyyy-MM-dd").format(entry.getKey());
          Double value = entry.getValue();
-         areaSeries.getData().add(new XYChart.Data<>(date,value));
+         areaSeries.getData().add(new XYChart.Data<>(dateTime,value));
      }
      areachart.getData().add(areaSeries);
     }

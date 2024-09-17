@@ -15,23 +15,24 @@ import java.util.Map;
 
 public class BillImple implements BillDAO{
     @Override
-    public Map<Date, Double> sumBill() {
-        Map<Date, Double> billSumByDate = new HashMap<>();
+    public Map<Timestamp, Double> sumBill() {
+        Map<Timestamp, Double> billSumByDate = new HashMap<>();
         try {
             PreparedStatement statement = conn.prepareStatement(
                     "SELECT date, SUM(total) AS total_sum FROM bill GROUP BY date ORDER BY date;"
             );
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                Date date = rs.getDate("date");
+                Timestamp timestamp = rs.getTimestamp("date"); // Sử dụng Timestamp để có cả ngày và giờ
                 double totalSum = rs.getDouble("total_sum");
-                billSumByDate.put(date, totalSum);
+                billSumByDate.put(timestamp, totalSum);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return billSumByDate;
     }
+
 
 
     Connection conn = MyConnection.getConnection();

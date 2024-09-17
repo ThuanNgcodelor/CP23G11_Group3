@@ -27,6 +27,8 @@ import thuan.dev.models.orders.OrderImplements;
 import thuan.dev.models.products.Product;
 import thuan.dev.models.products.ProductDAO;
 import thuan.dev.models.products.ProductImple;
+import thuan.dev.models.salary.SalaryDAO;
+import thuan.dev.models.salary.SalaryImple;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -163,6 +165,22 @@ public class UserController extends AdminController {
 
     @FXML
     private DatePicker birthdays;
+
+    @FXML
+    private void checkIn(ActionEvent event){
+        SalaryDAO salaryDAO = new SalaryImple();
+        salaryDAO.getSalary();
+        showAlert(Alert.AlertType.INFORMATION,"Thanks","Check in successfully");
+    }
+
+    @FXML
+    private void checkOut(ActionEvent event){
+        SalaryDAO salaryDAO = new SalaryImple();
+        salaryDAO.timeEnd();
+        showAlert(Alert.AlertType.INFORMATION,"Thanks","Check out successfully");
+
+        salaryDAO.countSalary();
+    }
 
     private void displayProfile() {
         EmployeeDAO employeeDAO = new EmployeeImp();

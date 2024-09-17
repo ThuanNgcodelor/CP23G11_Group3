@@ -266,6 +266,8 @@
                      </image>
                   </ImageView>
                   <Button fx:id="show" layoutX="912.0" layoutY="572.0" mnemonicParsing="false" onAction="#passwordShow" prefHeight="34.0" prefWidth="46.0" styleClass="show" />
+                  <Button layoutX="1020.0" mnemonicParsing="false" onAction="#checkOut" prefHeight="46.0" prefWidth="96.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check out" />
+                  <Button layoutX="912.0" mnemonicParsing="false" onAction="#checkIn" prefHeight="46.0" prefWidth="96.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check in" />
                </children>
             </AnchorPane>
          </children></AnchorPane>

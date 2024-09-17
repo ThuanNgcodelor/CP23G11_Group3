@@ -14,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import thuan.dev.models.employee.EmployeeImp;
+import thuan.dev.models.salary.SalaryDAO;
+import thuan.dev.models.salary.SalaryImple;
 
 import java.io.IOException;
 
