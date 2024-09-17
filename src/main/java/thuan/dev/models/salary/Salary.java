@@ -8,13 +8,44 @@ public class Salary {
     LocalDateTime timeEnd;
     Integer hours;
     Integer minutes;
+    private long totalHours;
+    private long totalMinutes;
+    private long totalDays;
 
-    public Salary(Integer salaryID, LocalDateTime timeStart, LocalDateTime timeEnd, Integer hours, Integer minutes) {
+
+    public Salary(Integer salaryID, LocalDateTime timeStart, LocalDateTime timeEnd, Integer hours, Integer minutes, long totalHours, long totalMinutes, long totalDays) {
         this.salaryID = salaryID;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.hours = hours;
         this.minutes = minutes;
+        this.totalHours = totalHours;
+        this.totalMinutes = totalMinutes;
+        this.totalDays = totalDays;
+    }
+
+    public long getTotalHours() {
+        return totalHours;
+    }
+
+    public void setTotalHours(long totalHours) {
+        this.totalHours = totalHours;
+    }
+
+    public long getTotalMinutes() {
+        return totalMinutes;
+    }
+
+    public void setTotalMinutes(long totalMinutes) {
+        this.totalMinutes = totalMinutes;
+    }
+
+    public long getTotalDays() {
+        return totalDays;
+    }
+
+    public void setTotalDays(long totalDays) {
+        this.totalDays = totalDays;
     }
 
     public Salary() {}

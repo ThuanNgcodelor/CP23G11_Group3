@@ -6,5 +6,5 @@ public interface SalaryDAO {
     public LocalDateTime timeStart();
     public LocalDateTime timeEnd();
     public void getSalary();
-    public void countSalary();
+    public void countSalary(Salary salary);
 }

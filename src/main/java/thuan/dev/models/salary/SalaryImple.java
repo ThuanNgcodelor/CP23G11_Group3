@@ -9,24 +9,33 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
+
 
 public class SalaryImple implements SalaryDAO{
     @Override
-    public void countSalary() {
+    public void countSalary(Salary salary) {
         try{
-            PreparedStatement statement = conn.prepareStatement("select sum(hours) as totalHours,sum(minutes) as totalMinutes from loginTime where customerID = ? ");
+            PreparedStatement statement = conn.prepareStatement("select sum(hours) as totalHours,sum(minutes) as totalMinutes,count(DISTINCT CAST(datetime as DATE)) as totalDays from loginTime where customerID = ? ");
             statement.setInt(1,Data.customerID);
             ResultSet rs = statement.executeQuery();
             if (rs.next()){
                 long totalHours = rs.getLong("totalHours");
                 long totalMinutes = rs.getLong("totalMinutes");
+                long totalDays = rs.getLong("totalDays");
 
                 totalHours += totalMinutes / 60 ;
                 //So gio bang so phut chia 60
                 totalMinutes = totalMinutes % 60;
                 //So gio bang chia du
 
-                System.out.println("Hours "+ totalHours + " Minutes "+totalMinutes);
+                System.out.println("Hours "+ totalHours + " Minutes "+totalMinutes + " Days " + totalDays);
+                salary.setTotalHours(totalHours);
+                salary.setTotalMinutes(totalMinutes);
+                salary.setTotalDays(totalDays);
+
+
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

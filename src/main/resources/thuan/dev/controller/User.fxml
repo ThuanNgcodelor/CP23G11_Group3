@@ -223,7 +223,7 @@
                   <TextField fx:id="phone" layoutX="293.0" layoutY="339.0" prefHeight="40.0" prefWidth="671.0" styleClass="text" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="163.79999999999995" />
                   <TextField fx:id="email" layoutX="295.0" layoutY="485.0" prefHeight="40.0" prefWidth="671.0" styleClass="text" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="295.0" AnchorPane.rightAnchor="161.80000000000007" />
                   <PasswordField fx:id="password" layoutX="293.0" layoutY="569.0" prefHeight="40.0" prefWidth="671.0" styleClass="text" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="163.79999999999995" />
-                  <Button layoutX="444.0" layoutY="649.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="46.0" prefWidth="227.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="reset" />
+                  <Button layoutX="295.0" layoutY="653.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="46.0" prefWidth="197.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Update" />
                   <Label layoutX="107.0" layoutY="109.0" prefHeight="34.0" prefWidth="138.0" text="Full name">
                      <font>
                         <Font size="16.0" />
@@ -254,20 +254,40 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="password_show" layoutX="293.0" layoutY="569.0" prefHeight="40.0" prefWidth="659.0" styleClass="text" stylesheets="@../resource/Admin.css" visible="false" />
+                  <TextField fx:id="password_show" layoutX="293.0" layoutY="569.0" prefHeight="40.0" prefWidth="659.0" styleClass="text" stylesheets="@../resource/Admin.css" visible="false" AnchorPane.leftAnchor="293.0" AnchorPane.rightAnchor="164.0" />
                   <Label layoutX="52.0" layoutY="400.0" prefHeight="50.0" prefWidth="163.0" stylesheets="@../resource/Admin.css" text="Important">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="34.0" fitWidth="46.0" layoutX="918.0" layoutY="572.0" pickOnBounds="true" preserveRatio="true" styleClass="show" AnchorPane.leftAnchor="917.8000000000001" AnchorPane.rightAnchor="164.20000000000005">
+                  <ImageView fitHeight="34.0" fitWidth="46.0" layoutX="918.0" layoutY="572.0" pickOnBounds="true" preserveRatio="true" styleClass="show" AnchorPane.rightAnchor="164.20000000000005">
                      <image>
                         <Image url="@../images/showpass.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="show" layoutX="912.0" layoutY="572.0" mnemonicParsing="false" onAction="#passwordShow" prefHeight="34.0" prefWidth="46.0" styleClass="show" />
-                  <Button layoutX="1020.0" mnemonicParsing="false" onAction="#checkOut" prefHeight="46.0" prefWidth="96.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check out" />
-                  <Button layoutX="912.0" mnemonicParsing="false" onAction="#checkIn" prefHeight="46.0" prefWidth="96.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check in" />
+                  <Button fx:id="show" layoutX="912.0" layoutY="572.0" mnemonicParsing="false" onAction="#passwordShow" prefHeight="34.0" prefWidth="46.0" styleClass="show" AnchorPane.rightAnchor="157.80000000000004" />
+                  <Button layoutX="984.2" layoutY="1.0" mnemonicParsing="false" onAction="#checkOut" prefHeight="46.0" prefWidth="96.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check out" AnchorPane.rightAnchor="36.0" />
+                  <Button layoutX="857.8000000000001" layoutY="1.0" mnemonicParsing="false" onAction="#checkIn" prefHeight="46.0" prefWidth="96.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check in" AnchorPane.rightAnchor="162.39999999999998" />
+                  <Label fx:id="days" layoutX="679.0" layoutY="676.0" prefHeight="34.0" prefWidth="72.0" text=" 0 day" AnchorPane.rightAnchor="365.20000000000005">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="620.2" layoutY="632.0" prefHeight="50.0" prefWidth="150.0" stylesheets="@../resource/Admin.css" text="Working days" AnchorPane.rightAnchor="345.6">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="857.8000000000001" layoutY="637.0" prefHeight="40.0" prefWidth="82.0" stylesheets="@../resource/Admin.css" text="Salary" AnchorPane.rightAnchor="176.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="salaryStaff" layoutX="877.0" layoutY="676.0" prefHeight="34.0" prefWidth="163.0" text=" 0 day" AnchorPane.rightAnchor="76.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children></AnchorPane>

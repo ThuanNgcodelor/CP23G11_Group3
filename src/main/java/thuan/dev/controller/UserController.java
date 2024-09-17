@@ -27,6 +27,7 @@ import thuan.dev.models.orders.OrderImplements;
 import thuan.dev.models.products.Product;
 import thuan.dev.models.products.ProductDAO;
 import thuan.dev.models.products.ProductImple;
+import thuan.dev.models.salary.Salary;
 import thuan.dev.models.salary.SalaryDAO;
 import thuan.dev.models.salary.SalaryImple;
 
@@ -42,7 +43,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserController extends AdminController {
-
 
     @FXML
     private Button show;
@@ -167,6 +167,13 @@ public class UserController extends AdminController {
     private DatePicker birthdays;
 
     @FXML
+    private Label days;
+
+    @FXML
+    private Label salaryStaff;
+
+
+    @FXML
     private void checkIn(ActionEvent event){
         SalaryDAO salaryDAO = new SalaryImple();
         salaryDAO.getSalary();
@@ -178,8 +185,6 @@ public class UserController extends AdminController {
         SalaryDAO salaryDAO = new SalaryImple();
         salaryDAO.timeEnd();
         showAlert(Alert.AlertType.INFORMATION,"Thanks","Check out successfully");
-
-        salaryDAO.countSalary();
     }
 
     private void displayProfile() {
@@ -201,8 +206,29 @@ public class UserController extends AdminController {
             if (emp.getBirth() != null) {
                 birthdays.setValue(LocalDate.parse(emp.getBirth().toString()));
             }
+            SalaryDAO salaryDAO = new SalaryImple();
+            Salary salary = new Salary();
+            salaryDAO.countSalary(salary);
+            days.setText(String.valueOf(salary.getTotalDays()));
+            //HIển thị số ngày
+
+            long house = salary.getTotalHours();
+            long minutes = salary.getTotalMinutes();
+
+            int oneHouse = 30000;
+            //tạo ra 1 giờ
+            double oneMinutes = oneHouse / 60.0;
+
+            double totalSalary = (house * oneHouse) + (minutes * oneMinutes);
+            //Tính số tiền
+
+            salaryStaff.setText(String.valueOf(totalSalary + " VNĐ "));
+
         }
     }
+
+
+
     @FXML
     private void updateProfile() {
         String phoneF = phone.getText();
