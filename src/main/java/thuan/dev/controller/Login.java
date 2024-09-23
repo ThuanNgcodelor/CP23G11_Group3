@@ -119,6 +119,7 @@ public class Login extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/User.fxml"));
             Parent root = fxmlLoader.load();
             Stage userStage = new Stage();
+            userStage.setTitle("Staff");
             userStage.setScene(new Scene(root));
             userStage.show();
         } else {

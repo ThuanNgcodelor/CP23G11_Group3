@@ -32,6 +32,8 @@ import thuan.dev.models.orders.Order;
 import thuan.dev.models.products.Product;
 import thuan.dev.models.products.ProductDAO;
 import thuan.dev.models.products.ProductImple;
+import thuan.dev.models.salary.SalaryDAO;
+import thuan.dev.models.salary.SalaryImple;
 
 import java.io.File;
 import java.io.IOException;
@@ -515,7 +517,7 @@ public class AdminController {
             showAlert(Alert.AlertType.INFORMATION, "Success", "Employee deleted successfully");
             showStaff();
         }else {
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Xoas ddeo duoc");
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Employee delete false");
 
         }
     }
@@ -555,6 +557,35 @@ public class AdminController {
 
         table_staff.setItems(employeesFilteredList);
     }
+
+    @FXML
+    private void checkIn(ActionEvent event){
+        Employees selectedEmployee = table_staff.getSelectionModel().getSelectedItem();
+
+        if (selectedEmployee == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select an staff to check in");
+            return;
+        }
+
+        SalaryDAO salaryDAO = new SalaryImple();
+        salaryDAO.getSalary(selectedEmployee.getEmployeeID());
+        showAlert(Alert.AlertType.INFORMATION,"Thanks","Check in successfully");
+    }
+
+    @FXML
+    private void checkOut(ActionEvent event){
+        Employees selectedEmployee = table_staff.getSelectionModel().getSelectedItem();
+
+        if (selectedEmployee == null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Please select an staff to check out");
+            return;
+        }
+
+        SalaryDAO salaryDAO = new SalaryImple();
+        salaryDAO.timeEnd(selectedEmployee.getEmployeeID());
+        showAlert(Alert.AlertType.INFORMATION,"Thanks","Check out successfully");
+    }
+
 
 
     @FXML

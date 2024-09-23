@@ -266,8 +266,6 @@
                      </image>
                   </ImageView>
                   <Button fx:id="show" layoutX="912.0" layoutY="572.0" mnemonicParsing="false" onAction="#passwordShow" prefHeight="34.0" prefWidth="46.0" styleClass="show" AnchorPane.rightAnchor="157.80000000000004" />
-                  <Button layoutX="984.2" layoutY="1.0" mnemonicParsing="false" onAction="#checkOut" prefHeight="46.0" prefWidth="96.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check out" AnchorPane.rightAnchor="36.0" />
-                  <Button layoutX="857.8000000000001" layoutY="1.0" mnemonicParsing="false" onAction="#checkIn" prefHeight="46.0" prefWidth="96.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check in" AnchorPane.rightAnchor="162.39999999999998" />
                   <Label fx:id="days" layoutX="679.0" layoutY="676.0" prefHeight="34.0" prefWidth="72.0" text=" 0 day" AnchorPane.rightAnchor="365.20000000000005">
                      <font>
                         <Font size="16.0" />

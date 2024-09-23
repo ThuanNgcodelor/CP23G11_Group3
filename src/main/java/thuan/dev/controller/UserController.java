@@ -172,21 +172,6 @@ public class UserController extends AdminController {
     @FXML
     private Label salaryStaff;
 
-
-    @FXML
-    private void checkIn(ActionEvent event){
-        SalaryDAO salaryDAO = new SalaryImple();
-        salaryDAO.getSalary();
-        showAlert(Alert.AlertType.INFORMATION,"Thanks","Check in successfully");
-    }
-
-    @FXML
-    private void checkOut(ActionEvent event){
-        SalaryDAO salaryDAO = new SalaryImple();
-        salaryDAO.timeEnd();
-        showAlert(Alert.AlertType.INFORMATION,"Thanks","Check out successfully");
-    }
-
     private void displayProfile() {
         EmployeeDAO employeeDAO = new EmployeeImp();
         List<Employees> employees = employeeDAO.selectProfile();
@@ -617,7 +602,6 @@ public class UserController extends AdminController {
         });
     }
     //Tính toán số tiền và hiển thị quantity
-
 
     @FXML
     private void initialize() {
