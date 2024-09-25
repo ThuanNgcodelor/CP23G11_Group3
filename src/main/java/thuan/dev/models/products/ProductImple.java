@@ -75,6 +75,40 @@ public class    ProductImple implements ProductDAO {
         return products;
     }
 
+    public List<Product> showCategory(int categoryID) {
+        List<Product> products = new ArrayList<>();
+        try {
+            // Truy vấn theo categoryID được truyền vào
+            PreparedStatement ptmt = conn.prepareStatement(
+                    "SELECT product.productID, product.productName, product.categoryID, product.price, product.images, product.stock, product.brandID, " +
+                            "category.categoryName, brands.brandName " +
+                            "FROM product " +
+                            "INNER JOIN category ON product.categoryID = category.categoryID " +
+                            "INNER JOIN brands ON product.brandID = brands.brandID " +
+                            "WHERE category.categoryID = ?"
+            );
+            // Gán giá trị cho categoryID
+            ptmt.setInt(1, categoryID);
+
+            ResultSet rs = ptmt.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setProductID(rs.getInt("productID"));
+                product.setProductName(rs.getString("productName"));
+                product.setCategoryName(rs.getString("categoryName"));
+                product.setPrice(rs.getDouble("price"));
+                product.setImages(rs.getString("images"));
+                product.setStock(rs.getInt("stock"));
+                product.setBrandName(rs.getString("brandName"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println("Lỗi: " + e.getMessage());
+        }
+        return products;
+    }
+
+
     @Override
     public boolean addProduct(Product pro) {
         try {

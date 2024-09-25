@@ -13,7 +13,7 @@
    <children>
       <AnchorPane layoutY="-2.0" prefHeight="500.0" prefWidth="640.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
          <children>
-            <TextField fx:id="brandName" layoutX="40.0" layoutY="123.0" prefHeight="40.0" prefWidth="230.0" promptText="Nhập loại sản phẩm" stylesheets="@../resource/Admin.css" />
+            <TextField fx:id="brandName" layoutX="40.0" layoutY="123.0" prefHeight="40.0" prefWidth="230.0" promptText="Enter the product type" stylesheets="@../resource/Admin.css" />
             <Button layoutX="62.0" layoutY="362.0" mnemonicParsing="false" onAction="#deleteBrand" prefHeight="35.0" prefWidth="182.0" stylesheets="@../resource/Admin.css" text="Delete category">
                <styleClass>
                   <String fx:value="table-view" />

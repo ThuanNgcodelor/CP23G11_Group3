@@ -658,6 +658,44 @@ public class UserController extends AdminController {
         displayFilteredProducts();
     }
 
+    public void menuDisplayCardByCategory(int categoryID) {
+        ProductDAO productDAO = new ProductImple();
+        List<Product> products = productDAO.showCategory(categoryID);
+
+        if (products != null && !products.isEmpty()) {
+            productList = FXCollections.observableArrayList(products);
+            filteredList = new FilteredList<>(productList, p -> true);
+        }
+
+        displayFilteredProducts();
+    }
+    //Hiển thị th
+
+
+    @FXML
+    private void buttonCategory(ActionEvent event){
+        int selectedCategoryID = 2;
+        menuDisplayCardByCategory(selectedCategoryID);
+    }
+
+    @FXML
+    private void buttonCategoryFodd(ActionEvent event){
+        int selectedCategoryID = 1;
+        menuDisplayCardByCategory(selectedCategoryID);
+    }
+
+    @FXML
+    private void buttonCategoryPaste(ActionEvent event){
+        int selectedCategoryID = 4;
+        menuDisplayCardByCategory(selectedCategoryID);
+    }
+
+    @FXML
+    private void buttonCategoryCombo(ActionEvent event){
+        int selectedCategoryID = 5;
+        menuDisplayCardByCategory(selectedCategoryID);
+    }
+
     private void displayFilteredProducts() {
         int row = 0;
         int column = 0;

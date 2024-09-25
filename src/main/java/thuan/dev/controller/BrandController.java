@@ -76,6 +76,11 @@ public class BrandController extends Application {
     @FXML
     private void initialize() {
         showBrand();
+        table_brand.getSelectionModel().selectedItemProperty().addListener((observable,oldValue, newValue)->{
+            if (newValue != null) {
+                showInputTouch(newValue);
+            }
+        });
         searchField.textProperty().addListener((obs, oldText, newText) -> search());
     }
 
@@ -91,6 +96,10 @@ public class BrandController extends Application {
         table_brandName.setCellValueFactory(new PropertyValueFactory<>("brandName"));
 
         table_brand.setItems(filteredList);
+    }
+
+    private void showInputTouch(Brands brand){
+        brandName.setText(brand.getBrandName());
     }
 
     @FXML

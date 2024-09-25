@@ -107,7 +107,7 @@ public class CartController implements Initializable {
 
         UserController userController = AppService.getInstance().userController;
         userController.showDisplayCard();
-        userController.menuDisplayCard();
+//        userController.menuDisplayCard();
     }
 
     public void setQuantity() {

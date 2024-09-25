@@ -6,6 +6,8 @@ public interface ProductDAO {
 
     public List<Product> show();
 
+    public List<Product> showCategory(int categoryID);
+
     public boolean addProduct(Product pro);
 
     public void updateProduct(Product pro);

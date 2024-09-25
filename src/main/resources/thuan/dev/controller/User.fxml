@@ -46,9 +46,9 @@
                <children>
                   <TableView fx:id="card_display_table" layoutX="2.4" layoutY="1.4" prefHeight="378.0" prefWidth="448.0" styleClass="btn-button" AnchorPane.leftAnchor="2.4" AnchorPane.rightAnchor="4.800000000000011" AnchorPane.topAnchor="1.4">
                     <columns>
-                      <TableColumn fx:id="showcard_order" prefWidth="211.2001953125" text="Tên sản phẩm" />
-                        <TableColumn fx:id="showcard_quantity" prefWidth="93.599853515625" text="Số lượng" />
-                        <TableColumn fx:id="showcard_price" prefWidth="176.0" text="Giá" />
+                      <TableColumn fx:id="showcard_order" prefWidth="211.2001953125" text="Product name" />
+                        <TableColumn fx:id="showcard_quantity" prefWidth="93.599853515625" text="Quantity" />
+                        <TableColumn fx:id="showcard_price" prefWidth="176.0" text="Price" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -79,12 +79,16 @@
                   <Button layoutX="37.0" layoutY="566.0" mnemonicParsing="false" onAction="#updateCart" prefHeight="54.0" prefWidth="374.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Order" />
                </children>
             </AnchorPane>
-            <TextField fx:id="table_search_product" layoutX="110.0" layoutY="3.0" prefHeight="30.0" prefWidth="218.0" />
+            <TextField fx:id="table_search_product" layoutX="110.0" layoutY="3.0" prefHeight="30.0" prefWidth="138.0" />
             <Label layoutX="14.0" layoutY="1.0" prefHeight="26.0" prefWidth="82.0" text="Search">
                <font>
                   <Font size="23.0" />
                </font>
             </Label>
+            <Button layoutX="581.8000000000001" layoutY="0.6000000000000001" mnemonicParsing="false" onAction="#buttonCategoryCombo" prefHeight="34.0" prefWidth="80.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Combo" AnchorPane.rightAnchor="454.4" AnchorPane.topAnchor="0.6000000000000001" />
+            <Button layoutX="302.6" layoutY="0.6000000000000001" mnemonicParsing="false" onAction="#buttonCategoryFodd" prefHeight="34.0" prefWidth="80.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Chicken" AnchorPane.rightAnchor="733.6" AnchorPane.topAnchor="0.6000000000000001" />
+            <Button layoutX="397.0" layoutY="0.6000000000000001" mnemonicParsing="false" onAction="#buttonCategoryPaste" prefHeight="34.0" prefWidth="80.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Pasta" AnchorPane.rightAnchor="639.2" AnchorPane.topAnchor="0.6000000000000001" />
+            <Button layoutX="489.0" layoutY="-0.19999999999999996" mnemonicParsing="false" onAction="#buttonCategory" prefHeight="34.0" prefWidth="80.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Drink" AnchorPane.rightAnchor="547.2" AnchorPane.topAnchor="-0.19999999999999996" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="106.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="575.0" prefWidth="211.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="101.39999999999998">
@@ -142,7 +146,7 @@
          <children>
             <AnchorPane layoutX="14.0" layoutY="15.2" prefHeight="698.0" prefWidth="616.0" styleClass="table-view" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="486.0" AnchorPane.topAnchor="15.0">
                <children>
-                  <Label layoutX="32.0" layoutY="14.0" prefHeight="30.0" prefWidth="262.0" text="Orders">
+                  <Label layoutX="32.0" layoutY="14.0" prefHeight="30.0" prefWidth="262.0" text="Bills">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -181,7 +185,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Label layoutX="28.0" layoutY="14.0" prefHeight="30.0" prefWidth="262.0" text="OrderDetails">
+                  <Label layoutX="28.0" layoutY="14.0" prefHeight="30.0" prefWidth="262.0" text="Bills details">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -266,7 +270,7 @@
                      </image>
                   </ImageView>
                   <Button fx:id="show" layoutX="912.0" layoutY="572.0" mnemonicParsing="false" onAction="#passwordShow" prefHeight="34.0" prefWidth="46.0" styleClass="show" AnchorPane.rightAnchor="157.80000000000004" />
-                  <Label fx:id="days" layoutX="679.0" layoutY="676.0" prefHeight="34.0" prefWidth="72.0" text=" 0 day" AnchorPane.rightAnchor="365.20000000000005">
+                  <Label fx:id="days" layoutX="659.0" layoutY="676.0" prefHeight="34.0" prefWidth="72.0" text=" 0 day" AnchorPane.rightAnchor="385.20000000000005">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -281,7 +285,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="salaryStaff" layoutX="877.0" layoutY="676.0" prefHeight="34.0" prefWidth="163.0" text=" 0 day" AnchorPane.rightAnchor="76.0">
+                  <Label fx:id="salaryStaff" layoutX="863.0" layoutY="676.0" prefHeight="34.0" prefWidth="163.0" text=" 0 day" AnchorPane.rightAnchor="90.0">
                      <font>
                         <Font size="16.0" />
                      </font>

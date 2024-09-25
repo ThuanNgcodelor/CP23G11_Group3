@@ -76,6 +76,11 @@ public class CategoryController extends Application {
     @FXML
     private void initialize() {
         showCategory();
+        table_category.getSelectionModel().selectedItemProperty().addListener((observalue,oldValue,newValue)->{
+            if (newValue != null) {
+                showInputTouch(newValue);
+            }
+        });
         searchField.textProperty().addListener((obs, oldText, newText) -> search());
     }
 
@@ -90,6 +95,10 @@ public class CategoryController extends Application {
         table_categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         table_category.setItems(filteredList);
+    }
+
+    private void showInputTouch(Category category){
+        categoryName.setText(category.getName());
     }
 
     @FXML

@@ -907,6 +907,8 @@ public class AdminController {
             add.setVisible(true);
             staff.setVisible(false);
             checkbill.setVisible(false);
+            BrandComboBox();
+            CategoryComboBox();
             showProduct();
         } else if (event.getSource() == staffbutton) {
             staff.setVisible(true);
