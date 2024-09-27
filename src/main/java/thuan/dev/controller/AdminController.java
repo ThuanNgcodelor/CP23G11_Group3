@@ -6,7 +6,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -217,6 +220,9 @@ public class AdminController {
     @FXML
     private AreaChart<String, Double> areachart;
 
+    @FXML
+    private LineChart<String,Double> linechart;
+
 
 
     public void menu() throws IOException {
@@ -256,6 +262,7 @@ public class AdminController {
         orderDetailsTable.getItems().clear();
 
     }
+
     private void showOrderDetails(Bills selectedBill) {
         BillDAO billDAO = new BillImple();
         List<Order> orderDetails = billDAO.showDetailsBill(selectedBill);
@@ -270,17 +277,25 @@ public class AdminController {
     }
     //Hien thị chi tiết bills
 
-    public void dashboardChart(){
-     BillDAO billDAO = new BillImple();
-     Map<java.sql.Timestamp, Double> billSum = billDAO.sumBill();
-     XYChart.Series<String,Double> areaSeries = new XYChart.Series<>();
+    public void dashboardChart() {
+        BillDAO billDAO = new BillImple();
+        Map<java.sql.Timestamp, Double> billSum = billDAO.sumBill();
 
-     for (Map.Entry<java.sql.Timestamp, Double> entry : billSum.entrySet()){
-         String dateTime = new SimpleDateFormat("yyyy-MM-dd").format(entry.getKey());
-         Double value = entry.getValue();
-         areaSeries.getData().add(new XYChart.Data<>(dateTime,value));
-     }
-     areachart.getData().add(areaSeries);
+        XYChart.Series<String, Double> areaSeries = new XYChart.Series<>();
+        areaSeries.setName("Area Chart Series");
+
+        XYChart.Series<String, Double> lineSeries = new XYChart.Series<>();
+        lineSeries.setName("Line Chart Series");
+
+        for (Map.Entry<java.sql.Timestamp, Double> entry : billSum.entrySet()) {
+            String dateTime = new SimpleDateFormat("yyyy-MM-dd").format(entry.getKey());
+            Double value = entry.getValue();
+            areaSeries.getData().add(new XYChart.Data<>(dateTime, value));
+            lineSeries.getData().add(new XYChart.Data<>(dateTime, value));
+        }
+
+        areachart.getData().add(areaSeries);
+        linechart.getData().add(lineSeries);
     }
 
     public void showListBill() {
@@ -290,7 +305,7 @@ public class AdminController {
 
         bill_id.setCellValueFactory(new PropertyValueFactory<>("billID"));
         bill_total_price.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
-        bill_customers.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        bill_customers.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         bill_date.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         table_orders.setItems(billsList);
@@ -327,6 +342,32 @@ public class AdminController {
         total_bill.setText(String.valueOf(customerID));
     }
     //Tính toán quantity customers
+
+
+    @FXML
+    private void menuSalary(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/salary.fxml"));
+        AnchorPane pane = fxmlLoader.load();
+
+        SalaryProfile salaryProfile = fxmlLoader.getController();
+        // Lấy controller để truyền dữ liệu
+
+        Employees selectedEmployee = table_staff.getSelectionModel().getSelectedItem();
+        //lấy dữ liệu từ bảng
+
+        if (selectedEmployee != null) {
+            salaryProfile.showSalaryForEmployee(selectedEmployee.getEmployeeID(),selectedEmployee.getFullname());
+        } else {
+            showAlert(Alert.AlertType.ERROR,"Error","No staff selected.");
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle("Salary Details");
+        stage.setScene(new Scene(pane));
+        stage.show();
+
+    }
+    // Nút bấm để hiển thị số lương, giờ làm của nhân viên
 
 //-----------------------------------------STAFF,Customer-----------------------------------------------------------------------------------------------------------------------------------------------
 

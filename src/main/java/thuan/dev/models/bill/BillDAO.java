@@ -17,4 +17,6 @@ public interface BillDAO {
     public boolean updateStatusBill(Bills bills);
     public void updateOrder(Bills bills);
     public Map<Timestamp, Double> sumBill();
+    public Map<Timestamp, Double> sumBillDays();
+
 }

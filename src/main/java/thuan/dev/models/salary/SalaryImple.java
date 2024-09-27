@@ -10,10 +10,43 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class SalaryImple implements SalaryDAO{
+    Connection conn = MyConnection.getConnection();
+
+    @Override
+    public void countSalary2(Salary salary) {
+        try{
+            PreparedStatement statement = conn.prepareStatement("select sum(hours) as totalHours,sum(minutes) as totalMinutes,count(DISTINCT CAST(datetime as DATE)) as totalDays from loginTime where customerID = ? and status = 0");
+            statement.setInt(1,salary.getCustomerID());
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()){
+                long totalHours = rs.getLong("totalHours");
+                long totalMinutes = rs.getLong("totalMinutes");
+                long totalDays = rs.getLong("totalDays");
+
+                totalHours += totalMinutes / 60 ;
+                //So gio bang so phut chia 60
+                totalMinutes = totalMinutes % 60;
+                //So gio bang chia du
+
+                System.out.println("Hours "+ totalHours + " Minutes "+totalMinutes + " Days " + totalDays);
+                salary.setTotalHours(totalHours);
+                salary.setTotalMinutes(totalMinutes);
+                salary.setTotalDays(totalDays);
+
+
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @Override
     public void countSalary(Salary salary) {
         try{
@@ -42,7 +75,6 @@ public class SalaryImple implements SalaryDAO{
         }
     }
 
-    Connection conn = MyConnection.getConnection();
 
     @Override
     public void getSalary(Integer staffID) {
@@ -128,11 +160,12 @@ public class SalaryImple implements SalaryDAO{
                 updateStatement.setInt(3,staffID);
                 updateStatement.executeUpdate();
 
-                PreparedStatement statement2 = conn.prepareStatement("INSERT INTO loginTime(hours,minutes,customerID,datetime) VALUES (?,?,?,?)");
+                PreparedStatement statement2 = conn.prepareStatement("INSERT INTO loginTime(hours,minutes,customerID,datetime,status) VALUES (?,?,?,?,?)");
                 statement2.setLong(1,hours);
                 statement2.setLong(2,minutes);
                 statement2.setInt(3,staffID);
                 statement2.setTimestamp(4,Timestamp.valueOf(now));
+                statement2.setInt(4,0);
                 statement2.executeUpdate();
             }
 

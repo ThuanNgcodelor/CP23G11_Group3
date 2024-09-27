@@ -1,0 +1,17 @@
+
+3k Chicken Shop
+====================
+
+Products:
+- Pepsi big size: 1 
+- Combo ga cay : 7 
+- Combo ga vui ve: 1 
+
+CustomerID: 6
+Date: 2024-09-27
+Total: 1640000.00
+Status: 0
+
+====================
+
+Thank you

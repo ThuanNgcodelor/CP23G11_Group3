@@ -19,10 +19,10 @@
                         <Font size="26.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="shipper_name" layoutX="98.0" layoutY="96.0" prefHeight="40.0" prefWidth="220.0" promptText="Phone" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.4" />
-                  <TextField fx:id="shipper_phone" layoutX="98.0" layoutY="171.0" prefHeight="40.0" prefWidth="220.0" promptText="CCCD" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.0" />
+                  <TextField fx:id="shipper_name" layoutX="98.0" layoutY="96.0" prefHeight="40.0" prefWidth="220.0" promptText="Full name" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.4" />
+                  <TextField fx:id="shipper_phone" layoutX="98.0" layoutY="171.0" prefHeight="40.0" prefWidth="220.0" promptText="Phone number" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.0" />
                   <Button layoutX="98.0" layoutY="429.0" mnemonicParsing="false" onAction="#addShipper" prefHeight="40.0" prefWidth="220.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Add" AnchorPane.bottomAnchor="130.0" />
-                  <TextField fx:id="shipper_cccd" layoutX="98.0" layoutY="252.0" prefHeight="40.0" prefWidth="220.0" promptText="Email" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.0" />
+                  <TextField fx:id="shipper_cccd" layoutX="98.0" layoutY="252.0" prefHeight="40.0" prefWidth="220.0" promptText="CCCD" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.0" />
                   <TextField fx:id="shipper_email" layoutX="98.0" layoutY="332.0" prefHeight="40.0" prefWidth="220.0" promptText="Email" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="98.0" />
                   <Button layoutX="98.0" layoutY="509.0" mnemonicParsing="false" onAction="#buttonClear" prefHeight="40.0" prefWidth="220.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Refesh" AnchorPane.bottomAnchor="50.0" />
                </children>

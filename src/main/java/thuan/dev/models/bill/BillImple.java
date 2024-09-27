@@ -15,6 +15,24 @@ import java.util.Map;
 
 public class BillImple implements BillDAO{
     @Override
+    public Map<Timestamp, Double> sumBillDays() {
+        Map<Timestamp, Double> billSum = new HashMap<>();
+        try {
+            PreparedStatement statement = conn.prepareStatement(
+                    "SELECT date, SUM(total) AS total_sum FROM bill GROUP BY date ORDER BY date;"
+            );
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Timestamp timestamp = rs.getTimestamp("date");
+                double totalSum = rs.getDouble("total_sum");
+                billSum.put(timestamp, totalSum);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return billSum;
+    }
+    @Override
     public Map<Timestamp, Double> sumBill() {
         Map<Timestamp, Double> billSumByDate = new HashMap<>();
         try {
@@ -32,8 +50,6 @@ public class BillImple implements BillDAO{
         }
         return billSumByDate;
     }
-
-
 
     Connection conn = MyConnection.getConnection();
 
@@ -97,10 +113,11 @@ public class BillImple implements BillDAO{
 
         try {
             PreparedStatement statement = conn.prepareStatement(
-                    "SELECT * FROM bill WHERE date >= ? AND date < ? AND status = 1"
+                    "SELECT b.billID, b.customerID, b.total, b.date, c.fullname " +
+                            "FROM bill b " +
+                            "JOIN customers c ON b.customerID = c.customerID " +
+                            "WHERE b.status = 1 AND b.date >= ? AND b.date < ?"
             );
-
-            // Set the parameters for the prepared statement
             statement.setTimestamp(1, Timestamp.valueOf(startOfDay));
             statement.setTimestamp(2, Timestamp.valueOf(startOfDay.plusDays(1)));
 
@@ -111,6 +128,7 @@ public class BillImple implements BillDAO{
                 bill.setCustomerID(rs.getInt("customerID"));
                 bill.setTotalPrice(rs.getDouble("total"));
                 bill.setDate(new Date(rs.getTimestamp("date").getTime()));
+                bill.setFullName(rs.getString("fullname"));
                 bills.add(bill);
             }
         } catch (Exception e) {
@@ -120,11 +138,17 @@ public class BillImple implements BillDAO{
     }
 
 
+
     @Override
     public List<Bills> getAllBills() {
         List<Bills> bills = new ArrayList<>();
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM bill where status = 1");
+            PreparedStatement statement = conn.prepareStatement(
+                    "SELECT b.billID, b.customerID, b.total, b.date, c.fullname " +
+                            "FROM bill b " +
+                            "JOIN customers c ON b.customerID = c.customerID " +
+                            "WHERE b.status = 1"
+            );
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Bills bill = new Bills();
@@ -132,6 +156,7 @@ public class BillImple implements BillDAO{
                 bill.setCustomerID(rs.getInt("customerID"));
                 bill.setTotalPrice(rs.getDouble("total"));
                 bill.setDate(new Date(rs.getDate("date").getTime()));
+                bill.setFullName(rs.getString("fullname"));
                 bills.add(bill);
             }
         } catch (Exception e) {

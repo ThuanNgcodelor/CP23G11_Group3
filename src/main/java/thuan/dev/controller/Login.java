@@ -99,7 +99,7 @@ public class Login extends Application {
         int role = emp.checkLogin(email.getText(), password.getText());
 
         if (role == 0) {
-            infoBox("Login Success", null, "Success");
+//            infoBox("Login Success", null, "Success");
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Admin.fxml"));

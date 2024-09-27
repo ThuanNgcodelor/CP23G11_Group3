@@ -1,7 +1,9 @@
 package thuan.dev.controller;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -89,9 +91,9 @@ public class CartController implements Initializable {
         OrderDAO orderDAO = new OrderImplements();
         Order existingOrder = orderDAO.getOrder(product.getProductID());
         if (existingOrder != null) {
-            int newQuantity = existingOrder.getQuantity()+quantity;
+            int newQuantity = existingOrder.getQuantity() + quantity;
             double newPrice = newQuantity * price;
-            orderDAO.update1(product.getProductID(),newQuantity,(int)newPrice);
+            orderDAO.update1(product.getProductID(), newQuantity, (int) newPrice);
         } else {
             Order newOrder = new Order(product.getProductName(), price, quantity, (int) total, currentDate, product.getProductID());
             boolean addOrder = orderDAO.addOrder(newOrder);
@@ -107,7 +109,7 @@ public class CartController implements Initializable {
 
         UserController userController = AppService.getInstance().userController;
         userController.showDisplayCard();
-//        userController.menuDisplayCard();
+        userController.menuDisplayCard();
     }
 
     public void setQuantity() {
@@ -121,7 +123,11 @@ public class CartController implements Initializable {
 
         cart_name.setText(product.getProductName());
         cart_quantity.setText(String.valueOf(product.getStock()));
-        cart_price.setText(String.valueOf(product.getPrice()));
+
+        // Format the price in VND
+        String formattedPrice = formatCurrency(product.getPrice());
+        cart_price.setText(formattedPrice);
+
         String path = "file:" + product.getImages();
         Image image = new Image(path, 190, 94, false, true);
         cart_images.setImage(image);
@@ -139,4 +145,10 @@ public class CartController implements Initializable {
         alert.showAndWait();
     }
 
+    // Method to format the price in Vietnamese Dong (VND)
+    private String formatCurrency(double amount) {
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
+        return currencyFormatter.format(amount);
+    }
 }

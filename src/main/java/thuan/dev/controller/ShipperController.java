@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import thuan.dev.models.brand.Brands;
 import thuan.dev.models.shipper.ShipperDAO;
 import thuan.dev.models.shipper.ShipperImple;
 import thuan.dev.models.shipper.Shippers;
@@ -90,6 +91,12 @@ public class ShipperController extends Application {
         email_shipper_table.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         showTableShipper();
+
+        table_shipper.getSelectionModel().selectedItemProperty().addListener((observable,oldValue, newValue)->{
+            if (newValue != null) {
+                showInputTouch(newValue);
+            }
+        });
     }
 
     @FXML
@@ -100,28 +107,38 @@ public class ShipperController extends Application {
         table_shipper.setItems(shippersObservableList);
     }
 
+    private void showInputTouch(Shippers shippers) {
+        shipper_name.setText(shippers.getShipperName());
+        shipper_phone.setText(String.valueOf(shippers.getShipperPhone()));
+        shipper_cccd.setText(String.valueOf(shippers.getCccd()));
+        shipper_email.setText(shippers.getEmail());
+    }
+
+
     @FXML
     private void addShipper() {
-        Shippers newShipper = new Shippers();
-        newShipper.setShipperName(shipper_name.getText());
-        newShipper.setShipperPhone(Integer.parseInt(shipper_phone.getText()));
-        newShipper.setCccd(Integer.parseInt(shipper_cccd.getText()));
-        newShipper.setEmail(shipper_email.getText());
+        if (validateForm()) {
+            Shippers newShipper = new Shippers();
+            newShipper.setShipperName(shipper_name.getText());
+            newShipper.setShipperPhone(Integer.parseInt(shipper_phone.getText()));
+            newShipper.setCccd(Integer.parseInt(shipper_cccd.getText()));
+            newShipper.setEmail(shipper_email.getText());
 
-        ShipperDAO shipperDAO = new ShipperImple();
-        if (shipperDAO.addShipper(newShipper)) {
-            showTableShipper();
-            clearForm();
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Shipper added successfully!");
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to add shipper.");
+            ShipperDAO shipperDAO = new ShipperImple();
+            if (shipperDAO.addShipper(newShipper)) {
+                showTableShipper();
+                clearForm();
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Shipper added successfully!");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to add shipper.");
+            }
         }
     }
 
     @FXML
     private void updateShipper() {
         Shippers selectedShipper = table_shipper.getSelectionModel().getSelectedItem();
-        if (selectedShipper != null) {
+        if (selectedShipper != null && validateForm()) {
             selectedShipper.setShipperName(shipper_name.getText());
             selectedShipper.setShipperPhone(Integer.parseInt(shipper_phone.getText()));
             selectedShipper.setCccd(Integer.parseInt(shipper_cccd.getText()));
@@ -139,6 +156,48 @@ public class ShipperController extends Application {
             showAlert(Alert.AlertType.WARNING, "Warning", "No shipper selected for update.");
         }
     }
+
+    // Validation method
+    private boolean validateForm() {
+        if (shipper_name.getText().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Name is required.");
+            return false;
+        }
+
+        if (!validatePhone(shipper_phone.getText())) {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Invalid phone number.");
+            return false;
+        }
+
+        if (!validateCCCD(shipper_cccd.getText())) {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Invalid CCCD.");
+            return false;
+        }
+
+        if (!validateEmail(shipper_email.getText())) {
+            showAlert(Alert.AlertType.WARNING, "Warning", "Invalid email.");
+            return false;
+        }
+
+        return true;
+    }
+
+    // Validate phone number (e.g., 10-digit number)
+    private boolean validatePhone(String phone) {
+        return phone.matches("\\d{10}");
+    }
+
+    // Validate CCCD (e.g., 12-digit number)
+    private boolean validateCCCD(String cccd) {
+        return cccd.matches("\\d{12}");
+    }
+
+    // Validate email using regex
+    private boolean validateEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email.matches(emailRegex);
+    }
+
 
     @FXML
     private void deleteShipper() {

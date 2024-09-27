@@ -8,6 +8,15 @@ public class Bills {
     private int customerID;
     private Date date;
     private int status;
+    private String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public Bills(int billID, double totalPrice, int customerID, Date date) {
         this.billID = billID;

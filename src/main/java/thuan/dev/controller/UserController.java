@@ -212,8 +212,6 @@ public class UserController extends AdminController {
         }
     }
 
-
-
     @FXML
     private void updateProfile() {
         String phoneF = phone.getText();
@@ -343,7 +341,7 @@ public class UserController extends AdminController {
 
         bill_id.setCellValueFactory(new PropertyValueFactory<>("billID"));
         bill_total_price.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
-        bill_customers.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        bill_customers.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         bill_date.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         table_orders.setItems(billsList);
@@ -367,7 +365,7 @@ public class UserController extends AdminController {
 
             if (billID != -1) {
                 String fileName = "bill_" + billID + ".txt";
-                File outputFile = new File("C:\\Users\\kkk\\Desktop\\Group_3\\src\\main\\resources\\thuan\\dev\\images\\bills\\" + fileName);
+                File outputFile = new File("C:\\Users\\nguye\\Desktop\\Code\\Group_3\\src\\main\\resources\\thuan\\dev\\images\\bills\\" + fileName);
 
                 try (FileWriter writer = new FileWriter(outputFile)) {
                     writer.write("\n3k Chicken Shop\n");

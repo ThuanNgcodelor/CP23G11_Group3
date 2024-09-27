@@ -1,6 +1,7 @@
 package thuan.dev.models.salary;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Salary {
     Integer salaryID;
@@ -11,7 +12,16 @@ public class Salary {
     private long totalHours;
     private long totalMinutes;
     private long totalDays;
+    Integer customerID;
+    Date datetime;
 
+    public Date getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
 
     public Salary(Integer salaryID, LocalDateTime timeStart, LocalDateTime timeEnd, Integer hours, Integer minutes, long totalHours, long totalMinutes, long totalDays) {
         this.salaryID = salaryID;
@@ -22,6 +32,14 @@ public class Salary {
         this.totalHours = totalHours;
         this.totalMinutes = totalMinutes;
         this.totalDays = totalDays;
+    }
+
+    public Integer getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(Integer customerID) {
+        this.customerID = customerID;
     }
 
     public long getTotalHours() {

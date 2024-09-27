@@ -4,6 +4,7 @@
 <?import java.lang.String?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -118,7 +119,7 @@
                   <String fx:value="white-bg" />
                </styleClass>
                <children>
-                  <AnchorPane layoutX="18.4" layoutY="16.0" prefHeight="429.0" prefWidth="992.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="16.0">
+                  <AnchorPane layoutX="11.2" layoutY="12.0" prefHeight="444.0" prefWidth="583.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="429.0" AnchorPane.topAnchor="12.0">
                      <styleClass>
                         <String fx:value="white-bg" />
                         <String fx:value="radius" />
@@ -133,6 +134,23 @@
                             <NumberAxis side="LEFT" />
                           </yAxis>
                         </AreaChart>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="602.355859375" layoutY="12.0" prefHeight="444.0" prefWidth="406.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="12.0">
+                     <styleClass>
+                        <String fx:value="white-bg" />
+                        <String fx:value="radius" />
+                        <String fx:value="table-view" />
+                     </styleClass>
+                     <children>
+                        <LineChart fx:id="linechart" layoutX="9.0" layoutY="4.0" prefHeight="400.0" prefWidth="388.0" AnchorPane.bottomAnchor="4.800000000000011" AnchorPane.leftAnchor="6.399999999999977" AnchorPane.rightAnchor="9.399999999999977" AnchorPane.topAnchor="2.3999999999999773">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
                      </children>
                   </AnchorPane>
                </children>
@@ -175,8 +193,8 @@
                </styleClass>
             </AnchorPane>
 
-      
-      
+
+
                   <AnchorPane fx:id="addproduct" layoutY="373.0" prefHeight="346.0" prefWidth="1118.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.7999999999999545">
                <children>
                   <ComboBox fx:id="add_brandID" layoutX="190.0" layoutY="160.0" prefHeight="30.0" prefWidth="182.0" styleClass="shadow" stylesheets="@../resource/Admin.css" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="160.0" />
@@ -435,7 +453,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button layoutX="530.0" layoutY="22.0" mnemonicParsing="false" onAction="#deleteStaffAction" prefHeight="40.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="View" AnchorPane.rightAnchor="14.955859375000045" AnchorPane.topAnchor="22.0" />
+                  <Button layoutX="530.0" layoutY="22.0" mnemonicParsing="false" onAction="#menuSalary" prefHeight="40.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="View" AnchorPane.rightAnchor="14.955859375000045" AnchorPane.topAnchor="22.0" />
                   <Button layoutX="433.0" layoutY="22.0" mnemonicParsing="false" onAction="#checkOut" prefHeight="40.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check out" AnchorPane.rightAnchor="111.95585937500005" AnchorPane.topAnchor="22.0" />
                   <Button layoutX="335.0" layoutY="22.0" mnemonicParsing="false" onAction="#checkIn" prefHeight="40.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Check in" AnchorPane.rightAnchor="209.95585937500005" AnchorPane.topAnchor="22.0" />
                </children>
