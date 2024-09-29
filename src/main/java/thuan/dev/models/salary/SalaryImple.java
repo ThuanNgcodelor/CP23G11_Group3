@@ -16,6 +16,20 @@ import java.util.List;
 
 
 public class SalaryImple implements SalaryDAO{
+    @Override
+    public void RollPay(int salary, int employeeID) {
+        LocalDateTime now = LocalDateTime.now();
+        try{
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO historySalary(salary,date,customerID) VALUES (?,?,?)");
+            statement.setInt(1,salary);
+            statement.setTimestamp(2, Timestamp.valueOf(now));
+            statement.setInt(3,employeeID);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     Connection conn = MyConnection.getConnection();
 
     @Override
@@ -38,8 +52,6 @@ public class SalaryImple implements SalaryDAO{
                 salary.setTotalHours(totalHours);
                 salary.setTotalMinutes(totalMinutes);
                 salary.setTotalDays(totalDays);
-
-
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -86,6 +98,8 @@ public class SalaryImple implements SalaryDAO{
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 int status = rs.getInt("status");
+                int customerID = rs.getInt("customerID");
+                System.out.printf(String.valueOf(customerID));
                 if (status == 0) {
                     PreparedStatement updateStatement = conn.prepareStatement("UPDATE salary SET datetimeStart = ?,status = 1 WHERE customerID = ?");
                     updateStatement.setTimestamp(1, Timestamp.valueOf(now));
@@ -165,7 +179,7 @@ public class SalaryImple implements SalaryDAO{
                 statement2.setLong(2,minutes);
                 statement2.setInt(3,staffID);
                 statement2.setTimestamp(4,Timestamp.valueOf(now));
-                statement2.setInt(4,0);
+                statement2.setInt(5,0);  // This line is incorrect
                 statement2.executeUpdate();
             }
 

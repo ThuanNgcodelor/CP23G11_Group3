@@ -19,11 +19,7 @@ import thuan.dev.models.salary.SalaryImple;
 
 import java.io.IOException;
 
-public class Login extends Application {
-
-    private double x = 0;
-    private double y = 0;
-
+public class Login{
     private static void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -40,30 +36,6 @@ public class Login extends Application {
         alert.showAndWait();
     }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("Login.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-
-        root.setOnMousePressed((MouseEvent event) -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-
-        root.setOnMouseDragged((MouseEvent event) -> {
-            stage.setX(event.getScreenX() - x);
-            stage.setY(event.getScreenY() - y);
-        });
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setTitle("Login");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @FXML
     private Button cancelButton;
@@ -99,7 +71,6 @@ public class Login extends Application {
         int role = emp.checkLogin(email.getText(), password.getText());
 
         if (role == 0) {
-//            infoBox("Login Success", null, "Success");
             Stage currentStage = (Stage) loginButton.getScene().getWindow();
             currentStage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Admin.fxml"));

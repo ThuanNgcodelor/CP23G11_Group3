@@ -9,4 +9,5 @@ public interface SalaryDAO {
     public void getSalary(Integer staffID);
     public void countSalary(Salary salary);
     public void countSalary2(Salary salary);
+    public void RollPay(int salary,int employeeID);
 }

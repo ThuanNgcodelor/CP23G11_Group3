@@ -19,6 +19,7 @@ module thuan.dev.controller {
     opens thuan.dev.models.bill to javafx.base;
     opens thuan.dev.models.salary to javafx.base;
     opens thuan.dev.models.logintime to javafx.base;
+    opens thuan.dev.models.historysalary to javafx.base;
     opens thuan.dev.models.category to javafx.base;
     opens thuan.dev.models.shipper to javafx.base;
     opens thuan.dev.models.news to javafx.base;

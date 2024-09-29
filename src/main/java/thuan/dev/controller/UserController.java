@@ -9,11 +9,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import thuan.dev.config.MyConnection;
 import thuan.dev.models.bill.BillDAO;
 import thuan.dev.models.bill.BillImple;
@@ -43,6 +47,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserController extends AdminController {
+    private double x = 0;
+    private double y = 0;
 
     @FXML
     private Button show;
@@ -277,17 +283,40 @@ public class UserController extends AdminController {
 
 
     @FXML
-    public void handleLogout(ActionEvent event) {
+    private void handleLogout() {
         try {
+            // Close the current stage (logout window)
             Stage stage = (Stage) logout.getScene().getWindow();
             stage.close();
+
+            // Load the login FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Login.fxml"));
+            Parent root = fxmlLoader.load();
+
             Stage loginStage = new Stage();
-            Login login = new Login();
-            login.start(loginStage);
+            loginStage.setTitle("Login");
+
+            loginStage.initStyle(StageStyle.TRANSPARENT);
+
+            root.setOnMousePressed((MouseEvent event) -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+
+            root.setOnMouseDragged((MouseEvent event) -> {
+                loginStage.setX(event.getScreenX() - x);
+                loginStage.setY(event.getScreenY() - y);
+            });
+
+            // Set the scene and show the login window
+            loginStage.setScene(new Scene(root));
+            loginStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
     @FXML
     void handleDeleteOrder(ActionEvent event) {

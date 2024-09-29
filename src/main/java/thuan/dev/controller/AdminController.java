@@ -7,6 +7,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
@@ -15,9 +16,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import thuan.dev.models.bill.BillDAO;
 import thuan.dev.models.bill.BillImple;
@@ -50,6 +53,9 @@ import java.util.Map;
 import java.util.Optional;
 
 public class AdminController {
+
+    private double x = 0;
+    private double y = 0;
 
     @FXML
     private TextField phone;
@@ -224,7 +230,6 @@ public class AdminController {
     private LineChart<String,Double> linechart;
 
 
-
     public void menu() throws IOException {
         showProduct();
         search();
@@ -365,7 +370,7 @@ public class AdminController {
         stage.setTitle("Salary Details");
         stage.setScene(new Scene(pane));
         stage.show();
-
+// lấy dữ liệu của CustomerID tại đây
     }
     // Nút bấm để hiển thị số lương, giờ làm của nhân viên
 
@@ -966,82 +971,133 @@ public class AdminController {
     }
     //Thanh navbar
 
-    private Stage categoryStage;
     @FXML
-    private void buttonCategory(ActionEvent event) {
-        if (categoryStage == null || !categoryStage.isShowing()) {
-            try {
-                CategoryController categoryController = new CategoryController();
-                categoryStage= new Stage();
-                categoryController.start(categoryStage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }else {
-            showAlert(Alert.AlertType.ERROR,"Error","The category window is already open.");
-        }
+    private void buttonCategory(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Category.fxml"));
+        AnchorPane pane = fxmlLoader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane);
+
+        pane.setOnMousePressed((MouseEvent mouseEvent) -> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+        pane.setOnMouseDragged((MouseEvent mouseEvent) -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
+
+        stage.setTitle("Category products");
+        stage.setScene(scene);
+        stage.show();
     }
 
-    private Stage brandStage;
+
     @FXML
-    private void buttonBrand(ActionEvent event) {
-        if (brandStage == null || !brandStage.isShowing()) {
-            try {
-                BrandController brandController = new BrandController();
-                brandStage= new Stage();
-                brandController.start(brandStage);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }else {
-            showAlert(Alert.AlertType.ERROR,"Error","The supplier window is already open.");
-        }
+    private void buttonBrand(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Brand.fxml"));
+        AnchorPane pane = fxmlLoader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane);
+        pane.setOnMousePressed((MouseEvent mouseEvent) -> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+
+        pane.setOnMouseDragged((MouseEvent mouseEvent) -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("Supplier");
+        stage.setScene(scene);
+        stage.show();
     }
 
-    private Stage newsStage;
+
     @FXML
-    private void buttonNewController(ActionEvent event){
-       if (newsStage == null || !newsStage.isShowing()){
-           try{
-               NewsController newsController = new NewsController();
-               newsStage = new Stage();
-               newsController.start(newsStage);
-           } catch (Exception e) {
-               throw new RuntimeException(e);
-           }
-       }else {
-           showAlert(Alert.AlertType.ERROR,"Error", "The news window is already open.");
-       }
+    private void buttonNewController(ActionEvent event) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/News.fxml"));
+        AnchorPane pane = fxmlLoader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane);
+
+        pane.setOnMousePressed((MouseEvent mouseEvent) -> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+
+        pane.setOnMouseDragged((MouseEvent mouseEvent) -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("Supplier");
+        stage.setScene(scene);
+        stage.show();
     }
 
-    private Stage shipperStage;
     @FXML
-    private void buttonManageShipper(ActionEvent event){
-        if (shipperStage == null || !shipperStage.isShowing()){
-            try {
-                ShipperController shipperController = new ShipperController();
-                shipperStage = new Stage();
-                shipperController.start(shipperStage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }else {
-            showAlert(Alert.AlertType.ERROR, "Error", "The Shipper window is already open.");
-        }
+    private void buttonManageShipper(ActionEvent event) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Shipper.fxml"));
+        AnchorPane pane = fxmlLoader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane);
+
+        pane.setOnMousePressed((MouseEvent mouseEvent) -> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+
+        pane.setOnMouseDragged((MouseEvent mouseEvent) -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("Shipper");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     private void handleLogout() {
         try {
+            // Close the current stage (logout window)
             Stage stage = (Stage) logout.getScene().getWindow();
             stage.close();
+
+            // Load the login FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Login.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Create a new stage for the login window
             Stage loginStage = new Stage();
-            Login login = new Login();
-            login.start(loginStage);
+            loginStage.setTitle("Login");
+
+            // Set the stage style before making it visible
+            loginStage.initStyle(StageStyle.TRANSPARENT);
+
+            // Set up mouse event handlers for dragging the window
+            root.setOnMousePressed((MouseEvent event) -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+
+            root.setOnMouseDragged((MouseEvent event) -> {
+                loginStage.setX(event.getScreenX() - x);
+                loginStage.setY(event.getScreenY() - y);
+            });
+
+            // Set the scene and show the login window
+            loginStage.setScene(new Scene(root));
+            loginStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+
     //Đăng xuất
 
     private static void showAlert(Alert.AlertType alertType, String title, String message) {

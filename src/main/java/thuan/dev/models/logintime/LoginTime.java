@@ -6,6 +6,15 @@ public class LoginTime {
     private Integer hours;
     private Integer minutes;
     private Date date;
+    private Integer status;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public LoginTime(Integer hours, Integer minutes, Date date) {
         this.hours = hours;

@@ -3,10 +3,14 @@ package thuan.dev.controller;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import thuan.dev.models.logintime.LoginTImeImple;
 import thuan.dev.models.logintime.LoginTime;
 import thuan.dev.models.logintime.LoginTimeDAO;
@@ -14,6 +18,7 @@ import thuan.dev.models.salary.Salary;
 import thuan.dev.models.salary.SalaryDAO;
 import thuan.dev.models.salary.SalaryImple;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
@@ -29,14 +34,7 @@ public class SalaryProfile implements Initializable {
     private Label totalhouse;
 
     @FXML
-    private Label totalminues;
-
-    @FXML
     private Label totalsalary;
-
-
-    @FXML
-    private TableColumn<Salary, Date> date;
 
     @FXML
     private Label end;
@@ -52,6 +50,10 @@ public class SalaryProfile implements Initializable {
 
     @FXML
     private TableView<LoginTime> salaryTable;
+
+    @FXML
+    private TableColumn<Salary, Date> date;
+
     private int employeeID;
 
 
@@ -71,7 +73,7 @@ public class SalaryProfile implements Initializable {
         salaryDAO.countSalary2(salary);
         // gọi lại hàm tính lương thứ 2 của admin
 
-        Date[] minMaxDates = loginTimeDAO.getMinMaxDates();
+        Date[] minMaxDates = loginTimeDAO.getMinMaxDates(employeeID);
         if (minMaxDates[0] != null) {
             start.setText(minMaxDates[0].toString());
         }
@@ -80,14 +82,29 @@ public class SalaryProfile implements Initializable {
         }
 
         name.setText(employeeName);
-        totalhouse.setText(String.valueOf(salary.getTotalHours() + "h "));
+        String totalHoursAndMinutes = salary.getTotalHours() + "h " + salary.getTotalMinutes() + "'";
+        totalhouse.setText(totalHoursAndMinutes);
         totaldays.setText(String.valueOf(salary.getTotalDays() + " day "));
-        totalminues.setText(String.valueOf(salary.getTotalMinutes()+ "' "));
 
         long totalSalary = calculateTotalSalary(salary.getTotalHours(), salary.getTotalMinutes());
         totalsalary.setText(formatCurrency(totalSalary));
         showLoginTime(employeeID);
         //Gán vào showLogin để hiển thị ra theo employeeID
+    }
+
+    @FXML
+    public void showHistory(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/history.fxml"));
+        AnchorPane pane = fxmlLoader.load();
+
+        History history = fxmlLoader.getController();
+        history.showLoginTime(employeeID);
+        history.showHistorySalary(employeeID);
+
+        Stage  stage = new Stage();
+        stage.setTitle("History");
+        stage.setScene(new Scene(pane));
+        stage.show();
     }
 
     private long calculateTotalSalary(long hours, long minutes) {
@@ -127,11 +144,30 @@ public class SalaryProfile implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
+            SalaryDAO salaryDAO = new SalaryImple();
+            Salary salary = new Salary();
+            salary.setCustomerID(employeeID);
+            salaryDAO.countSalary2(salary);
+
+
+            long totalHours = salary.getTotalHours();
+            //Lấy lại số giờ
+            long totalMinutes = salary.getTotalMinutes();
+            //Lấy lại số '
+            long totalSalary = calculateTotalSalary(totalHours, totalMinutes);
+            //CAll function tính salary
+
+            salaryDAO.RollPay((int) totalSalary, employeeID);
+            //Save vào sơ sở dữ liệu
+
             LoginTimeDAO loginTimeDAO = new LoginTImeImple();
             loginTimeDAO.updateLoginTimeStatus(employeeID);
+            //Dùng để update status khi tính lương xong
 
             showLoginTime(employeeID);
-            System.out.println("Updated login time status for employee ID: " + employeeID);
+            //Show lại loginTime
+
+            System.out.println("Updated login time status and rolled pay for employee ID: " + employeeID);
         } else {
             System.out.println("Update cancelled for employee ID: " + employeeID);
         }

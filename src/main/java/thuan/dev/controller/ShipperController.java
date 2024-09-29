@@ -1,30 +1,19 @@
 package thuan.dev.controller;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import thuan.dev.models.brand.Brands;
 import thuan.dev.models.shipper.ShipperDAO;
 import thuan.dev.models.shipper.ShipperImple;
 import thuan.dev.models.shipper.Shippers;
 
-import java.io.IOException;
 import java.util.List;
 
-public class ShipperController extends Application {
-
-    private double x = 0;
-    private double y = 0;
+public class ShipperController  {
 
     @FXML
     private TableColumn<Shippers, Integer> id_shipper_table;
@@ -57,30 +46,7 @@ public class ShipperController extends Application {
     @FXML
     private TableView<Shippers> table_shipper;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Shipper.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        root.setOnMousePressed((MouseEvent event) -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-
-        root.setOnMouseDragged((MouseEvent event) -> {
-            stage.setX(event.getScreenX() - x);
-            stage.setY(event.getScreenY() - y);
-        });
-
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setTitle("Trang chủ");
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     void initialize() {
