@@ -1,0 +1,16 @@
+
+3k Chicken Shop
+====================
+
+Products:
+- Pepsi big size: 3 
+- Ga sot cay: 1 
+
+CustomerID: 6
+Date: 2024-10-01
+Total: 75000.00
+Status: 0
+
+====================
+
+Thank you

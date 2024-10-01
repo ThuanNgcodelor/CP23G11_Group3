@@ -2,6 +2,7 @@ module thuan.dev.controller {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
+    requires javafx.graphics;
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
@@ -9,13 +10,11 @@ module thuan.dev.controller {
     requires java.desktop;
 
     opens thuan.dev.models.orders to javafx.base;
-    opens thuan.dev.controller to javafx.fxml;
     opens thuan.dev.models.products to javafx.base;
     opens thuan.dev.models.brand to javafx.base;
     opens thuan.dev.models.employee to javafx.base;
-    exports thuan.dev.controller.dat to javafx.graphics;
+    exports thuan.dev.controller to javafx.graphics;
 
-    exports thuan.dev.controller;
     opens thuan.dev.models.bill to javafx.base;
     opens thuan.dev.models.salary to javafx.base;
     opens thuan.dev.models.logintime to javafx.base;
@@ -29,5 +28,6 @@ module thuan.dev.controller {
     opens thuan.dev.group to javafx.fxml;
     exports thuan.dev.models.tables;
     opens thuan.dev.models.tables to javafx.fxml;
+    opens thuan.dev.controller to javafx.base, javafx.fxml;
 
 }

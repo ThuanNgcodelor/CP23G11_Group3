@@ -281,7 +281,6 @@ public class UserController extends AdminController {
         }
     }
 
-
     @FXML
     private void handleLogout() {
         try {
@@ -315,8 +314,6 @@ public class UserController extends AdminController {
             throw new RuntimeException(e);
         }
     }
-
-
 
     @FXML
     void handleDeleteOrder(ActionEvent event) {
@@ -474,7 +471,6 @@ public class UserController extends AdminController {
         }
     }
 
-
 //--------------------------------------------BILLS--------------------------------------------------------------------------------------------
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------
 //--------------------------------------------ORDER--------------------------------------------------------------------------------------------
@@ -494,7 +490,6 @@ public class UserController extends AdminController {
 
     @FXML
     public void updateCart(ActionEvent event) {
-
         OrderDAO orderDAO = new OrderImplements();
         Order selectedOrder = card_display_table.getSelectionModel().getSelectedItem();
 
