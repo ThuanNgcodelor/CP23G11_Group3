@@ -508,7 +508,7 @@ public class UserController extends AdminController {
 
         Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (result.isPresent() && result.get() == buttonYes) {
-                orderDAO.updateOrder(selectedOrder.getOrderID());
+            orderDAO.updateOrder(selectedOrder.getOrderID());
 
             Bills bills = new Bills();
 

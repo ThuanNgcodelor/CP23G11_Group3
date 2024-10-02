@@ -1,10 +1,21 @@
 package thuan.dev.controller;
 
+import java.sql.Date;
+
 public class Order_out {
     private int order_id;
     private int price;
     private int quantity;
     private String productName;
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public String getProductName() {
         return productName;

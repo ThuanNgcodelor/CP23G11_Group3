@@ -115,7 +115,7 @@ public class BillImple implements BillDAO{
             PreparedStatement statement = conn.prepareStatement(
                     "SELECT b.billID, b.customerID, b.total, b.date, c.fullname " +
                             "FROM bill b " +
-                            "JOIN customers c ON b.customerID = c.customerID " +
+                            "LEFT JOIN customers c ON b.customerID = c.customerID " +
                             "WHERE b.status = 1 AND b.date >= ? AND b.date < ?"
             );
             statement.setTimestamp(1, Timestamp.valueOf(startOfDay));
@@ -146,7 +146,7 @@ public class BillImple implements BillDAO{
             PreparedStatement statement = conn.prepareStatement(
                     "SELECT b.billID, b.customerID, b.total, b.date, c.fullname " +
                             "FROM bill b " +
-                            "JOIN customers c ON b.customerID = c.customerID " +
+                            "LEFT JOIN customers c ON b.customerID = c.customerID " +
                             "WHERE b.status = 1"
             );
             ResultSet rs = statement.executeQuery();
@@ -199,7 +199,6 @@ public class BillImple implements BillDAO{
             statement.setObject(3, bills.getTotalPrice());
 
             int check = statement.executeUpdate();
-
 
             ResultSet rs = statement.getGeneratedKeys();
             int newBillID = 0;

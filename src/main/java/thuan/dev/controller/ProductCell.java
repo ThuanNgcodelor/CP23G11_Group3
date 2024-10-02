@@ -111,14 +111,15 @@ public class ProductCell extends ListCell<Product> {
     }
 
     private void addProductToOrderOut(Product product) {
-        String query = "INSERT INTO order_out (productName, price, quantity, order_details, productID) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO order_out (productName, price, quantity, order_details,status, productID) VALUES (?, ?, ?,?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             // Set parameters for the insert query
             pstmt.setString(1, product.getProductName());
             pstmt.setDouble(2, product.getPrice());
             pstmt.setInt(3, 1); // Default quantity to 1
-            pstmt.setInt(4, 0); // Default order_details to 0
-            pstmt.setInt(5, product.getProductID());
+            pstmt.setInt(4, 1); // Default order_details to 0
+            pstmt.setInt(5,1);
+            pstmt.setInt(6, product.getProductID());
 
             // Execute the insert
             int rowsAffected = pstmt.executeUpdate();
