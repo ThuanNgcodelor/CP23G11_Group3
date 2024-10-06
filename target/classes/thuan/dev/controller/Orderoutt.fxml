@@ -30,24 +30,25 @@
             </Label>
             <AnchorPane layoutY="383.0" prefHeight="138.0" prefWidth="819.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button fx:id="placeOrderButton" layoutX="371.0" layoutY="82.0" onAction="#handlePlaceOrder" style="-fx-background-color: blue; -fx-text-fill: white;" text="Thanh toán" />
+                  <Button fx:id="placeOrderButton" layoutX="492.0" layoutY="82.0" onAction="#handlePlaceOrder" prefHeight="26.0" prefWidth="89.0" style="-fx-background-color: blue; -fx-text-fill: white;" text="Check out" />
                   <TextField fx:id="voucher" layoutX="98.0" layoutY="46.0" />
                   <Button layoutX="263.0" layoutY="46.0" mnemonicParsing="false" text="Enter" />
                   <Label fx:id="totalprice" layoutX="448.0" layoutY="9.0" prefHeight="30.0" prefWidth="179.0" text="sss" />
-                  <Text layoutX="110.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nhập voucher của bạn" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="581.87548828125">
+                  <Text layoutX="109.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter voucher for you" wrappingWidth="126.39999999999998" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="583.6">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Text>
-                  <Label layoutX="205.0" layoutY="71.0" prefHeight="33.0" prefWidth="187.0" text="Label" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="427.0" />
-                  <Text layoutX="110.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="giá được giảm :" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="620.3994140625">
+                  <Label layoutX="184.0" layoutY="72.0" prefHeight="30.0" prefWidth="126.0" text="Label" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="508.79999999999995" />
+                  <Text layoutX="112.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sale off" wrappingWidth="60.43475341796875" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="646.5652465820312">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="363.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tổng tiền :" />
-                  <Text layoutX="363.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số lượng" />
+                  <Text layoutX="363.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total price" wrappingWidth="60.43475341796875" />
+                  <Text layoutX="363.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" />
                   <TextField fx:id="totalquantity" layoutX="448.0" layoutY="46.0" prefHeight="26.0" prefWidth="44.0" />
+                  <Button layoutX="363.0" layoutY="82.0" onAction="#hanhDeleteProduct" prefHeight="26.0" prefWidth="97.0" style="-fx-background-color: blue; -fx-text-fill: white;" text="Delete product" />
                </children>
             </AnchorPane>
          </children>

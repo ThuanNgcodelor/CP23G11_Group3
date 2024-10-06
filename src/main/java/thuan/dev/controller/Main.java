@@ -48,7 +48,7 @@ public class Main extends Application {
 
         ScrollPane scrollPane = new ScrollPane(gridPane);
 
-        Button placeOrderButton = new Button("Đặt món");
+        Button placeOrderButton = new Button("Orders");
         placeOrderButton.setOnAction(event -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Orderoutt.fxml"));
             try {

@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.BillOrdersController">
    <children>
-      <AnchorPane layoutX="-1.0" prefHeight="550.0" prefWidth="730.0" AnchorPane.bottomAnchor="-0.39999999999997726" AnchorPane.leftAnchor="-1.1999999999999318" AnchorPane.rightAnchor="0.6000000000000227" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="-1.0" prefHeight="550.0" prefWidth="730.0" styleClass="table-view" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="-0.39999999999997726" AnchorPane.leftAnchor="-1.1999999999999318" AnchorPane.rightAnchor="0.6000000000000227" AnchorPane.topAnchor="0.0">
          <children>
             <TableView fx:id="table_orders" layoutX="6.0" layoutY="69.0" prefHeight="480.0" prefWidth="718.0" styleClass="btn-button" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="0.6000000000000227" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="69.0">
                <columns>
@@ -28,7 +28,8 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <Button layoutX="545.0" layoutY="17.0" mnemonicParsing="false" onAction="#UpdateOrderBill" prefHeight="40.0" prefWidth="170.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Update" AnchorPane.rightAnchor="14.599999999999994" AnchorPane.topAnchor="17.0" />
+            <Button layoutX="493.0" layoutY="17.0" mnemonicParsing="false" onAction="#UpdateOrderBill" prefHeight="40.0" prefWidth="170.0" styleClass="btn" stylesheets="@../resource/cardDesign.css" text="Update" AnchorPane.rightAnchor="67.19999999999993" AnchorPane.topAnchor="17.0" />
+            <Button fx:id="close" layoutX="697.0" mnemonicParsing="false" onAction="#close" prefHeight="30.0" prefWidth="35.0" text="X" />
          </children>
       </AnchorPane>
    </children>

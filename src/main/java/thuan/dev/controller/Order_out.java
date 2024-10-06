@@ -8,6 +8,15 @@ public class Order_out {
     private int quantity;
     private String productName;
     private Date date;
+    private int productID;
+
+    public int getProductID() {
+        return productID;
+    }
+
+    public void setProductID(int productID) {
+        this.productID = productID;
+    }
 
     public Date getDate() {
         return date;

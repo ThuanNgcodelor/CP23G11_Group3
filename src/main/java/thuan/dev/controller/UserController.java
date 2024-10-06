@@ -665,7 +665,6 @@ public class UserController extends AdminController {
         bill_details_price.setCellValueFactory(new PropertyValueFactory<>("total"));
 
         orderDetailsTable.setItems(orderDetailsList);
-
     }
     // hiển thị chi tiet don hong
 
@@ -692,7 +691,6 @@ public class UserController extends AdminController {
         displayFilteredProducts();
     }
     //Hiển thị th
-
 
     @FXML
     private void buttonCategory(ActionEvent event){
@@ -784,14 +782,26 @@ public class UserController extends AdminController {
     @FXML
     private void buttonBillOrders(ActionEvent event) {
         try {
-            BillOrdersController billOrdersController = new BillOrdersController();
-            Stage stage = new Stage();
-            billOrdersController.start(stage);
+           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Bill_out.fxml"));
+           AnchorPane pane = fxmlLoader.load();
+           Stage stage = new Stage();
+           Scene scene = new Scene(pane);
+            pane.setOnMousePressed((MouseEvent mouseEvent) -> {
+                x = mouseEvent.getSceneX();
+                y = mouseEvent.getSceneY();
+            });
+            stage.initStyle(StageStyle.TRANSPARENT);
+            pane.setOnMouseDragged((MouseEvent mouseEvent) -> {
+                stage.setX(mouseEvent.getScreenX() - x);
+                stage.setY(mouseEvent.getScreenY() - y);
+            });
+            stage.setTitle("Kitchen");
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     @FXML
     private void passwordShow(ActionEvent event){
@@ -805,7 +815,6 @@ public class UserController extends AdminController {
             password.setVisible(true);
         }
     }
-
 
     @FXML
     private void switchForm(ActionEvent event) {

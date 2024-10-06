@@ -64,7 +64,7 @@ public class ProductCell extends ListCell<Product> {
                 if (ord_out != null) {
                     // Product exists, update quantity and price
                     int updatedQuantity = ord_out.getQuantity() + 1;
-                    int updatedPrice = ord_out.getPrice() / ord_out.getQuantity() * updatedQuantity; // Recalculate price
+                    int updatedPrice = ord_out.getPrice() / ord_out.getQuantity() * updatedQuantity;
                     updateOrderOut(product.getProductID(), updatedQuantity, updatedPrice, ord_out.getOrder_id());
 
                     //Trừ đi số lượng sản phẩm trong stock
@@ -93,7 +93,7 @@ public class ProductCell extends ListCell<Product> {
     private Order_out getOrderOut(int productID) {
         try {
             PreparedStatement statement = conn.prepareStatement(
-                    "SELECT * FROM order_out WHERE productID = ? AND order_details = 0");
+                    "SELECT * FROM order_out WHERE productID = ? AND order_details = 1");
             statement.setInt(1, productID);
             ResultSet rs = statement.executeQuery();
 
