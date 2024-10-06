@@ -78,22 +78,37 @@ public class Bill_out implements Initializable {
     }
 
     @FXML
-    private void hanhDeleteProduct(ActionEvent event){
+    private void hanhDeleteProduct(ActionEvent event) {
         Order_out orderOut = ordertable.getSelectionModel().getSelectedItem();
+
+        if (orderOut == null) {
+            System.out.println("No order selected for deletion.");
+            showAlert(Alert.AlertType.WARNING, "Deletion Error", "Please select an order to delete.");
+            return;
+        }
+
         int quantity = orderOut.getQuantity();
         int productID = orderOut.getProductID();
+        int orderID = orderOut.getOrder_id();
 
         ProductDAO productDAO = new ProductImple();
+
+        // Retrieve current stock, update it, and save back to the product
         int stock = productDAO.getProductStock(productID);
         int newStock = stock + quantity;
-        productDAO.updateProductStock(productID,newStock);
-        boolean success = removeOrder_out(orderOut);
-        if (success){
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Order deleted successfully!");
+        productDAO.updateProductStock(productID, newStock);
 
+        // Remove the order and refresh the order list if successful
+        boolean success = removeOrder_out(orderID);
+        if (success) {
+            System.out.println("Order deleted successfully.");
+            listOrder_out(); // Refresh the orders list
+        } else {
+            System.out.println("Failed to delete order.");
+            showAlert(Alert.AlertType.ERROR, "Deletion Error", "Failed to delete the order.");
         }
-        listOrder_out();
     }
+
 
     private void totalPrice() {
         double total = 0;
@@ -117,14 +132,17 @@ public class Bill_out implements Initializable {
         });
     }
 
-    public boolean removeOrder_out(Order_out order_out){
-        try {
-            PreparedStatement statement = conn.prepareStatement("DELETE FROM order_out WHERE order_outID = ?");
-            statement.setInt(1,order_out.getOrder_id());
+    public boolean removeOrder_out(int orderID) {
+        String sql = "DELETE FROM order_out WHERE order_outID = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, orderID);
             int rowsAffected = statement.executeUpdate();
+
             return rowsAffected > 0;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error deleting order", e);
         }
     }
 
@@ -269,6 +287,7 @@ public class Bill_out implements Initializable {
 
             while (rs.next()) {
                 Order_out order = new Order_out();
+                order.setOrder_id(rs.getInt("order_outID"));
                 order.setProductName(rs.getString("productName"));
                 order.setQuantity(rs.getInt("quantity"));
                 order.setPrice(rs.getInt("price"));
