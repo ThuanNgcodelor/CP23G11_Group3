@@ -819,7 +819,7 @@ public class AdminController {
                 }
             }
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Đã xảy ra lỗi: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "An error has occurred: " + e.getMessage());
         }
     }
 

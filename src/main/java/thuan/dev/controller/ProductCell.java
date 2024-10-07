@@ -47,10 +47,10 @@ public class ProductCell extends ListCell<Product> {
 
             // Create Labels for product name and price
             Label nameLabel = new Label(product.getProductName());
-            Label priceLabel = new Label("Giá: " + product.getPrice() + " VND");
+            Label priceLabel = new Label("Price: " + product.getPrice() + " VND");
 
             // Button "Thêm món"
-            Button addButton = new Button("Thêm món");
+            Button addButton = new Button("Add dishes");
 
             // Handle the button click event
             addButton.setOnAction(event -> {

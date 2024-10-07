@@ -778,6 +778,18 @@ public class UserController extends AdminController {
             throw new RuntimeException(e);
         }
     }
+    
+    @FXML
+    private void buttonOrder_out(ActionEvent event){
+        try{
+            Main showOrder_out = new Main();
+            Stage stage = new Stage();
+            showOrder_out.start(stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @FXML
     private void buttonBillOrders(ActionEvent event) {

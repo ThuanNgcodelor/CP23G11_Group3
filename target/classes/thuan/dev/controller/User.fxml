@@ -82,7 +82,7 @@
       </AnchorPane>
       <AnchorPane layoutY="106.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="575.0" prefWidth="211.0" stylesheets="@../resource/Admin.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="101.39999999999998">
          <children>
-            <Button fx:id="homeButton" layoutX="8.0" layoutY="56.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Trang chủ" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="6.400000000000006">
+            <Button fx:id="homeButton" layoutX="8.0" layoutY="56.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="HOme" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="6.400000000000006">
                <font>
                   <Font size="18.0" />
                </font>
@@ -102,7 +102,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="logout" layoutX="-3.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="38.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Đăng xuất" AnchorPane.bottomAnchor="-2.1316282072803006E-14" />
+            <Button fx:id="logout" layoutX="-3.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="38.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Log Out" AnchorPane.bottomAnchor="-2.1316282072803006E-14" />
             <FontAwesomeIcon fill="WHITE" glyphName="MONEY" layoutX="13.0" layoutY="162.0" size="2em" text="" />
             <FontAwesomeIcon fill="WHITE" glyphName="SHIP" layoutX="12.0" layoutY="389.0" size="2em" text="" />
             <FontAwesomeIcon fill="WHITE" glyphName="CHECK" layoutX="14.0" layoutY="235.0" size="2em" />
@@ -118,12 +118,13 @@
                </font>
             </Button>
             <FontAwesomeIcon fill="WHITE" glyphName="MONEY" layoutX="14.0" layoutY="311.0" size="2em" />
-            <Button layoutX="6.0" layoutY="504.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Table">
+            <Button layoutX="6.0" layoutY="504.0" mnemonicParsing="false" onAction="#buttonOrder_out" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Order Out">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
             <FontAwesomeIcon fill="WHITE" glyphName="SEND" layoutX="14.0" layoutY="461.0" size="2em" />
+            <FontAwesomeIcon fill="WHITE" glyphName="MONEY" layoutX="14.0" layoutY="535.0" size="2em" text="" />
          </children>
          <styleClass>
             <String fx:value="radius" />

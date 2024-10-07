@@ -71,7 +71,7 @@ public class CartController implements Initializable {
 
         int customerID = Data.customerID;
         if (customerID == -1) {
-            showAlert(Alert.AlertType.ERROR, "Không nhận được customerID");
+            showAlert(Alert.AlertType.ERROR, "CustomerID not received");
             return;
         }
 
@@ -84,7 +84,7 @@ public class CartController implements Initializable {
         int currentStock = productDAO.getProductStock(product.getProductID());
 
         if (quantity > currentStock) {
-            showAlert(Alert.AlertType.ERROR, "Số lượng trong quán đã hết!!");
+            showAlert(Alert.AlertType.ERROR, "Quantities in the shop have run out!!");
             return;
         }
 
@@ -99,9 +99,9 @@ public class CartController implements Initializable {
             boolean addOrder = orderDAO.addOrder(newOrder);
 
             if (addOrder) {
-                showAlert(Alert.AlertType.INFORMATION, "Thêm sản phẩm thành công!");
+                showAlert(Alert.AlertType.INFORMATION, "Added product successfully!");
             } else {
-                showAlert(Alert.AlertType.ERROR, "Thêm sản phẩm thất bại");
+                showAlert(Alert.AlertType.ERROR, "Adding failed products");
                 return;
             }
         }
