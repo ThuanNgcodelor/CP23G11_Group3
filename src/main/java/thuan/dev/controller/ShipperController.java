@@ -135,10 +135,10 @@ public class ShipperController  {
             return false;
         }
 
-        if (!validateCCCD(shipper_cccd.getText())) {
-            showAlert(Alert.AlertType.WARNING, "Warning", "Invalid CCCD.");
-            return false;
-        }
+//        if (!validateCCCD(shipper_cccd.getText())) {
+//            showAlert(Alert.AlertType.WARNING, "Warning", "Invalid CCCD.");
+//            return false;
+//        }
 
         if (!validateEmail(shipper_email.getText())) {
             showAlert(Alert.AlertType.WARNING, "Warning", "Invalid email.");
@@ -154,9 +154,9 @@ public class ShipperController  {
     }
 
     // Validate CCCD (e.g., 12-digit number)
-    private boolean validateCCCD(String cccd) {
-        return cccd.matches("\\d{12}");
-    }
+//    private boolean validateCCCD(String cccd) {
+//        return cccd.matches("\\d{12}");
+//    }
 
     // Validate email using regex
     private boolean validateEmail(String email) {

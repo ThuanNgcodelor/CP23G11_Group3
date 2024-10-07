@@ -1061,6 +1061,50 @@ public class AdminController {
     }
 
     @FXML
+    private void buttonManageFeedBack(ActionEvent event) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/Showfeedback.fxml"));
+        AnchorPane pane = fxmlLoader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane);
+
+        pane.setOnMousePressed((MouseEvent mouseEvent) -> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+
+        pane.setOnMouseDragged((MouseEvent mouseEvent) -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("Feedback");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void buttonManageVoucher(ActionEvent event) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/thuan/dev/controller/ManagerVoucher.fxml"));
+        AnchorPane pane = fxmlLoader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane);
+
+        pane.setOnMousePressed((MouseEvent mouseEvent) -> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+
+        pane.setOnMouseDragged((MouseEvent mouseEvent) -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setTitle("Voucher Management");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     private void handleLogout() {
         try {
             // Close the current stage (logout window)

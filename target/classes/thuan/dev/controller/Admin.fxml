@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import java.lang.String?>
-<?import javafx.scene.chart.AreaChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="728.0" prefWidth="691.0" stylesheets="@../resource/Admin.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.AdminController">
+<AnchorPane prefHeight="728.0" prefWidth="691.0" stylesheets="@../resource/Admin.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="thuan.dev.controller.AdminController">
    <children>
       <AnchorPane fx:id="home" layoutX="212.0" layoutY="1.0" prefHeight="734.0" prefWidth="1118.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="1.0">
          <children>
@@ -321,7 +309,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="3.2" layoutY="322.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Table" AnchorPane.leftAnchor="3.2" AnchorPane.rightAnchor="10.400000000000006">
+            <Button layoutX="3.2" layoutY="322.0" mnemonicParsing="false" onAction="#buttonManageVoucher" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage voucher" AnchorPane.leftAnchor="3.2" AnchorPane.rightAnchor="10.400000000000006">
                <font>
                   <Font size="18.0" />
                </font>
@@ -331,12 +319,12 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="2.4" layoutY="465.0" mnemonicParsing="false" onAction="#buttonNewController" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage news" AnchorPane.leftAnchor="2.4" AnchorPane.rightAnchor="8.800000000000011">
+            <Button fx:id="buttonbill" layoutX="3.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage bills">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="buttonbill" layoutX="3.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage bills">
+            <Button layoutX="2.4" layoutY="465.0" mnemonicParsing="false" onAction="#buttonNewController" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Manage news" AnchorPane.leftAnchor="2.4" AnchorPane.rightAnchor="8.800000000000011">
                <font>
                   <Font size="18.0" />
                </font>
@@ -348,6 +336,12 @@
             <FontAwesomeIcon fill="WHITE" glyphName="TABLE" layoutX="11.0" layoutY="354.0" size="2em" text="" />
             <FontAwesomeIcon fill="WHITE" glyphName="SHIP" layoutX="8.0" layoutY="425.0" size="2em" />
             <FontAwesomeIcon fill="WHITE" glyphName="STAR" layoutX="14.0" layoutY="496.0" size="2em" />
+            <Button layoutX="3.0" layoutY="530.0" mnemonicParsing="false" onAction="#buttonManageFeedBack" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Feedback">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <FontAwesomeIcon fill="WHITE" glyphName="STAR" layoutX="15.0" layoutY="562.0" size="2em" />
          </children>
          <styleClass>
             <String fx:value="radius" />

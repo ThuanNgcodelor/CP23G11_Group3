@@ -102,7 +102,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="logout" layoutX="-3.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="38.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Đăng xuất" AnchorPane.bottomAnchor="-2.1316282072803006E-14" />
+            <Button fx:id="logout" layoutX="-3.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="38.0" prefWidth="82.0" styleClass="btn" stylesheets="@../resource/Admin.css" text="Log Out" AnchorPane.bottomAnchor="-2.1316282072803006E-14" />
             <FontAwesomeIcon fill="WHITE" glyphName="MONEY" layoutX="13.0" layoutY="162.0" size="2em" text="" />
             <FontAwesomeIcon fill="WHITE" glyphName="SHIP" layoutX="12.0" layoutY="389.0" size="2em" text="" />
             <FontAwesomeIcon fill="WHITE" glyphName="CHECK" layoutX="14.0" layoutY="235.0" size="2em" />
@@ -112,7 +112,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="5.0" layoutY="430.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Feedback">
+            <Button layoutX="5.0" layoutY="430.0" mnemonicParsing="false" onAction="#buttonManageFeedBack" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Feedback">
                <font>
                   <Font size="18.0" />
                </font>

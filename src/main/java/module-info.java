@@ -26,5 +26,7 @@ module thuan.dev.controller {
     opens thuan.dev.main to javafx.fxml;
     opens thuan.dev.models.tables to javafx.fxml;
     opens thuan.dev.controller to javafx.base, javafx.fxml;
+    exports thuan.dev.models.voucher to javafx.graphics;
+    opens thuan.dev.models.voucher to javafx.base, javafx.fxml;
 
 }

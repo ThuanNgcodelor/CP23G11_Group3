@@ -112,7 +112,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="5.0" layoutY="430.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Feedback">
+            <Button layoutX="5.0" layoutY="430.0" mnemonicParsing="false" onAction="#buttonManageFeedBack" prefHeight="45.0" prefWidth="200.0" styleClass="nav-btn" stylesheets="@../resource/Admin.css" text="Feedback">
                <font>
                   <Font size="18.0" />
                </font>

@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 import thuan.dev.models.news.News;
 import thuan.dev.models.news.NewsDAO;
 import thuan.dev.models.news.NewsDAOImpl;
@@ -57,6 +58,34 @@ public class NewsController {
     private void initialize() {
         showNews();
         searchField.textProperty().addListener((obs, oldText, newText) -> search());
+
+        // Lắng nghe sự kiện nhấn vào hàng của bảng
+        table_news.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() == 1) {
+                loadSelectedNews();
+            }
+        });
+    }
+
+    private void loadSelectedNews() {
+        News selectedNews = table_news.getSelectionModel().getSelectedItem();
+        if (selectedNews != null) {
+            newsName.setText(selectedNews.getNewsName());
+            newsDetails.setText(selectedNews.getNewsDetails());
+            if (selectedNews.getNewsImages() != null) {
+                newsImages.setImage(new Image(selectedNews.getNewsImages()));
+            } else {
+                newsImages.setImage(null);
+            }
+        }
+    }
+
+    public void resetForm() {
+        newsName.clear();
+        newsDetails.clear();
+        newsImages.setImage(null);
+        searchField.clear();
+        table_news.getSelectionModel().clearSelection();  // Bỏ chọn dòng trong bảng
     }
 
     private void showNews() {
@@ -111,9 +140,7 @@ public class NewsController {
 
             if (newsDAO.addNews(newNews)) {
                 showNews();
-                newsName.clear();
-                newsDetails.clear();
-                newsImages.setImage(null);
+                resetForm();  // Gọi hàm reset sau khi thêm tin tức
                 showAlert(Alert.AlertType.INFORMATION, "Success", "News added successfully!");
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to add news!");
@@ -152,6 +179,7 @@ public class NewsController {
 
             newsDAO.updateNews(selectedNews);
             showNews();
+            resetForm();
             showAlert(Alert.AlertType.INFORMATION, "Success", "News updated successfully!");
         }
     }
@@ -174,6 +202,7 @@ public class NewsController {
             NewsDAO newsDAO = new NewsDAOImpl();
             if (newsDAO.deleteNews(selectedNews.getNewsID())) {
                 showNews();
+                resetForm();
                 showAlert(Alert.AlertType.INFORMATION, "Success", "News deleted successfully!");
             } else {
                 showAlert(Alert.AlertType.ERROR, "Error", "Failed to delete news!");

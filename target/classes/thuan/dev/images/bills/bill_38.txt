@@ -1,0 +1,16 @@
+
+3k Chicken Shop
+====================
+
+Products:
+- Combo ga cay : 1 
+- Ga vui ve : 3 
+
+CustomerID: 6
+Date: 2024-10-07
+Total: 230000.00
+Status: 0
+
+====================
+
+Thank you

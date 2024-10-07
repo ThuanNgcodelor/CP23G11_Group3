@@ -26,7 +26,7 @@
                 </Label>
                 <AnchorPane layoutX="300.0" layoutY="1.0" prefHeight="498.0" prefWidth="299.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                     <children>
-                        <TableView fx:id="table_news" layoutX="55.0" layoutY="48.0" prefHeight="444.0" prefWidth="273.0" stylesheets="@../resource/Admin.css">
+                        <TableView fx:id="table_news" layoutX="55.0" layoutY="48.0" onSort="#initialize" prefHeight="444.0" prefWidth="273.0" stylesheets="@../resource/Admin.css">
                             <columns>
                                 <TableColumn fx:id="table_newsID" prefWidth="107.99994039535522" text="NewsID" />
                                 <TableColumn fx:id="table_newsName" prefWidth="100.0" text="News Name" />
@@ -47,7 +47,7 @@
 
                     </styleClass>
                 </Button>
-                <Button layoutX="198.0" layoutY="442.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" stylesheets="@../resource/Admin.css" text="Reset">
+                <Button layoutX="198.0" layoutY="442.0" mnemonicParsing="false" onAction="#resetForm" prefHeight="35.0" prefWidth="110.0" stylesheets="@../resource/Admin.css" text="Reset">
 
                 </Button>
                 <Button layoutX="198.0" layoutY="381.0" mnemonicParsing="false" onAction="#updateNews" prefHeight="35.0" prefWidth="110.0" stylesheets="@../resource/Admin.css" text="Update News">
